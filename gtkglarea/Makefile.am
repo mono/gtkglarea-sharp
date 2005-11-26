@@ -1,7 +1,7 @@
 MCS=mcs
-RAW_API=gtkglarea-api.raw
-API=gtkglarea-api.xml
-METADATA=gtkglarea.metadata
+RAW_API=gtkgl-api.raw
+API=gtkgl-api.xml
+METADATA=gtkgl.metadata
 
 ASSEMBLY_NAME= gtkgl-sharp
 ASSEMBLY= $(ASSEMBLY_NAME).dll
@@ -18,7 +18,7 @@ build_sources = AssemblyInfo.cs
 
 customs = WebControl.custom
 
-CLEANFILES = gecko-sharp.dll generated-stamp generated/*.cs $(API) gtkgl-sharp.snk
+CLEANFILES = gtkgl-sharp.dll generated-stamp generated/*.cs $(API) gtkgl-sharp.snk
 
 DISTCLEANFILES= AssemblyInfo.cs
 

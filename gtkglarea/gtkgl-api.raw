@@ -6,7 +6,7 @@
         Please DO NOT MODIFY THIS FILE, modify .metadata files instead.
 
 -->
-  <namespace name="GtkGlArea" library="libgtkgl-win32-2.0-0.dll">
+  <namespace name="GtkGL" library="libgtkgl-win32-2.0-0.dll">
     <enum name="_GDK_GL_CONFIGS" cname="_GDK_GL_CONFIGS" type="enum">
       <member cname="GDK_GL_NONE" name="None" />
       <member cname="GDK_GL_USE_GL" name="UseGl" value="1" />
@@ -34,7 +34,7 @@
       <member cname="GDK_GL_TRANSPARENT_BLUE_VALUE_EXT" name="TransparentBlueValueExt" value="0x27" />
       <member cname="GDK_GL_TRANSPARENT_ALPHA_VALUE_EXT" name="TransparentAlphaValueExt" value="0x28" />
     </enum>
-    <object name="GtkGLArea" cname="GtkGLArea" parent="GtkDrawingArea">
+    <object name="Area" cname="GtkGLArea" parent="GtkDrawingArea">
       <field name="Glcontext" cname="glcontext" type="GdkGLContext*" />
       <method name="Begingl" cname="gtk_gl_area_begingl">
         <return-type type="gint" />

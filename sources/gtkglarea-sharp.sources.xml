@@ -1,9 +1,9 @@
 <gapi-parser-input>
 
-  <api filename="../gtkglarea/gtkglarea-api.raw">
+  <api filename="../gtkglarea/gtkgl-api.raw">
     <library name="libgtkgl-win32-2.0-0.dll">
-      <namespace name="GtkGlArea">
-	<dir>gtkglarea-1.99.0/gtkgl</dir>
+      <namespace name="GtkGL">
+        <dir>gtkglarea-1.99.0/gtkgl</dir>
       </namespace>
     </library>
   </api>

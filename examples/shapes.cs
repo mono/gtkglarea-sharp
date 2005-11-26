@@ -1,8 +1,6 @@
 using System;
 using Gtk;
-//using GtkGL;
-//using GdkGL;
-using GtkGlArea;
+using GtkGL;
 
 using Tao.OpenGl;
 using gl=Tao.OpenGl.Gl;
@@ -10,7 +8,7 @@ using Gl=Tao.OpenGl.Gl;
 
 public class foo
 {
-  static GtkGLArea glarea;
+  static GLArea glarea;
   static double beginX = 0;
   static double beginY = 0;
   static bool button1Pressed = false;
@@ -18,34 +16,24 @@ public class foo
   static Trackball tb = new Trackball();
 	
   static int[] attrlist = {
-    (int)GtkGlArea._GDK_GL_CONFIGS.Rgba,
-    (int)GtkGlArea._GDK_GL_CONFIGS.RedSize,1,
-    (int)GtkGlArea._GDK_GL_CONFIGS.GreenSize,1,
-    (int)GtkGlArea._GDK_GL_CONFIGS.BlueSize,1,
-    (int)GtkGlArea._GDK_GL_CONFIGS.DepthSize,1,
-    (int)GtkGlArea._GDK_GL_CONFIGS.Doublebuffer,
-    (int)GtkGlArea._GDK_GL_CONFIGS.None,
+    (int)GtkGL._GDK_GL_CONFIGS.Rgba,
+    (int)GtkGL._GDK_GL_CONFIGS.RedSize,1,
+    (int)GtkGL._GDK_GL_CONFIGS.GreenSize,1,
+    (int)GtkGL._GDK_GL_CONFIGS.BlueSize,1,
+    (int)GtkGL._GDK_GL_CONFIGS.DepthSize,1,
+    (int)GtkGL._GDK_GL_CONFIGS.Doublebuffer,
+    (int)GtkGL._GDK_GL_CONFIGS.None,
   };
 
 	public static void Main ()
 	{
 		Gtk.Application.Init ();
-		/*
-		GtkGL.Application.Init ("shapes.exe");
-		*/
 
 		// Initialize our quaternion.  Without this, our object doesn't rotate.
 		tb.trackball(ref quat, 0.0f, 0.0f, 0.0f, 0.0f);
 
-		/*
-		GLConfig glconfig = new GLConfig (GLConfigMode.Rgb | GLConfigMode.Depth | GLConfigMode.Double);
-		if (glconfig == null)
-			Console.WriteLine ("glconfig is null");
-		*/
-		
-		glarea = new GtkGLArea (attrlist);
+		glarea = new GLArea (attrlist);
 		glarea.SetSizeRequest (300, 300);
-		//WidgetGL.SetGlCapability (glarea, glconfig, null, true, (int) GLRenderType.RgbaType);
 
 		glarea.Events |= Gdk.EventMask.Button1MotionMask | Gdk.EventMask.Button2MotionMask | Gdk.EventMask.ButtonPressMask | Gdk.EventMask.ButtonReleaseMask | Gdk.EventMask.VisibilityNotifyMask;
 		
