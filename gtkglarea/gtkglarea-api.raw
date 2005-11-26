@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<api>
+  <!--
+
+        This file was automatically generated.
+        Please DO NOT MODIFY THIS FILE, modify .metadata files instead.
+
+-->
+  <namespace name="GtkGlArea" library="libgtkgl-win32-2.0-0.dll">
+    <enum name="_GDK_GL_CONFIGS" cname="_GDK_GL_CONFIGS" type="enum">
+      <member cname="GDK_GL_NONE" name="None" />
+      <member cname="GDK_GL_USE_GL" name="UseGl" value="1" />
+      <member cname="GDK_GL_BUFFER_SIZE" name="BufferSize" value="2" />
+      <member cname="GDK_GL_LEVEL" name="Level" value="3" />
+      <member cname="GDK_GL_RGBA" name="Rgba" value="4" />
+      <member cname="GDK_GL_DOUBLEBUFFER" name="Doublebuffer" value="5" />
+      <member cname="GDK_GL_STEREO" name="Stereo" value="6" />
+      <member cname="GDK_GL_AUX_BUFFERS" name="AuxBuffers" value="7" />
+      <member cname="GDK_GL_RED_SIZE" name="RedSize" value="8" />
+      <member cname="GDK_GL_GREEN_SIZE" name="GreenSize" value="9" />
+      <member cname="GDK_GL_BLUE_SIZE" name="BlueSize" value="10" />
+      <member cname="GDK_GL_ALPHA_SIZE" name="AlphaSize" value="11" />
+      <member cname="GDK_GL_DEPTH_SIZE" name="DepthSize" value="12" />
+      <member cname="GDK_GL_STENCIL_SIZE" name="StencilSize" value="13" />
+      <member cname="GDK_GL_ACCUM_RED_SIZE" name="AccumRedSize" value="14" />
+      <member cname="GDK_GL_ACCUM_GREEN_SIZE" name="AccumGreenSize" value="15" />
+      <member cname="GDK_GL_ACCUM_BLUE_SIZE" name="AccumBlueSize" value="16" />
+      <member cname="GDK_GL_ACCUM_ALPHA_SIZE" name="AccumAlphaSize" value="17" />
+      <member cname="GDK_GL_X_VISUAL_TYPE_EXT" name="XVisualTypeExt" value="0x22" />
+      <member cname="GDK_GL_TRANSPARENT_TYPE_EXT" name="TransparentTypeExt" value="0x23" />
+      <member cname="GDK_GL_TRANSPARENT_INDEX_VALUE_EXT" name="TransparentIndexValueExt" value="0x24" />
+      <member cname="GDK_GL_TRANSPARENT_RED_VALUE_EXT" name="TransparentRedValueExt" value="0x25" />
+      <member cname="GDK_GL_TRANSPARENT_GREEN_VALUE_EXT" name="TransparentGreenValueExt" value="0x26" />
+      <member cname="GDK_GL_TRANSPARENT_BLUE_VALUE_EXT" name="TransparentBlueValueExt" value="0x27" />
+      <member cname="GDK_GL_TRANSPARENT_ALPHA_VALUE_EXT" name="TransparentAlphaValueExt" value="0x28" />
+    </enum>
+    <object name="GtkGLArea" cname="GtkGLArea" parent="GtkDrawingArea">
+      <field name="Glcontext" cname="glcontext" type="GdkGLContext*" />
+      <method name="Begingl" cname="gtk_gl_area_begingl">
+        <return-type type="gint" />
+      </method>
+      <method name="Endgl" cname="gtk_gl_area_endgl">
+        <return-type type="void" />
+      </method>
+      <method name="GetType" cname="gtk_gl_area_get_type" shared="true">
+        <return-type type="GtkType" />
+      </method>
+      <method name="MakeCurrent" cname="gtk_gl_area_make_current">
+        <return-type type="gint" />
+      </method>
+      <constructor cname="gtk_gl_area_new">
+        <parameters>
+          <parameter type="int*" name="attrList" />
+        </parameters>
+      </constructor>
+      <constructor cname="gtk_gl_area_new_vargs">
+        <parameters>
+          <parameter type="GtkGLArea*" name="share" />
+          <parameter ellipsis="true" />
+        </parameters>
+      </constructor>
+      <method name="ShareNew" cname="gtk_gl_area_share_new" shared="true">
+        <return-type type="GtkWidget*" />
+        <parameters>
+          <parameter type="int*" name="attrList" />
+          <parameter type="GtkGLArea*" name="share" />
+        </parameters>
+      </method>
+      <method name="Size" cname="gtk_gl_area_size">
+        <return-type type="void" />
+        <parameters>
+          <parameter type="gint" name="width" />
+          <parameter type="gint" name="height" />
+        </parameters>
+      </method>
+      <method name="SwapBuffers" cname="gtk_gl_area_swap_buffers">
+        <return-type type="void" />
+      </method>
+      <method name="Swapbuffers" cname="gtk_gl_area_swapbuffers">
+        <return-type type="void" />
+      </method>
+    </object>
+    <struct name="GdkGLContext" cname="GdkGLContext" opaque="true">
+      <method name="AttrlistShareNew" cname="gdk_gl_context_attrlist_share_new" shared="true">
+        <return-type type="GdkGLContext*" />
+        <parameters>
+          <parameter type="int*" name="attrlist" />
+          <parameter type="GdkGLContext*" name="sharelist" />
+          <parameter type="gint" name="direct" />
+        </parameters>
+      </method>
+      <constructor cname="gdk_gl_context_new">
+        <parameters>
+          <parameter type="GdkVisual*" name="visual" />
+        </parameters>
+      </constructor>
+      <method name="Ref" cname="gdk_gl_context_ref">
+        <return-type type="GdkGLContext*" />
+      </method>
+      <method name="ShareNew" cname="gdk_gl_context_share_new" shared="true">
+        <return-type type="GdkGLContext*" />
+        <parameters>
+          <parameter type="GdkVisual*" name="visual" />
+          <parameter type="GdkGLContext*" name="sharelist" />
+          <parameter type="gint" name="direct" />
+        </parameters>
+      </method>
+      <method name="Unref" cname="gdk_gl_context_unref">
+        <return-type type="void" />
+      </method>
+    </struct>
+    <struct name="GdkGLPixmap" cname="GdkGLPixmap" opaque="true">
+      <method name="MakeCurrent" cname="gdk_gl_pixmap_make_current">
+        <return-type type="gint" />
+        <parameters>
+          <parameter type="GdkGLContext*" name="context" />
+        </parameters>
+      </method>
+      <constructor cname="gdk_gl_pixmap_new">
+        <parameters>
+          <parameter type="GdkVisual*" name="visual" />
+          <parameter type="GdkPixmap*" name="pixmap" />
+        </parameters>
+      </constructor>
+      <method name="Ref" cname="gdk_gl_pixmap_ref">
+        <return-type type="GdkGLPixmap*" />
+      </method>
+      <method name="Unref" cname="gdk_gl_pixmap_unref">
+        <return-type type="void" />
+      </method>
+    </struct>
+  </namespace>
+</api>

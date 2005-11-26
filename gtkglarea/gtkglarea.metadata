@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<metadata>
+  <attr path="/api/namespace/object[@cname='GtkGLArea']/constructor[@cname='gtk_gl_area_new']/parameters/parameter[@name='attrList']" name="array">1</attr>
+</metadata>

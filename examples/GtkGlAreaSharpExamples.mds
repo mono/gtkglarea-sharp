@@ -1,0 +1,16 @@
+<Combine name="GtkGlAreaSharpExamples" fileversion="2.0">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry configuration="Debug" build="True" name="teapot" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry configuration="Release" build="True" name="teapot" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="teapot" single="True">
+    <Execute type="None" entry="teapot" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./GtkGlAreaSharpExamples.mdp" />
+  </Entries>
+</Combine>

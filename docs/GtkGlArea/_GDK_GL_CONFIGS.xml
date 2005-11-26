@@ -1,0 +1,266 @@
+<Type Name="_GDK_GL_CONFIGS" FullName="GtkGlArea._GDK_GL_CONFIGS">
+  <TypeSignature Language="C#" Value="public enum _GDK_GL_CONFIGS" />
+  <AssemblyInfo>
+    <AssemblyName>gtkgl-sharp</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Enum</BaseTypeName>
+  </Base>
+  <Members>
+    <Member MemberName="Stereo">
+      <MemberSignature Language="C#" Value="Stereo" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="StencilSize">
+      <MemberSignature Language="C#" Value="StencilSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="AccumAlphaSize">
+      <MemberSignature Language="C#" Value="AccumAlphaSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="TransparentRedValueExt">
+      <MemberSignature Language="C#" Value="TransparentRedValueExt" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="DepthSize">
+      <MemberSignature Language="C#" Value="DepthSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="AccumRedSize">
+      <MemberSignature Language="C#" Value="AccumRedSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="Rgba">
+      <MemberSignature Language="C#" Value="Rgba" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="Doublebuffer">
+      <MemberSignature Language="C#" Value="Doublebuffer" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="None">
+      <MemberSignature Language="C#" Value="None" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="BlueSize">
+      <MemberSignature Language="C#" Value="BlueSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="TransparentIndexValueExt">
+      <MemberSignature Language="C#" Value="TransparentIndexValueExt" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="AccumGreenSize">
+      <MemberSignature Language="C#" Value="AccumGreenSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="XVisualTypeExt">
+      <MemberSignature Language="C#" Value="XVisualTypeExt" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="AccumBlueSize">
+      <MemberSignature Language="C#" Value="AccumBlueSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="BufferSize">
+      <MemberSignature Language="C#" Value="BufferSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="TransparentGreenValueExt">
+      <MemberSignature Language="C#" Value="TransparentGreenValueExt" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="UseGl">
+      <MemberSignature Language="C#" Value="UseGl" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="TransparentAlphaValueExt">
+      <MemberSignature Language="C#" Value="TransparentAlphaValueExt" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="AuxBuffers">
+      <MemberSignature Language="C#" Value="AuxBuffers" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="Level">
+      <MemberSignature Language="C#" Value="Level" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="TransparentBlueValueExt">
+      <MemberSignature Language="C#" Value="TransparentBlueValueExt" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="RedSize">
+      <MemberSignature Language="C#" Value="RedSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="AlphaSize">
+      <MemberSignature Language="C#" Value="AlphaSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="TransparentTypeExt">
+      <MemberSignature Language="C#" Value="TransparentTypeExt" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="GreenSize">
+      <MemberSignature Language="C#" Value="GreenSize" />
+      <MemberType>Field</MemberType>
+      <ReturnValue>
+        <ReturnType>GtkGlArea._GDK_GL_CONFIGS</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+      </Docs>
+    </Member>
+  </Members>
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+</Type>
