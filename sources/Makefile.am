@@ -1,4 +1,5 @@
-all: api
+all: 
+	echo "only needed by maintainer"
 
 get-source-code:
 	wget ftp://ftp.gnome.org/pub/GNOME/sources/gtkglarea/1.99/gtkglarea-1.99.0.tar.bz2 --output-document=- | tar -xj
