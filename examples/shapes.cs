@@ -48,12 +48,13 @@ public class foo
 		Button btn = new Button ("Exit");
 		
 		btn.KeyPressEvent += OnKeyPress;
+		btn.Clicked += OnUnrealized;
 		
 		VBox vb = new VBox (false, 0);
 		vb.PackStart (glarea, true, true, 0);
 		vb.PackStart (btn, false, false, 0);
 
-		Window win = new Window ("GtkGLExt#");
+		Window win = new Window ("GtkGL#");
 		win.ReallocateRedraws = true;
 		win.Add (vb);
 
