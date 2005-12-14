@@ -128,11 +128,7 @@ gtkglarea/Makefile
 gtkglarea/AssemblyInfo.cs
 examples/Makefile
 examples/NeHe/Makefile
-examples/NeHe/Lesson01/Makefile
-examples/NeHe/Lesson02/Makefile
-examples/NeHe/Lesson03/Makefile
-examples/NeHe/Lesson04/Makefile
-examples/NeHe/Lesson05/Makefile
+examples/NeHe/Lessons/Makefile
 sources/Makefile
 gtkgl-sharp-2.0.pc
 ])
