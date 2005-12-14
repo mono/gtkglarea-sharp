@@ -2,4 +2,5 @@ SUBDIRS = \
 	Lesson01 \
 	Lesson02 \
 	Lesson03 \
-	Lesson04
+	Lesson04 \
+	Lesson05
