@@ -1,3 +1,5 @@
+SUBDIRS = NeHe
+
 EXTRA_DIST = shapes.cs Teapot.cs Trackball.cs
 CLEANFILES = shapes.exe
 

@@ -127,6 +127,9 @@ gtkglarea/gtkgl-sharp.dll.config
 gtkglarea/Makefile
 gtkglarea/AssemblyInfo.cs
 examples/Makefile
+examples/NeHe/Makefile
+examples/NeHe/Lesson01/Makefile
+examples/NeHe/Lesson02/Makefile
 sources/Makefile
 gtkgl-sharp-2.0.pc
 ])
