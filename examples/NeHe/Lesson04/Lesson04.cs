@@ -14,9 +14,9 @@ using glu=Tao.OpenGl.Glu;
 
 // This code is based on work from Alp Toker and the NeHe lesson here:
 // http://nehe.gamedev.net/data/lessons/lesson.asp?lesson=01
-namespace NeHe.Lesson03
+namespace NeHe.Lesson04
 {
-	public class Lesson03
+	public class Lesson04
 	{
 		/* GlArea is the widget defined in the GtkGL namespace and is a
 		 * specialized GtkDrawingArea with GL cow powers.
@@ -146,7 +146,7 @@ namespace NeHe.Lesson03
 			
 			System.Timers.Timer t = new System.Timers.Timer();
 			
-			Lesson03 l = new Lesson03();
+			Lesson04 l = new Lesson04();
 			
 			GLib.Timeout.Add (50, new GLib.TimeoutHandler (l.RotateObjects));
 
@@ -169,7 +169,7 @@ namespace NeHe.Lesson03
 			return true;
 		}
 
-		public Lesson03()
+		public Lesson04()
 		{
 			// Create a new GLArea widget and request a size
 			glarea = new GLArea (attrlist);
@@ -188,7 +188,7 @@ namespace NeHe.Lesson03
 			vb.PackStart (glarea, true, true, 0);
 			
 			// Create a new window and name it appropriately
-			Window win = new Window ("NeHe Lesson03");
+			Window win = new Window ("NeHe Lesson04");
 			
 			// Pack the VBox into the window
 			win.Add (vb);
