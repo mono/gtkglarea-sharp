@@ -1,15 +1,15 @@
-SRCS = Lesson04.cs
+SRCS = Lesson05.cs
 
-CLEANFILES = Lesson04.exe
+CLEANFILES = Lesson05.exe
 
-all: Lesson04.exe
+all: Lesson05.exe
 
-Lesson04.exe: $(SRCS)
+Lesson05.exe: $(SRCS)
 	mcs \
 		-pkg:gtk-sharp-2.0 \
 		-pkg:gtkgl-sharp-2.0 \
 		-pkg:tao \
 		$(SRCS) \
-		-out:Lesson04.exe
+		-out:Lesson05.exe
 
 
