@@ -1,0 +1,6 @@
+2005-12-13  C.J. Collier  <cjcollier@colliertech.org>
+
+	* configure.am: added Makefiles for NeHe examples
+	* examples/NeHe: Created directory structure for NeHe examples
+	* examples/NeHe/Lesson01: Created a minimal OpenGL display
+	* examples/NeHe/Lesson02: Created a triangle, square display
