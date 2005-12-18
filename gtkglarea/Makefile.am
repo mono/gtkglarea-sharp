@@ -16,8 +16,6 @@ endif
 
 build_sources = AssemblyInfo.cs
 
-customs = WebControl.custom
-
 CLEANFILES = gtkgl-sharp.dll generated-stamp generated/*.cs $(API) gtkgl-sharp.snk
 
 DISTCLEANFILES= AssemblyInfo.cs
@@ -32,7 +30,13 @@ $(API): $(srcdir)/$(RAW_API) $(srcdir)/$(METADATA)
 	$(FIXUP) --api=$(srcdir)/$(API) --metadata=$(srcdir)/$(METADATA)
 
 generated-stamp: $(API)
-	 $(CODEGEN) --generate $(srcdir)/$(API) $(GTK_SHARP_CFLAGS) --outdir=generated --customdir=$(srcdir) --assembly-name=gtkgl-sharp && touch generated-stamp
+	$(CODEGEN) --generate \
+	$(srcdir)/$(API) \
+	$(GTK_SHARP_CFLAGS) \
+	--outdir=generated \
+	--customdir=$(srcdir) \
+	--assembly-name=gtkgl-sharp && \
+	touch generated-stamp
 
 gtkgl-sharp.snk: $(top_srcdir)/gtkgl-sharp.snk
 	cp $(top_srcdir)/gtkgl-sharp.snk .
@@ -49,4 +53,11 @@ uninstall-local:
 	echo "$(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS)"; \
         $(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS) || exit 1;
 
-EXTRA_DIST = $(RAW_API) $(sources) $(customs) $(METADATA) AssemblyInfo.cs.in gtkgl-sharp.dll.config.in $(API)
+EXTRA_DIST = \
+	$(RAW_API) \
+	$(sources) \
+	$(customs) \
+	$(METADATA) \
+	AssemblyInfo.cs.in \
+	gtkgl-sharp.dll.config.in \
+	$(API)
