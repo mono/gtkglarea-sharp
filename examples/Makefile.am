@@ -9,8 +9,7 @@ shapes.exe: $(srcdir)/shapes.cs $(srcdir)/Teapot.cs $(srcdir)/Trackball.cs
 	$(MCS) \
 	-lib:@top_builddir@/gtkglarea \
 	-r:gtkgl-sharp.dll \
-	-r:Tao.OpenGl.dll \
-	-r:Tao.OpenGl.Glu.dll \
+	-pkg:tao-opengl-glu \
 	-lib:$(GTKSHARP_PREFIX)/lib \
 	-pkg:gtk-sharp-2.0 \
 	-out:shapes.exe $(srcdir)/shapes.cs $(srcdir)/Teapot.cs $(srcdir)/Trackball.cs

@@ -3,4 +3,4 @@ using System.Runtime.CompilerServices;
 
 [assembly:AssemblyVersion("@API_VERSION@")]
 [assembly:AssemblyDelaySign(false)]
-[assembly:AssemblyKeyFile("gtkgl-sharp.snk")]
+[assembly:AssemblyKeyFile("gtkglarea-sharp.snk")]

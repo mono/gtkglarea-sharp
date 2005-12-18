@@ -1,8 +1,15 @@
-SUBDIRS = gtkglarea examples
+SUBDIRS = gtkglarea examples sources
 
 pkgconfigdir = $(prefix)/lib/pkgconfig
-pkgconfig_DATA = gtkgl-sharp-2.0.pc
+pkgconfig_DATA = gtkglarea-sharp.pc
 
-EXTRA_DIST = gtkgl-sharp-2.0.pc COPYING gtkgl-sharp.pub gtkgl-sharp.snk
+EXTRA_DIST = \
+	Makefile.in \
+	gtkglarea-sharp.pc.in \
+	README \
+	AUTHORS \
+	COPYING \
+	gtkglarea-sharp.pub \
+	gtkglarea-sharp.snk
 
-DISTCLEANFILES = gtkgl-sharp-2.0.pc
+DISTCLEANFILES = gtkglarea-sharp-2.0.pc

@@ -3,7 +3,7 @@ RAW_API=gtkgl-api.raw
 API=gtkgl-api.xml
 METADATA=gtkgl.metadata
 
-ASSEMBLY_NAME= gtkgl-sharp
+ASSEMBLY_NAME= gtkglarea-sharp
 ASSEMBLY= $(ASSEMBLY_NAME).dll
 
 if WINBUILD
@@ -16,13 +16,18 @@ endif
 
 build_sources = AssemblyInfo.cs
 
-CLEANFILES = gtkgl-sharp.dll generated-stamp generated/*.cs $(API) gtkgl-sharp.snk
+CLEANFILES = \
+	gtkglarea-sharp.dll \
+	generated-stamp \
+	generated/*.cs \
+	$(API) \
+	gtkglarea-sharp.snk
 
 DISTCLEANFILES= AssemblyInfo.cs
 
-noinst_DATA = gtkgl-sharp.dll
+noinst_DATA = gtkglarea-sharp.dll
 
-all: generated-stamp gtkgl-sharp.dll
+all: generated-stamp gtkglarea-sharp.dll
 
 $(API): $(srcdir)/$(RAW_API) $(srcdir)/$(METADATA)
 	cp $(srcdir)/$(RAW_API) $(API)
@@ -35,15 +40,15 @@ generated-stamp: $(API)
 	$(GTK_SHARP_CFLAGS) \
 	--outdir=generated \
 	--customdir=$(srcdir) \
-	--assembly-name=gtkgl-sharp && \
+	--assembly-name=gtkglarea-sharp && \
 	touch generated-stamp
 
-gtkgl-sharp.snk: $(top_srcdir)/gtkgl-sharp.snk
-	cp $(top_srcdir)/gtkgl-sharp.snk .
+gtkglarea-sharp.snk: $(top_srcdir)/gtkglarea-sharp.snk
+	cp $(top_srcdir)/gtkglarea-sharp.snk .
 
-gtkgl-sharp.dll: $(build_sources) generated-stamp gtkgl-sharp.snk
+gtkglarea-sharp.dll: $(build_sources) generated-stamp gtkglarea-sharp.snk
 	$(MCS) -nowarn:169 -unsafe -target:library $(GTK_SHARP_LIBS) \
-	$(build_sources) generated/*.cs -out:gtkgl-sharp.dll
+	$(build_sources) generated/*.cs -out:gtkglarea-sharp.dll
 
 install-data-local:
 	echo "$(GACUTIL) /i $(ASSEMBLY) /f $(GACUTIL_FLAGS)";  \
@@ -59,5 +64,5 @@ EXTRA_DIST = \
 	$(customs) \
 	$(METADATA) \
 	AssemblyInfo.cs.in \
-	gtkgl-sharp.dll.config.in \
+	gtkglarea-sharp.dll.config.in \
 	$(API)

@@ -1,9 +1,9 @@
 AC_INIT(README)
 AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(gtkgl-sharp-2.0, 0.0.1)
+AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.2)
 AM_MAINTAINER_MODE
 
-API_VERSION=2.0.0.0
+API_VERSION=0.0.2.0
 AC_SUBST(API_VERSION)
 
 MONO_REQUIRED_VERSION=1.0
@@ -45,9 +45,11 @@ AC_SUBST(BUILD_GTK_CFLAGS)
 AC_SUBST(BUILD_GTK_LIBS)
 GTK_REQUIRED_VERSION=2.0.0
 MONO_REQUIRED_VERSION=0.95
+TAO_REQUIRED_VERSION=0.0.2
 
 PKG_CHECK_MODULES(BASE_DEPENDENCIES, gtk+-2.0 >= $GTK_REQUIRED_VERSION gmodule-2.0 >= $GTK_REQUIRED_VERSION) 
 PKG_CHECK_MODULES(MONO_DEPENDENCY, mono >= $MONO_REQUIRED_VERSION, has_mono=true, has_mono=false)
+PKG_CHECK_MODULES(TAO_DEPENDENCIES, tao-opengl >= $TAO_REQUIRED_VERSION, has_tao=yes, has_tao=no) 
 
 if test "x$has_mono" = "xtrue"; then
 AC_PATH_PROG(RUNTIME, mono, no)
@@ -123,14 +125,14 @@ AC_SUBST(GACUTIL)
 
 AC_OUTPUT([
 Makefile
-gtkglarea/gtkgl-sharp.dll.config
+gtkglarea/gtkglarea-sharp.dll.config
 gtkglarea/Makefile
 gtkglarea/AssemblyInfo.cs
 examples/Makefile
 examples/NeHe/Makefile
 examples/NeHe/Lessons/Makefile
 sources/Makefile
-gtkgl-sharp-2.0.pc
+gtkglarea-sharp.pc
 ])
 
 echo "---"
@@ -138,6 +140,7 @@ echo "Configuration summary"
 echo ""
 echo "   * Installation prefix: $prefix"
 echo "   * compiler: $CSC"
+echo "   * Tao.Opengl: $has_tao"
 echo "   * Documentation: $enable_monodoc ($MONODOC)"
 echo ""
 echo "---"
