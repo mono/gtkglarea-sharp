@@ -6,5 +6,5 @@ Name: GtkGLArea#
 Description: GtkGLArea# - a GTK# OpenGL widget binding
 Version: @VERSION@
 Requires: gtk-sharp-2.0
-Libs: -r:${prefix}/lib/mono/gtkgl-sharp-2.0/gtkgl-sharp.dll
+Libs: -r:${prefix}/lib/mono/gtkglarea-sharp/gtkglarea-sharp.dll
 

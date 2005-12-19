@@ -110,7 +110,7 @@ if test "x$GACUTIL" = "xno" ; then
         AC_MSG_ERROR([No gacutil tool found])
 fi
 
-GACUTIL_FLAGS='/package gtkgl-sharp-2.0 /gacdir $(DESTDIR)$(prefix)/lib'
+GACUTIL_FLAGS='/package gtkglarea-sharp /gacdir $(DESTDIR)$(prefix)/lib'
 AC_SUBST(GACUTIL_FLAGS)
 
 winbuild=no

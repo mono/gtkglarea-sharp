@@ -12,4 +12,5 @@ EXTRA_DIST = \
 	gtkglarea-sharp.pub \
 	gtkglarea-sharp.snk
 
-DISTCLEANFILES = gtkglarea-sharp-2.0.pc
+DISTCLEANFILES = \
+	gtkglarea-sharp-2.0.pc
