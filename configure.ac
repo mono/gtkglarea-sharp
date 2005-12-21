@@ -1,8 +1,12 @@
 AC_INIT(README)
 AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.2)
+
+## Bump this for every release
+AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.3)
+
 AM_MAINTAINER_MODE
 
+## Don't bump this unless the API changes.
 API_VERSION=0.0.2.0
 AC_SUBST(API_VERSION)
 

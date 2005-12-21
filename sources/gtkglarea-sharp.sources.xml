@@ -1,7 +1,11 @@
 <gapi-parser-input>
 
-  <api filename="../gtkglarea/gtkgl-api.raw">
-    <library name="libgtkgl-win32-2.0-0.dll">
+  <api filename="../gtkglarea/gtkglarea-api.raw">
+  <!--
+  TODO:
+  Find out what gtkglarea compiles to on windows and use that dll name
+  -->
+    <library name="libgtkglarea-win32-2.0-0.dll">
       <namespace name="GtkGL">
         <dir>gtkglarea-1.99.0/gtkgl</dir>
       </namespace>
