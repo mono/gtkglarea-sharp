@@ -1,261 +1,301 @@
+// created on 12/13/2005 at 1:51 PM
 using System;
+
 using Gtk;
+using GtkSharp;
+
 using GtkGL;
 
 using Tao.OpenGl;
+
 using gl=Tao.OpenGl.Gl;
-using Gl=Tao.OpenGl.Gl;
+using glu=Tao.OpenGl.Glu;
 
-public class foo
+// This code is based on work from Alp Toker and the NeHe lesson here:
+// http://nehe.gamedev.net/data/lessons/lesson.asp?lesson=01
+namespace GtkGl
 {
-  static GLArea glarea;
-  static double beginX = 0;
-  static double beginY = 0;
-  static bool button1Pressed = false;
-  static float[] quat = new float[4];
-  static Trackball tb = new Trackball();
-	
-  static int[] attrlist = {
-    (int)GtkGL._GDK_GL_CONFIGS.Rgba,
-    (int)GtkGL._GDK_GL_CONFIGS.RedSize,1,
-    (int)GtkGL._GDK_GL_CONFIGS.GreenSize,1,
-    (int)GtkGL._GDK_GL_CONFIGS.BlueSize,1,
-    (int)GtkGL._GDK_GL_CONFIGS.DepthSize,1,
-    (int)GtkGL._GDK_GL_CONFIGS.Doublebuffer,
-    (int)GtkGL._GDK_GL_CONFIGS.None,
-  };
-
-	public static void Main ()
+	public class RotationTest
 	{
-		Gtk.Application.Init ();
+		/* GlArea is the widget defined in the GtkGL namespace and is a
+		 * specialized GtkDrawingArea with GL cow powers.
+		 */
+		
+		GLArea glarea;
+		
+		/*	attrList
+	     *	    Specifies a list of Boolean attributes and enum/integer
+		 *      attribute/value pairs. The last attribute must be zero or
+		 *      _GDK_GL_CONFIGS.None.
+		 *      
+		 *      See glXChooseVisual man page for explanation of
+		 *      attrList.
+		 *      
+		 *      http://www.xfree86.org/4.4.0/glXChooseVisual.3.html
+		 */
+		   
+		int[] attrlist = {
+	    	(int)GtkGL._GDK_GL_CONFIGS.Rgba,
+	    	(int)GtkGL._GDK_GL_CONFIGS.RedSize,1,
+	    	(int)GtkGL._GDK_GL_CONFIGS.GreenSize,1,
+	    	(int)GtkGL._GDK_GL_CONFIGS.BlueSize,1,
+	    	(int)GtkGL._GDK_GL_CONFIGS.DepthSize,1,
+	    	(int)GtkGL._GDK_GL_CONFIGS.Doublebuffer,
+	    	(int)GtkGL._GDK_GL_CONFIGS.None,
+	  	};	
 
-		// Initialize our quaternion.  Without this, our object doesn't rotate.
-		tb.trackball(ref quat, 0.0f, 0.0f, 0.0f, 0.0f);
-
-		glarea = new GLArea (attrlist);
-		glarea.SetSizeRequest (300, 300);
-
-		glarea.Events |= Gdk.EventMask.Button1MotionMask | Gdk.EventMask.Button2MotionMask | Gdk.EventMask.ButtonPressMask | Gdk.EventMask.ButtonReleaseMask | Gdk.EventMask.VisibilityNotifyMask;
+		// This flag tells whether to rotate the scene or not
+		bool doRotate = false;
 		
-		glarea.ExposeEvent += OnExposed;
-		glarea.Realized += OnRealized;
-		glarea.Unrealized += OnUnrealized;
-		glarea.ConfigureEvent += OnConfigure;
-		glarea.ButtonPressEvent += OnButtonPress;
-		glarea.ButtonReleaseEvent += OnButtonRelease;
-		glarea.MotionNotifyEvent += OnMotionNotify;
-
-		Button btn = new Button ("Exit");		
+		double rotAngle = 0.0;
 		
-		btn.KeyPressEvent += OnKeyPress;
-		btn.Clicked += OnUnrealized;
+		double xRot = 0.0;
+		double yRot = 1.0;
+		double zRot = 0.0;
 		
-		VBox vb = new VBox (false, 0);
-		vb.PackStart (glarea, true, true, 0);
+		// Used to rotate either left or right
+		int rotMult = 0;
 		
-		HBox hb = new HBox (false, 0);
+		// This is the id of the opengl shape list:
+		int shapeList;
 		
-		Button btnRotL = new Button(" < ");
-		hb.PackStart (btnRotL, false, false, 0);
+		// Create a rotation of 2 degrees around the Y axis (left- and right-hand rotation)		
+		// GtkGL.Rotation lRot;
+		// GtkGL.Rotation rRot;
 		
-		hb.PackStart (btn, true, true, 0);
-		
-		Button btnRotR = new Button(" > ");
-		hb.PackStart (btnRotR, false, false, 0);
-		
-		vb.PackStart (hb);
-
-		Window win = new Window ("GtkGL#");
-		win.ReallocateRedraws = true;
-		win.Add (vb);
-
-		win.ShowAll ();
-
-		Gtk.Application.Run ();
-	}
-	
-	static void OnKeyPress (object o, Gtk.KeyPressEventArgs e)
-	{
-		if(e.Event.Key == Gdk.Key.Return ){
-			Application.Quit();			
-		}
-	}
-	
-	static void OnMotionNotify (object o, Gtk.MotionNotifyEventArgs e)
-	{
-		// We only want to spin the object if we're dragging on the glarea
-		if(o != glarea)
-			return;
-		
-		int ix, iy;
-		double x, y;
-		Gdk.ModifierType m;
-		
-		// Find the current mouse X and Y positions
-		if (e.Event.IsHint) {
-			e.Event.Window.GetPointer(out ix, out iy, out m);
-			x = (double)ix;
-			y = (double)iy;
-		} else {
-    		x = e.Event.X;
-    		y = e.Event.Y;
-  		}
-
+		// This method is called "ReSizeGLScene" in the original lesson
+		void OnConfigure (object o, EventArgs e)
+		{
+			if( glarea.MakeCurrent() == 0)
+				return;
 			
-		if(button1Pressed == true){
-			Console.WriteLine("Dragging...");
-			
-			// Create a quaternion based on the mouse movement
-			float[] spinQuat = new float[4];
-			tb.trackball(ref spinQuat,
-				(float) ((glarea.Allocation.Width  - 2.0 * beginX)        / glarea.Allocation.Width),
-				(float) ((2.0 * beginY - glarea.Allocation.Height)        / glarea.Allocation.Height),
-				(float) ((glarea.Allocation.Width  - 2.0 * x)             / glarea.Allocation.Width),
-				(float) ((2.0 * y - glarea.Allocation.Height)             / glarea.Allocation.Height));
+			int height = glarea.Allocation.Height,
+				width  = glarea.Allocation.Width;
 				
-			// Add created quaternion to the current quat to get the new spin
-			tb.add_quats(spinQuat, quat, ref quat);
+			Console.WriteLine("Width: {0}", width);
+			Console.WriteLine("Height: {0}", height);
 			
-			// Re-draw object with new spin
+			
+			if (height==0)									// Prevent A Divide By Zero By
+			{
+				height=1;									// Making Height Equal One
+			}
+				
+			gl.glViewport (0, 0, width, height);
+			/*
+			gl.glMatrixMode(gl.GL_PROJECTION);				// Select The Projection Matrix
+			gl.glLoadIdentity();							// Reset The Projection Matrix
+
+			// Calculate The Aspect Ratio Of The Window
+			glu.gluPerspective(45.0f,(float)width/(float)height,0.1f,100.0f);
+
+			gl.glMatrixMode(gl.GL_MODELVIEW);				// Select The Modelview Matrix
+			gl.glLoadIdentity();
+			*/
+		}
+
+		bool InitGL()
+		{
+			if (glarea.MakeCurrent() == 0)
+				return false;
+
+			gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);			// Black Background
+			gl.glClearDepth(1.0f);								// Depth Buffer Setup
+
+			Gl.glDepthFunc (Gl.GL_LEQUAL);						// The Type Of Depth Test To Do
+			
+			float[] materialSpecular = {1.0f, 1.0f, 1.0f, 0.15f};
+			float[] materialShininess = {100.0f};
+			float[] position = {1.5f, 1.5f, -3.5f, 0.5f};
+
+			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, materialSpecular);
+			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);
+			Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, position);
+
+			Gl.glFrontFace (Gl.GL_CW);
+
+			Gl.glEnable (Gl.GL_LIGHTING);
+			Gl.glEnable (Gl.GL_LIGHT0);
+			Gl.glEnable (Gl.GL_AUTO_NORMAL);
+			Gl.glEnable (Gl.GL_NORMALIZE);
+			Gl.glEnable (Gl.GL_DEPTH_TEST);
+			
+			shapeList = gl.glGenLists (1);
+
+			gl.glNewList (shapeList, gl.GL_COMPILE);
+			Teapot.Teapot.DrawTeapot (true, 0.5f);
+			gl.glEndList ();
+			
+			return true;
+		}
+		
+		// The correct time to init the gl window is at Realize time
+		void OnRealized (object o, EventArgs e)
+		{
+			Console.WriteLine("Realized...");
+			if(!InitGL())
+				Console.WriteLine("Couldn't InitGL()");
+		}
+
+		// This method is called "DrawGLScene" in the original lesson 		
+		void OnExposed (object o, EventArgs e)
+		{
+			if (glarea.MakeCurrent() == 0)
+				return;
+			
+			// Clear The Screen And The Depth Buffer
+			gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);
+
+			gl.glLoadIdentity();							// Reset The Current Modelview Matrix
+			
+			// Rotate the scene as specified by the member vars
+			gl.glRotatef((float)rotAngle, (float)xRot, (float)yRot, (float)zRot);
+			
+			// Draw the Teapot
+			gl.glCallList (shapeList);
+			
+			glarea.SwapBuffers ();							// Show the newly displayed contents
+
+		}
+
+		public static int Main (string[] argc)
+		{
+			Gtk.Application.Init ();
+			
+			RotationTest r = new RotationTest();
+
+			// Go, dog, go!
+			Gtk.Application.Run ();
+
+			return 1;
+		}
+		
+		static void OnKeyPress (object o, Gtk.KeyPressEventArgs e)
+		{
+			if(e.Event.Key == Gdk.Key.Return ){
+				Application.Quit();			
+			}
+		}
+		
+		private bool RotateScene()
+		{
+			rotAngle = (rotAngle % 360) + (1.5 * rotMult);
+		
+			if( glarea.MakeCurrent() == 0)
+				return true;
+			
 			glarea.QueueDraw();
 			
+			return doRotate;
 		}
-		
-		// Reset the "old" X and Y positions
-		beginX = x;
-		beginY = y;
-	}
-	
-	
-	static void OnButtonPress (object o, Gtk.ButtonPressEventArgs e)
-	{
-		if(e.Event.Button == 1){
-			button1Pressed = true;
+
+		public RotationTest()
+		{
+			// Create a new GLArea widget and request a size
+			glarea = new GLArea (attrlist);
+			glarea.SetSizeRequest (300, 300);
 			
-			/* potential beginning of drag, reset mouse position */
-			beginX = e.Event.X;
-			beginY = e.Event.Y;
-			return;
-		}
-	}
-	
-	static void OnButtonRelease (object o, Gtk.ButtonReleaseEventArgs e)
-	{
-		if(e.Event.Button == 1){
-			button1Pressed = false;
-		}
-	}
-
-	static void OnExposed (object o, EventArgs e)
-	{
-		Console.WriteLine ("expose");
+			// Set some event handlers
+			glarea.ExposeEvent += OnExposed;
+			glarea.Realized += OnRealized;
+			glarea.Unrealized += OnUnrealized;
+			glarea.ConfigureEvent += OnConfigure;
+			
+			// This button quits the program
+			Button btn = new Button ("Exit");		
 		
-		// Find the rotation matrix based on our quaternion
-		float[] rotMatrix = new float[16];
-		tb.build_rotmatrix(ref rotMatrix, quat);
+			// Bind the key press event to the OnKeyPress method
+			btn.KeyPressEvent += OnKeyPress;
+			btn.Clicked += OnUnrealized;
+			
+			// Create a new Vertical Box that the GLArea can live in
+			VBox vb = new VBox (false, 0);
+			
+			// Pack the GLArea widget into the VBox
+			vb.PackStart (glarea, true, true, 0);
+			
+			// Create a horizontal box that holds <, exit and > buttons
+			HBox hb = new HBox (false, 0);
 		
-		/*
-		GLContext glc = WidgetGL.GetGlContext (glarea);
-		GLDrawable gld = WidgetGL.GetGlWindow (glarea);
-
-		if (!gld.GlBegin (glc))
-			return;
-
-		*/
-
-		if (glarea.MakeCurrent() == 0)
-		  return;
-
-		gl.glClear (gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);
+			// This button will rotate the scene left
+			Button btnRotL = new Button(" < ");
+			
+			// Attach some event handlers to the left rotation button
+			btnRotL.Pressed += OnRotLPress;
+			btnRotL.Released += OnRotLRelease;
+						
+			// Pack the left rotation button into the horizontal box
+			hb.PackStart (btnRotL, false, false, 0);
 		
-		gl.glLoadIdentity ();
-		gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
+			// This is the exit button
+			hb.PackStart (btn, true, true, 0);
 		
-		// Rotate the matrix to the angle described by the quaternion
-		gl.glMultMatrixf(rotMatrix);
+			// This button will rotate the scene right
+			Button btnRotR = new Button(" > ");
+			
+			// Attach some event handlers to the right rotation button
+			btnRotR.Pressed += OnRotRPress;
+			btnRotR.Released += OnRotRRelease;
 
-		gl.glCallList (shapeList);
+			// Pack the right rotation button into the horizontal box
+			hb.PackStart (btnRotR, false, false, 0);
 				
-		glarea.SwapBuffers ();
-
-		//gld.GlEnd ();
-	}
-
-	static int shapeList;
-
-	//[GLib.ConnectBefore]
-	static void OnRealized (object o, EventArgs e)
-	{
-	        /*
-		GLContext glc = WidgetGL.GetGlContext (glarea);
-		GLDrawable gld = WidgetGL.GetGlWindow (glarea);
-
-		if (!gld.GlBegin (glc))
-			return;
-		*/
-
-		if (glarea.MakeCurrent() == 0)
-		  return;
-
-		gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
-		gl.glClearDepth (1.0f);
-
-		float[] materialSpecular = {1.0f, 1.0f, 1.0f, 0.15f};
-		float[] materialShininess = {100.0f};
-		float[] position = {1.5f, 1.5f, -3.5f, 0.5f};
-
-		Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, materialSpecular);
-		Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);
-		Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, position);
-
-		Gl.glFrontFace (Gl.GL_CW);
-
-		Gl.glEnable (Gl.GL_LIGHTING);
-		Gl.glEnable (Gl.GL_LIGHT0);
-		Gl.glEnable (Gl.GL_AUTO_NORMAL);
-		Gl.glEnable (Gl.GL_NORMALIZE);
-		Gl.glEnable (Gl.GL_DEPTH_TEST);
-		Gl.glDepthFunc (Gl.GL_LESS);
-
-		shapeList = gl.glGenLists (1);
-
-		gl.glNewList (shapeList, gl.GL_COMPILE);
-		Teapot.Teapot.DrawTeapot (true, 0.5f);
-		gl.glEndList ();
-
-		// gld.GlEnd ();
-	}
-
-	static void OnUnrealized (object o, EventArgs e)
-	{
-		Application.Quit();
-	}
-
-	static void OnConfigure (object o, EventArgs e)
-	{
-		/* 
-		GLContext glc = WidgetGL.GetGlContext (glarea);
-		GLDrawable gld = WidgetGL.GetGlWindow (glarea);
-		
-		if (glc == null)
-			Console.WriteLine ("glc is null");
-		
-		if (gld == null)
-			Console.WriteLine ("gld is null");
-
-
-		if (!gld.GlBegin (glc))
-			return;
-		*/
-		
-		if( glarea.MakeCurrent() == 0)
-			return;
+			// put the hbox in the vbox
+			vb.PackStart (hb);
 			
-		gl.glViewport (0, 0, glarea.Allocation.Width, glarea.Allocation.Height);
+			// Create rotation objects, right and left hand rotations on the y axis
+			// lRot = new Rotation(2.0, 0.0, 1.0, 0.0);
+			// rRot = new Rotation(-2.0, 0.0, 1.0, 0.0);
+			
+			// Create a new window and name it appropriately
+			Window win = new Window ("Rotation using Buttons!");
+			
+			// Pack the VBox into the window
+			win.Add (vb);
+
+			// Show all of win's contained widgets
+			win.ShowAll ();
+		}
+
+		void OnRotLPress (object o, System.EventArgs e)
+		{
+			Console.WriteLine("Rotating Left!");
+
+			rotMult = 1;
+			
+			doRotate = true;
+			
+			GLib.Timeout.Add (50, new GLib.TimeoutHandler (this.RotateScene));
+		}
+
+		void OnRotLRelease (object o, EventArgs e)
+		{
+			Console.WriteLine("Halting Left Rotation!");
+			doRotate = false;
+		}
+
+		void OnRotRPress (object o, System.EventArgs e)
+		{
+			Console.WriteLine("Rotating Right!");	
+			
+			rotMult = -1;
+			doRotate = true;
+
+			GLib.Timeout.Add (50, new GLib.TimeoutHandler (this.RotateScene));
+		}
+
+		void OnRotRRelease (object o, EventArgs e)
+		{
+			Console.WriteLine("Halting Right Rotation!");
+			doRotate = false;
+		}
 		
-		// gld.GlEnd ();
+
+		void OnUnrealized (object o, EventArgs e)
+		{
+			Application.Quit();
+		}
+		
+
 	}
-
-
-
 }
