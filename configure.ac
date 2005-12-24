@@ -133,6 +133,8 @@ gtkglarea/gtkglarea-sharp.dll.config
 gtkglarea/Makefile
 gtkglarea/AssemblyInfo.cs
 examples/Makefile
+examples/rotate-buttons/Makefile
+examples/trackball/Makefile
 examples/NeHe/Makefile
 examples/NeHe/Lessons/Makefile
 sources/Makefile
