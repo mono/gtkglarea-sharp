@@ -15,6 +15,8 @@ gladeTest.exe: $(srcdir)/gladeTest.cs $(srcdir)/../common/Teapot.cs $(srcdir)/..
 		$(srcdir)/../common/GLWidget.cs
 
 
-EXTRA_DIST = gladeTest.cs
+EXTRA_DIST = \
+	gladeTest.cs \
+	glwidget.glade
 
 CLEANFILES = gladeTest.exe
