@@ -29,20 +29,33 @@ public class GlWidget {
 		
 		glArea.ExposeEvent += OnExposed;
 		glArea.Realized += OnRealized;
+		glArea.SizeAllocated += OnSizeAllocated;
 		glArea.ConfigureEvent += OnConfigure;
 
-		//glArea.SizeAllocated += OnSizeAllocated;
+
 	}
 	
 	// This handler gets fired when the glArea widget is re-sized
-	// This method is called "ReSizeGLScene" in the original lesson
-	void OnConfigure (object o, EventArgs e)
+	void OnSizeAllocated (object o, Gtk.SizeAllocatedArgs e)
 	{
-		if( glArea.MakeCurrent() == 0)
-			return;
-			
-		gl.glViewport (0, 0, glArea.Allocation.Width, glArea.Allocation.Height);
+		int height = e.Allocation.Height, width = e.Allocation.Width;
+		
+		if(height == 0){
+			height = 1;
+		}
+		
+		gl.glViewport(0, 0, width, height);
+		
+		gl.glMatrixMode(gl.GL_PROJECTION);				// Select The Projection Matrix
+		gl.glLoadIdentity();							// Reset The Projection Matrix
 
+		// Calculate The Aspect Ratio Of The Window
+		glu.gluPerspective(45.0f,(float)width/(float)height,0.1f,100.0f);
+		
+		// 		glu.gluPerspective(45.0f,(float)width/(float)height,0.1f,100.0f);
+		gl.glMatrixMode(gl.GL_MODELVIEW);						// Select The Modelview Matrix
+		gl.glLoadIdentity();							// Reset The Modelview Matrix
+		
 	}
 	
 	// Drawing of pretty objects happens here
@@ -60,6 +73,10 @@ public class GlWidget {
 		gl.glLoadIdentity ();
 		gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
+		// Translate a bit...
+		gl.glLoadIdentity();
+		gl.glTranslatef(0.0f,0.0f,-3.0f);				// Move Into The Screen 7.0
+		
 		// Draw the contents of our shapeList
 		gl.glCallList (shapeList);
 				
@@ -81,7 +98,7 @@ public class GlWidget {
 
 		float[] materialSpecular = {1.0f, 1.0f, 1.0f, 0.15f};
 		float[] materialShininess = {100.0f};
-		float[] position = {1.5f, 1.5f, -3.5f, 0.5f};
+		float[] position = {-2.0f, 2.0f, 2.0f, 0.5f};
 
 		Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, materialSpecular);
 		Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);
@@ -94,14 +111,26 @@ public class GlWidget {
 		Gl.glEnable (Gl.GL_AUTO_NORMAL);
 		Gl.glEnable (Gl.GL_NORMALIZE);
 		Gl.glEnable (Gl.GL_DEPTH_TEST);
-		Gl.glDepthFunc (Gl.GL_LESS);
-
+		Gl.glDepthFunc (Gl.GL_LEQUAL);
+		gl.glShadeModel (gl.GL_SMOOTH);
+		gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);			// Really Nice Perspective Calculations
+		
 		shapeList = gl.glGenLists (1);
 
-		gl.glNewList (shapeList, gl.GL_COMPILE);		
-			Teapot.Teapot.DrawTeapot (true, 0.5f);
+		gl.glNewList (shapeList, gl.GL_COMPILE);
+				Teapot.Teapot.DrawTeapot (true, 0.5f);
 		gl.glEndList ();
 
 	}
+
+	// This handler gets fired when the glArea widget is re-sized
+	// This method is called "ReSizeGLScene" in the original lesson
+	void OnConfigure (object o, EventArgs e)
+	{	
+		if( glArea.MakeCurrent() == 0)
+			return;
+			
+		gl.glViewport (0, 0, glArea.Allocation.Width, glArea.Allocation.Height);
 		
+	}
 }

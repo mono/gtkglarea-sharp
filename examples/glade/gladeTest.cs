@@ -15,15 +15,15 @@ public class Engine
 	{
 		Application.Init ();
 
-		Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidgets", null);
+		Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);
 
 		// Connect the Signals defined in Glade
 		gxml.Autoconnect (this);
 		
 		GlWidget glw = new GlWidget();
 
-		Gtk.Alignment alignment1 = (Gtk.Alignment)gxml["alignment1"];
-		alignment1.Add( glw.glArea );
+		Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
+		vbox1.PackStart( glw.glArea );
 		
 		glw.glArea.Show();
 		
