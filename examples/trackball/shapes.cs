@@ -142,15 +142,6 @@ public class foo
 		// Find the rotation matrix based on our quaternion
 		float[] rotMatrix = new float[16];
 		tb.build_rotmatrix(ref rotMatrix, quat);
-		
-		/*
-		GLContext glc = WidgetGL.GetGlContext (glarea);
-		GLDrawable gld = WidgetGL.GetGlWindow (glarea);
-
-		if (!gld.GlBegin (glc))
-			return;
-
-		*/
 
 		if (glarea.MakeCurrent() == 0)
 		  return;
@@ -175,14 +166,6 @@ public class foo
 	//[GLib.ConnectBefore]
 	static void OnRealized (object o, EventArgs e)
 	{
-	        /*
-		GLContext glc = WidgetGL.GetGlContext (glarea);
-		GLDrawable gld = WidgetGL.GetGlWindow (glarea);
-
-		if (!gld.GlBegin (glc))
-			return;
-		*/
-
 		if (glarea.MakeCurrent() == 0)
 		  return;
 
@@ -209,10 +192,9 @@ public class foo
 		shapeList = gl.glGenLists (1);
 
 		gl.glNewList (shapeList, gl.GL_COMPILE);
-		Teapot.Teapot.DrawTeapot (true, 0.5f);
+			Teapot.Teapot.DrawTeapot (true, 0.5f);
 		gl.glEndList ();
 
-		// gld.GlEnd ();
 	}
 
 	static void OnUnrealized (object o, EventArgs e)
@@ -222,27 +204,11 @@ public class foo
 
 	static void OnConfigure (object o, EventArgs e)
 	{
-		/* 
-		GLContext glc = WidgetGL.GetGlContext (glarea);
-		GLDrawable gld = WidgetGL.GetGlWindow (glarea);
-		
-		if (glc == null)
-			Console.WriteLine ("glc is null");
-		
-		if (gld == null)
-			Console.WriteLine ("gld is null");
-
-
-		if (!gld.GlBegin (glc))
-			return;
-		*/
-		
 		if( glarea.MakeCurrent() == 0)
 			return;
 			
 		gl.glViewport (0, 0, glarea.Allocation.Width, glarea.Allocation.Height);
-		
-		// gld.GlEnd ();
+
 	}
 
 

@@ -1,4 +1,5 @@
 SUBDIRS = \
 	NeHe \
 	trackball \
-	rotate-buttons
+	rotate-buttons \
+	glade
