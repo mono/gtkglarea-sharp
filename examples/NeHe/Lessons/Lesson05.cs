@@ -1,6 +1,5 @@
 // created on 12/13/2005 at 1:51 PM
 using System;
-using System.Timers;
 
 using Gtk;
 using GtkSharp;
@@ -198,8 +197,6 @@ namespace NeHe.Lesson05
 		public static int Main (string[] argc)
 		{
 			Gtk.Application.Init ();
-			
-			System.Timers.Timer t = new System.Timers.Timer();
 			
 			Lesson05 l = new Lesson05();
 			
