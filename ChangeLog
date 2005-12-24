@@ -1,3 +1,7 @@
+2005-12-23  C.J. Collier  <cjcollier@colliertech.org>
+	* examples/: reorganized the examples that were there, added new ones
+
+	
 2005-12-13  C.J. Collier  <cjcollier@colliertech.org>
 
 	* configure.am: added Makefiles for NeHe examples
