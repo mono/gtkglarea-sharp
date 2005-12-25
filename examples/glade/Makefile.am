@@ -9,7 +9,7 @@ gladeTest.exe: $(srcdir)/gladeTest.cs $(srcdir)/../common/Teapot.cs $(srcdir)/..
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:gladeTest.exe \
-	-resource:glwidget.glade \
+	-resource:$(srcdir)/../common/glwidget.glade \
 		$(srcdir)/gladeTest.cs \
 		$(srcdir)/../common/Teapot.cs \
 		$(srcdir)/../common/GLWidget.cs

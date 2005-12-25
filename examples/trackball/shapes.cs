@@ -4,7 +4,8 @@ using GtkGL;
 
 using Tao.OpenGl;
 using gl=Tao.OpenGl.Gl;
-using Gl=Tao.OpenGl.Gl;
+
+using glu=Tao.OpenGl.Glu;
 
 public class foo
 {
@@ -106,8 +107,7 @@ public class foo
 			tb.add_quats(spinQuat, quat, ref quat);
 			
 			// Re-draw object with new spin
-			glarea.QueueDraw();
-			
+			glarea.QueueDraw();			
 		}
 		
 		// Reset the "old" X and Y positions
@@ -138,27 +138,30 @@ public class foo
 	static void OnExposed (object o, EventArgs e)
 	{
 		Console.WriteLine ("expose");
-		
-		// Find the rotation matrix based on our quaternion
-		float[] rotMatrix = new float[16];
-		tb.build_rotmatrix(ref rotMatrix, quat);
 
 		if (glarea.MakeCurrent() == 0)
 		  return;
+		  
+		// Find the rotation matrix based on our quaternion
+		float[] rotMatrix = new float[16];
+		tb.build_rotmatrix(ref rotMatrix, quat);		 
 
+		// Clear the scene
 		gl.glClear (gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);
 		
+		// Replace current matrix with the identity matrix
 		gl.glLoadIdentity ();
 		gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 		
 		// Rotate the matrix to the angle described by the quaternion
 		gl.glMultMatrixf(rotMatrix);
 
+		// Draw the contents of our shapeList
 		gl.glCallList (shapeList);
 				
+		// bring back buffer to front, put front buffer in back
 		glarea.SwapBuffers ();
 
-		//gld.GlEnd ();
 	}
 
 	static int shapeList;
@@ -174,10 +177,11 @@ public class foo
 
 		float[] materialSpecular = {1.0f, 1.0f, 1.0f, 0.15f};
 		float[] materialShininess = {100.0f};
-		float[] position = {1.5f, 1.5f, -3.5f, 0.5f};
+		float[] position = {-2.0f, 2.0f, 2.0f, 0.5f};
 
 		Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, materialSpecular);
 		Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);
+		
 		Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, position);
 
 		Gl.glFrontFace (Gl.GL_CW);
@@ -209,8 +213,10 @@ public class foo
 			
 		gl.glViewport (0, 0, glarea.Allocation.Width, glarea.Allocation.Height);
 
+		// Calculate The Aspect Ratio Of The Window
+		// http://www.opengl.org/documentation/specs/man_pages/hardcopy/GL/html/glu/perspective.html
+		glu.gluPerspective(45.0f,(float)glarea.Allocation.Width/(float)glarea.Allocation.Height,0.1f,100.0f);
+
 	}
-
-
-
+	
 }

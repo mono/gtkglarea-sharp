@@ -27,12 +27,21 @@ public class GlWidget {
 		
 		glArea.SetSizeRequest(300,300);
 		
+		connectHandlers();
+
+	}
+	
+	void connectHandlers()
+	{
+		glArea.Events |= 
+			Gdk.EventMask.VisibilityNotifyMask |
+			Gdk.EventMask.PointerMotionMask |
+			Gdk.EventMask.PointerMotionHintMask;
+		
 		glArea.ExposeEvent += OnExposed;
 		glArea.Realized += OnRealized;
 		glArea.SizeAllocated += OnSizeAllocated;
 		glArea.ConfigureEvent += OnConfigure;
-
-
 	}
 	
 	// This handler gets fired when the glArea widget is re-sized
@@ -50,16 +59,16 @@ public class GlWidget {
 		gl.glLoadIdentity();							// Reset The Projection Matrix
 
 		// Calculate The Aspect Ratio Of The Window
+		// http://www.opengl.org/documentation/specs/man_pages/hardcopy/GL/html/glu/perspective.html
 		glu.gluPerspective(45.0f,(float)width/(float)height,0.1f,100.0f);
 		
-		// 		glu.gluPerspective(45.0f,(float)width/(float)height,0.1f,100.0f);
-		gl.glMatrixMode(gl.GL_MODELVIEW);						// Select The Modelview Matrix
+		gl.glMatrixMode(gl.GL_MODELVIEW);				// Select The Modelview Matrix
 		gl.glLoadIdentity();							// Reset The Modelview Matrix
 		
 	}
 	
 	// Drawing of pretty objects happens here
-	void OnExposed (object o, EventArgs e)
+	protected void OnExposed (object o, EventArgs e)
 	{
 		Console.WriteLine ("expose");
 		
@@ -85,7 +94,7 @@ public class GlWidget {
 
 	}
 
-	int shapeList;
+	protected int shapeList;
 
 	// One-time configuration of opengl states happens here
 	void OnRealized (object o, EventArgs e)
@@ -113,7 +122,8 @@ public class GlWidget {
 		Gl.glEnable (Gl.GL_DEPTH_TEST);
 		Gl.glDepthFunc (Gl.GL_LEQUAL);
 		gl.glShadeModel (gl.GL_SMOOTH);
-		gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);			// Really Nice Perspective Calculations
+		// Really Nice Perspective Calculations
+		gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);
 		
 		shapeList = gl.glGenLists (1);
 
@@ -124,7 +134,7 @@ public class GlWidget {
 	}
 
 	// This handler gets fired when the glArea widget is re-sized
-	// This method is called "ReSizeGLScene" in the original lesson
+	// This method is called "ReSizeGLScene" in the NeHe lessons
 	void OnConfigure (object o, EventArgs e)
 	{	
 		if( glArea.MakeCurrent() == 0)

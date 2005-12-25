@@ -1,3 +1,27 @@
+2005-12-25  C.J. Collier  <cjcollier@colliertech.org>
+	* examples/trackball/shapes.cs:
+	- depricated this file.  Soon it will be svn rm'd
+	- Broke up the content into examples/common/GlWidget.cs, TrackballWidget.cs and trackballTest.cs
+	* examples/trackball/Makefile.am:
+	- Corrected the all: target
+	- made the trackballTest.exe target work
+	- fixed EXTRA_DIST and CLEANFILES
+	* examples/common/glwidget.glade:
+	- changed from glwidgets to glwidget
+	- removed silly frame
+	- removed statusbar
+	* examples/common/GLWidget.cs:
+	- created a connectHandlers() method that the handler connection code lives in now
+	- added a link to the gluPerspective() man page
+	- made OnExposed() a protected method so GLWidget's derived classes can remove it from the event queue
+	- shapeList is now protected so derived classes can fiddle with it
+	* examples/glade/glwidget.glade
+	- moved the file to common/glwidget.glade
+	* examples/glade/Makefile.am:
+	- changed glwidget.glade to ../shared/glwidget.glade
+	* examples/trackball/trackballTest.cs:
+	- simple wrapper around TrackballWidget.cs
+
 2005-12-23  C.J. Collier  <cjcollier@colliertech.org>
 	* examples/: reorganized the examples that were there, added new ones
 
