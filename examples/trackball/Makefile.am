@@ -16,6 +16,8 @@ trackballTest.exe: $(srcdir)/trackballTest.cs $(srcdir)/../common/Teapot.cs $(sr
 		$(srcdir)/../common/GLWidget.cs \
 		$(srcdir)/../common/Trackball.cs
 
-EXTRA_DIST = trackballTest.cs
+EXTRA_DIST = \
+	trackballTest.cs \
+	TrackballWidget.cs
 
 CLEANFILES = trackballTest.exe
