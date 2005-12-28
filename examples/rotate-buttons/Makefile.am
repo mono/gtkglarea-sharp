@@ -3,8 +3,7 @@ EXTRA_DIST = \
 	rotateButtonTest.cs
 
 CLEANFILES = \
-	rotateButtonTest.exe \
-	rotatebuttons.cs
+	rotateButtonTest.exe
 
 all: \
 	rotateButtonTest.exe \
