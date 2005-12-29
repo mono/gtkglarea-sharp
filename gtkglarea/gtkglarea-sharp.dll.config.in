@@ -1,5 +1,5 @@
 <configuration>
-<dllmap dll="libgtkgl-win32-2.0-0.dll" target="libgtkgl-2.0@LIB_PREFIX@.1@LIB_SUFFIX@" />
+<dllmap dll="libgtkglarea-win32-2.0-0.dll" target="libgtkgl-2.0@LIB_PREFIX@.1@LIB_SUFFIX@" />
 
 <dllmap dll="libGLU-0.dll" target="libGLU.so.0"/>
 <dllmap dll="libGL-0.dll" target="libGL.so.0"/>
