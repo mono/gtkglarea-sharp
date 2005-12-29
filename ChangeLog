@@ -1,3 +1,35 @@
+2005-12-29  C.J. Collier  <cjcollier@colliertech.org>
+	* examples/rotate-buttons/Teapot.cs
+	- Copied from ../shared
+	- Will be merged back in after changes are complete to new code
+	- Teapot is now implements IGLObject and inherits from GLObjectBase
+	- The teapot is drawn and cached by calling Init()
+	- We now know how to Draw() ourselves.
+	* examples/rotate-buttons/Rotation.cs
+	- copied from ../shared
+	- Will be merged back in after changes are complete to new code
+	- This is a convenient way to refer to a clockwise or c-clockwise rotation in any direction
+	* IGLObject.cs
+	- This is an interface intended to make GL Object creation easier: Today, Teapots.  Tomorrow the world.  Or quake modles, or whatever.
+	* examples/rotate-buttons/ObjectRotationButton.cs
+	- This is a widget that inherits from Gtk.Button.  It rotates a GLObject  in a GtkGL.Rotation direction when the button is clicked.
+	- It is also the next file to get some love from yours truly
+	* examples/rotate-buttons/GtkGLObjectBase.cs
+	- This is where methods common to all GLObjects will be implemented
+	- Also, common member variables are defined here
+	* examples/rotate-buttons/Makefile.am
+	- added rotateButtonTest.exe target
+	* examples/rotate-buttons/rotateButtonTest.md[ps]
+	- created MonoDevelop solution.  I don't think it works right now, but I will be maing it work in the futrue
+	* GLWidget.cs
+	- Copied from ../shared
+	- Will be merged back in after changes are complete to new code
+	- now inherits from GLArea
+	- we are now calling Teapot.Init() in order to build the teapot
+	- we are now calling Teapot.Draw() in order to draw the teapot
+	- GLWidget is now a GLArea, so we now use glw instead of glw.glArea
+	- there is a control widget.  Did I mention I updated ../common/glwidget.glade ?
+	
 2005-12-25  C.J. Collier  <cjcollier@colliertech.org>
 	* examples/trackball/shapes.cs:
 	- depricated this file.  Soon it will be svn rm'd

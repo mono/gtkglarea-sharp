@@ -6,17 +6,7 @@ using GtkGL;
 
 public class Engine
 {
-
-	System.Int32[] attrlist = {
-		    (int)GtkGL._GDK_GL_CONFIGS.Rgba,
-		    (int)GtkGL._GDK_GL_CONFIGS.RedSize,1,
-		    (int)GtkGL._GDK_GL_CONFIGS.GreenSize,1,
-		    (int)GtkGL._GDK_GL_CONFIGS.BlueSize,1,
-		    (int)GtkGL._GDK_GL_CONFIGS.DepthSize,1,
-		    (int)GtkGL._GDK_GL_CONFIGS.Doublebuffer,
-		    (int)GtkGL._GDK_GL_CONFIGS.None,
-		};
-		
+	
 	public static void Main (string[] args)
 	{
 		new Engine (args);
@@ -26,7 +16,7 @@ public class Engine
 	{
 		Application.Init ();
 		
-		GLWidget glw = new GLWidget(attrlist);
+		GLWidget glw = new GLWidget();
 		
 		buildControlWindow(glw);
 
