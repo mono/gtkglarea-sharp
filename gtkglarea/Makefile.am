@@ -58,6 +58,9 @@ uninstall-local:
 	echo "$(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS)"; \
         $(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS) || exit 1;
 
+CUSTOMS = \
+	GLArea.custom
+
 EXTRA_DIST = \
 	$(RAW_API) \
 	$(sources) \
@@ -65,4 +68,5 @@ EXTRA_DIST = \
 	$(METADATA) \
 	AssemblyInfo.cs.in \
 	gtkglarea-sharp.dll.config.in \
-	$(API)
+	$(API) \
+	$(CUSTOMS)
