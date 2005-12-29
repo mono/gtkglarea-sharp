@@ -1,6 +1,6 @@
 MCS=mcs
-RAW_API=gtkgl-api.raw
-API=gtkgl-api.xml
+RAW_API=gtkglarea-api.raw
+API=gtkglarea-api.xml
 METADATA=gtkglarea-sharp.metadata
 
 ASSEMBLY_NAME= gtkglarea-sharp

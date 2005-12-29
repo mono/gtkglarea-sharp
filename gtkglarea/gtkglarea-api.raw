@@ -6,7 +6,7 @@
         Please DO NOT MODIFY THIS FILE, modify .metadata files instead.
 
 -->
-  <namespace name="GtkGL" library="libgtkgl-win32-2.0-0.dll">
+  <namespace name="GtkGL" library="libgtkglarea-win32-2.0-0.dll">
     <enum name="_GDK_GL_CONFIGS" cname="_GDK_GL_CONFIGS" type="enum">
       <member cname="GDK_GL_NONE" name="None" />
       <member cname="GDK_GL_USE_GL" name="UseGl" value="1" />
