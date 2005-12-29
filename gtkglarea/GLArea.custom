@@ -1,7 +1,7 @@
 		[DllImport("libgtkglarea-win32-2.0-0.dll")]
 		static extern IntPtr gtk_gl_area_new(int[] attrList);
 
-		public GLArea (int[] attrList) : base (IntPtr.Zero)
+		public GLArea (System.Int32[] attrList) : base (IntPtr.Zero)
 		{
 			// C.J. Was Here.
 			Raw = gtk_gl_area_new(attrList);
