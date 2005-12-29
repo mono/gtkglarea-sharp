@@ -3,11 +3,12 @@ EXTRA_DIST = \
 	rotateButtonTest.cs
 
 CLEANFILES = \
-	rotateButtonTest.exe
+	rotateButtonTest.exe \
+	rotatebuttons.exe
 
 all: \
 	rotateButtonTest.exe \
-	rotatebuttons.cs
+	rotatebuttons.exe
 
 rotatebuttons.exe: \
 	$(srcdir)/rotatebuttons.cs \
@@ -17,7 +18,6 @@ rotatebuttons.exe: \
         -lib:@top_builddir@/gtkglarea \
         -r:gtkglarea-sharp.dll \
         -pkg:tao-opengl-glu \
-        -lib:$(GTKSHARP_PREFIX)/lib \
         -pkg:gtk-sharp-2.0 \
         -out:rotatebuttons.exe \
                 $(srcdir)/rotatebuttons.cs \
@@ -27,8 +27,11 @@ rotatebuttons.exe: \
 rotateButtonTest.exe: \
 	$(srcdir)/rotateButtonTest.cs \
 	$(srcdir)/Rotation.cs \
-	$(srcdir)/../common/Teapot.cs \
-	$(srcdir)/../common/Trackball.cs \
+	$(srcdir)/IGLObject.cs \
+	$(srcdir)/GLObjectBase.cs \
+	$(srcdir)/GLWidget.cs \
+	$(srcdir)/ObjectRotationButton.cs \
+	$(srcdir)/Teapot.cs \
 	$(srcdir)/../common/glwidget.glade
 	$(MCS) \
 	-lib:@top_builddir@/gtkglarea \
@@ -42,6 +45,8 @@ rotateButtonTest.exe: \
 		$(srcdir)/rotateButtonTest.cs \
 		$(srcdir)/Rotation.cs \
 		$(srcdir)/ObjectRotationButton.cs \
-		$(srcdir)/../common/GLWidget.cs \
-		$(srcdir)/../common/Teapot.cs
+		$(srcdir)/GLWidget.cs \
+		$(srcdir)/IGLObject.cs \
+		$(srcdir)/GLObjectBase.cs \
+		$(srcdir)/Teapot.cs
 

@@ -6,17 +6,27 @@ using GtkGL;
 
 public class Engine
 {
+
+	System.Int32[] attrlist = {
+		    (int)GtkGL._GDK_GL_CONFIGS.Rgba,
+		    (int)GtkGL._GDK_GL_CONFIGS.RedSize,1,
+		    (int)GtkGL._GDK_GL_CONFIGS.GreenSize,1,
+		    (int)GtkGL._GDK_GL_CONFIGS.BlueSize,1,
+		    (int)GtkGL._GDK_GL_CONFIGS.DepthSize,1,
+		    (int)GtkGL._GDK_GL_CONFIGS.Doublebuffer,
+		    (int)GtkGL._GDK_GL_CONFIGS.None,
+		};
+		
 	public static void Main (string[] args)
 	{
 		new Engine (args);
 	}
-	
 
 	public Engine (string[] args) 
 	{
 		Application.Init ();
 		
-		GlWidget glw = new GlWidget();
+		GLWidget glw = new GLWidget(attrlist);
 		
 		buildControlWindow(glw);
 
@@ -26,14 +36,14 @@ public class Engine
 		gxml.Autoconnect (this);
 		
 		Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
-		vbox1.PackStart( glw.glArea );
+		vbox1.PackStart( glw );
 		
-		glw.glArea.Show();
+		glw.Show();
 		
 		Application.Run ();
 	}
 	
-	void buildControlWindow(GlWidget glw)
+	void buildControlWindow(GtkGL.GLWidget glw)
 	{
 		Glade.XML controlXML = new Glade.XML (null, "glwidget.glade", "controlWindow", null);
 		
@@ -44,32 +54,50 @@ public class Engine
 		Gtk.Table t = (Gtk.Table)controlXML["table1"];
 				
 		ObjectRotationButton btnXMinus =
-			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button), glw.glArea, new GtkGL.Rotation(1, 1.0f, 0.0f, 0.0f));
+			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
+									 glw,
+									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 0.0f, 0.0f)
+									);
 
 		t.Attach(btnXMinus, 2, 3, 0, 1);
 		
 		ObjectRotationButton btnXPlus =
-			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button), glw.glArea, new GtkGL.Rotation(-1, 1.0f, 0.0f, 0.0f));
+			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
+									 glw,
+									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 1.0f, 0.0f, 0.0f)
+									);
 			
 		t.Attach(btnXPlus, 3, 4, 0, 1);
 
 		ObjectRotationButton btnYMinus =
-			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button), glw.glArea, new GtkGL.Rotation(1, 1.0f, 1.0f, 0.0f));
+			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
+									 glw,
+									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 1.0f, 0.0f)
+									);
 
 		t.Attach(btnYMinus, 2, 3, 1, 2);
 		
 		ObjectRotationButton btnYPlus =
-			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button), glw.glArea, new GtkGL.Rotation(-1, 1.0f, 1.0f, 0.0f));
+			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
+									 glw,
+									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 1.0f, 1.0f, 0.0f)
+									 );
 			
 		t.Attach(btnYPlus, 3, 4, 1, 2);
 		
 		ObjectRotationButton btnZMinus =
-			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button), glw.glArea, new GtkGL.Rotation(1, 1.0f, 0.0f, 1.0f));
+			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
+									 glw,
+									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 0.0f, 1.0f)
+									);
 
 		t.Attach(btnZMinus, 2, 3, 2, 3);
 		
 		ObjectRotationButton btnZPlus =
-			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button), glw.glArea, new GtkGL.Rotation(-1, 0.0f, 0.0f, 1.0f));
+			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
+									 glw,
+									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 0.0f, 0.0f, 1.0f)
+									 );
 			
 		t.Attach(btnZPlus, 3, 4, 2, 3);
 		

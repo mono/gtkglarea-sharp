@@ -4,12 +4,18 @@ namespace GtkGL {
     
     public class Rotation {
         
-        float xRot, yRot, zRot;
-        int angleMult;
+        public enum Direction {
+        	Clockwise,
+        	CounterClockwise
+        }
+
         
-        public Rotation(int am, float xr, float yr, float zr)
+        public float xRot, yRot, zRot;
+        public Direction dir;
+              
+        public Rotation(Direction d, float xr, float yr, float zr)
         {
-        	this.angleMult = am;
+        	this.dir  = d;
         	this.xRot = xr;
         	this.yRot = yr;
         	this.zRot = zr;
