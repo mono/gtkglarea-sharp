@@ -36,9 +36,11 @@ CLEANFILES = \
 	pre-api.stamp \
 	api-raw.stamp \
 	source.stamp \
-	$(RAW_API)
+	$(API)
 
 
 DISTCLEANFILES = \
 	$(CLEANFILES)
 
+EXTRA_DIST = \
+	$(RAW_API)
