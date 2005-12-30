@@ -180,7 +180,10 @@ namespace GtkGL {
 			  	else
 				    DoTeaPot (10, scale, gl.GL_LINE);
 			}
-
+			
+			// our Updated event handler
+			public event EventHandler Updated;
+			
 			// Cache the drawing of the object
 			public new void Init()
 			{
@@ -191,25 +194,36 @@ namespace GtkGL {
 					DrawTeapot(true, 0.5f);
 				gl.glEndList ();
 			}
-
-			public override bool Draw()
-			{		  		
-		  		gl.glCallList (shapeID);
-		  
-		  		return true;
-			}
 			
 			public void Rotate(float angle, GtkGL.Rotation rot)
 			{
-				int direction = 0;
-        	
-        		if(rot.dir == GtkGL.Rotation.Direction.Clockwise){
-	        		direction = -1;
-    	    	}else{
-    	    		direction = 1;
-    	    	}
+				base.Rotate(angle, rot);
+				        	
+	  			// Tell our handlers that we have been updated
+	  			if (Updated != null)
+		  			Updated (this, null);
+			}
 			
-				gl.glRotatef(direction * angle, rot.xRot, rot.yRot, rot.zRot);
+			public void ResetRotation()
+			{
+				base.ResetRotation();
+
+	  			// Tell our handlers that we have been updated
+	  			if (Updated != null)
+		  			Updated (this, null);
+			}
+
+			public bool Draw()
+			{
+				if(rotMatrix != null){
+					// Apply the rotation matrix
+					gl.glMultMatrixf(rotMatrix);
+				}
+				
+				// Draw the image from the display list
+		  		gl.glCallList (shapeID);
+		  		 
+		  		return true;
 			}
 
 			public Teapot()

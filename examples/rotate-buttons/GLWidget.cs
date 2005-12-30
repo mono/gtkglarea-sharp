@@ -25,14 +25,18 @@ namespace GtkGL {
 		
 		ArrayList GLObjectList;
 		
+		public void AddGLObject(IGLObject ob)
+		{
+			GLObjectList.Add(ob);
+			
+			ob.Updated += OnExposed;
+		}
+		
 		private void Init()
 		{
 			this.SetSizeRequest(300,300);
-		
-			GtkGL.Teapot teapot = new Teapot();
 			
 			GLObjectList = new ArrayList();
-			GLObjectList.Add(teapot);
 			
 			connectHandlers();
 		}

@@ -8,8 +8,7 @@ namespace GtkGL {
         	Clockwise,
         	CounterClockwise
         }
-
-        
+ 
         public float xRot, yRot, zRot;
         public Direction dir;
               

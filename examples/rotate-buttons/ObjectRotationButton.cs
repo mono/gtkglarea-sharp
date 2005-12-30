@@ -5,27 +5,25 @@ namespace GtkGL {
     public class ObjectRotationButton : Gtk.Button {
         
         private GtkGL.Rotation rotation;
-        private GtkGL.GLArea glArea;
+        private GtkGL.IGLObject glObject;
         private float rotAngle;
-        private float rotMult;
-        
+     
         private bool doRotate;
         
-        public ObjectRotationButton(GtkGL.GLArea glArea, GtkGL.Rotation rot) : base() {
-        	Init(glArea, rot);
+        public ObjectRotationButton(GtkGL.IGLObject glObject, GtkGL.Rotation rot) : base() {
+        	Init(glObject, rot);
         }
 
-        public ObjectRotationButton(Gtk.Widget widget, GtkGL.GLArea glArea, GtkGL.Rotation rot) : base(widget) {
-        	Init(glArea, rot);
+        public ObjectRotationButton(Gtk.Widget widget, GtkGL.IGLObject glObject, GtkGL.Rotation rot) : base(widget) {
+        	Init(glObject, rot);
         }
         
-        private void Init(GtkGL.GLArea glArea, GtkGL.Rotation rot)
+        private void Init(GtkGL.IGLObject glObject, GtkGL.Rotation rot)
         {
         	this.rotation = rot;
-        	this.glArea = glArea;
+        	this.glObject = glObject;
         	
-        	this.rotAngle = 0.0f;
-        	this.rotMult = 1.0f;
+        	this.rotAngle = 1.0f;
         	
         	this.Pressed += OnPressed;
 			this.Released += OnReleased;
@@ -43,16 +41,8 @@ namespace GtkGL {
         }
         
         bool RotateObject ()
-        {
-        	int direction = 0;
-        	
-        	if(this.rotation.dir == GtkGL.Rotation.Direction.Clockwise){
-        		direction = -1;
-        	}else{
-        		direction = 1;
-        	}
-        	
-        	rotAngle = (rotAngle % 360) + (rotMult * direction);
+        {        	
+        	glObject.Rotate(rotAngle, rotation);
         	
         	return doRotate;
         }

@@ -1,3 +1,53 @@
+2005-12-30  C.J. Collier  <cjcollier@colliertech.org>
+	Overview: Rotation on button click has (finally) been implemented.
+	IGLObject objects are required to have an Update EventHandler now.
+	Update is triggered when rotations are applied.  The same method
+	that the GLArea's OnExpose event handler fires off is now being
+	fired off by Teapot's Update EventHandler.  Thus: a) button is
+	pressed which b) rotates object which c) triggers the Update
+	handler, which d) draws the glarea, including the object
+	
+	* examples/rotate-buttons/Teapot.cs
+	- Created an EventHandler called Update which fires when object is rotated
+	- moved Draw() method.  It now applies the rotation matrix, if one exists
+	- Rotate() method now hands work off to base.Rotate() (GLObjectBase.cs)
+	- Rotate() method now fires off the Updated event
+	- added ResetRotation() method
+	- ResetRotation() method calls base.ResetRotation() and then fires the Updated handler
+	* examples/rotate-buttons/Rotation.cs
+	- uhm... added a newline
+	* examples/rotate-buttons/ObjectRotationButton.cs
+	- ObjectRotationButton now contains an object that implemts IGLObject instead of a GLArea
+	- the member variable is now called glObject instead of glArea
+	- removed rotMult member variable definition.  Should remove the variable, now that it's not used anymore.
+	- handing rotation code off to glObject.Rotate(rotAngle, rotation)
+	* examples/rotate-buttons/IGLObject.cs
+	- The interface now enforces the use of a Update event handler
+	- The interface now enforces the use of a ResetRotation() method
+	* examples/rotate-buttons/GLObjectBase.cs
+	- now using gl=Tao.OpenGl.Gl
+	- removed abstract Draw() method
+	- added a rotMatrix member variable
+	- the Rotate() method calculates a rotation matrix and stores it
+	in rotMatrix
+	- The rotMatrix can then be used when Draw() is called to rotate
+	the object as desired at draw time
+	- ResetRotation() merely sets the rotation matrix to null
+	* examples/rotate-buttons/Makefile.am
+	- added a bunch of .cs files to our EXTRA_DIST variable
+	* examples/rotate-buttons/GLWidget.cs
+	- created an AddGLObject(IGLObject ob) method
+	- This method adds the passed object to the widget's "associated"
+	object list
+	- removed teapot addition code from Init() (moved to
+	rotateButtonTest.cs
+	* examples/rotate-buttons/rotateButtonTest.cs
+	- in buildControlWindow(), the teapot is created and associated with the GLWidget
+	- ObjectRotationButton now takes an object that implements
+	IGLObject rather than a GLArea.  teapot is being passed now
+	instead of glw
+	
+
 2005-12-29  C.J. Collier  <cjcollier@colliertech.org>
 	* examples/rotate-buttons/Teapot.cs
 	- Copied from ../shared

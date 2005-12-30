@@ -17,7 +17,7 @@ public class Engine
 		Application.Init ();
 		
 		GLWidget glw = new GLWidget();
-		
+
 		buildControlWindow(glw);
 
 		Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);		
@@ -35,6 +35,11 @@ public class Engine
 	
 	void buildControlWindow(GtkGL.GLWidget glw)
 	{
+		GtkGL.Teapot teapot = new Teapot();
+	
+		// Add our Teapot to the GLWidget's GLObjectList (this should be made cleaner...)
+		glw.AddGLObject( teapot );
+	
 		Glade.XML controlXML = new Glade.XML (null, "glwidget.glade", "controlWindow", null);
 		
 		Gtk.Window controlWindow = (Gtk.Window)controlXML["controlWindow"];
@@ -45,7 +50,7 @@ public class Engine
 				
 		ObjectRotationButton btnXMinus =
 			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
-									 glw,
+									 teapot,
 									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 0.0f, 0.0f)
 									);
 
@@ -53,7 +58,7 @@ public class Engine
 		
 		ObjectRotationButton btnXPlus =
 			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
-									 glw,
+									 teapot,
 									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 1.0f, 0.0f, 0.0f)
 									);
 			
@@ -61,31 +66,31 @@ public class Engine
 
 		ObjectRotationButton btnYMinus =
 			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
-									 glw,
-									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 1.0f, 0.0f)
+									 teapot,
+									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 0.0f, 1.0f, 0.0f)
 									);
 
 		t.Attach(btnYMinus, 2, 3, 1, 2);
 		
 		ObjectRotationButton btnYPlus =
 			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
-									 glw,
-									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 1.0f, 1.0f, 0.0f)
+									 teapot,
+									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 0.0f, 1.0f, 0.0f)
 									 );
 			
 		t.Attach(btnYPlus, 3, 4, 1, 2);
 		
 		ObjectRotationButton btnZMinus =
 			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
-									 glw,
-									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 0.0f, 1.0f)
+									 teapot,
+									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 0.0f, 0.0f, 1.0f)
 									);
 
 		t.Attach(btnZMinus, 2, 3, 2, 3);
 		
 		ObjectRotationButton btnZPlus =
 			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
-									 glw,
+									 teapot,
 									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 0.0f, 0.0f, 1.0f)
 									 );
 			

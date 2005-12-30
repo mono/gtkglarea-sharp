@@ -1,6 +1,12 @@
 EXTRA_DIST = \
 	rotatebuttons.cs \
-	rotateButtonTest.cs
+	rotateButtonTest.cs \
+	IGLObject.cs \
+	GLObjectBase.cs \
+	GLWidget.cs \
+	Rotation.cs \
+	ObjectRotationButton.cs \
+	Teapot.cs
 
 CLEANFILES = \
 	rotateButtonTest.exe \
