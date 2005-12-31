@@ -23,9 +23,9 @@ namespace GtkGL {
         	int direction = 0;
         	
         	if(rot.dir == GtkGL.Rotation.Direction.Clockwise){
-        		direction = 1;
-        	}else{
         		direction = -1;
+        	}else{
+        		direction = 1;
         	}
         	
         	// Ensure that angle is not > 360.  That wouldn't make any sense :)

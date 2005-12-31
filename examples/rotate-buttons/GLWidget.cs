@@ -5,6 +5,7 @@ namespace GtkGL {
 
 	using Tao.OpenGl;
 
+	using Gtk;
 	using Gdk;
 
 	using gl=Tao.OpenGl.Gl;
@@ -27,20 +28,26 @@ namespace GtkGL {
 		
 		public void AddGLObject(IGLObject ob)
 		{
-			GLObjectList.Add(ob);
-			
 			ob.Updated += OnExposed;
+
+			GLObjectList.Add(ob);
 		}
 		
 		private void Init()
 		{
+			// The GL widget is a minimum of 300x300 pixels 
 			this.SetSizeRequest(300,300);
 			
+			// Initialize the GLObjectList
 			GLObjectList = new ArrayList();
 			
-			connectHandlers();
+			// Connect some other signals		
+			this.ExposeEvent += OnExposed;
+			this.Realized += OnRealized;
+			this.SizeAllocated += OnSizeAllocated;
+			this.ConfigureEvent += OnConfigure;
 		}
-
+		
 		public GLWidget() : base(attrlist) {
 			this.Init();
 		}
@@ -50,28 +57,17 @@ namespace GtkGL {
 			this.Init();			
 		}
 		
-		void connectHandlers()
-		{
-			this.Events |= 
-				Gdk.EventMask.VisibilityNotifyMask |
-				Gdk.EventMask.PointerMotionMask |
-				Gdk.EventMask.PointerMotionHintMask;
-			
-			this.ExposeEvent += OnExposed;
-			this.Realized += OnRealized;
-			this.SizeAllocated += OnSizeAllocated;
-			this.ConfigureEvent += OnConfigure;
-		}
-		
 		// This handler gets fired when the glArea widget is re-sized
 		void OnSizeAllocated (object o, Gtk.SizeAllocatedArgs e)
 		{
 			int height = e.Allocation.Height, width = e.Allocation.Width;
 			
+			// Avoid devide-by-zero error
 			if(height == 0){
 				height = 1;
 			}
 			
+			// Set our Viewport size
 			gl.glViewport(0, 0, width, height);
 			
 			gl.glMatrixMode(gl.GL_PROJECTION);				// Select The Projection Matrix
@@ -83,14 +79,11 @@ namespace GtkGL {
 			
 			gl.glMatrixMode(gl.GL_MODELVIEW);				// Select The Modelview Matrix
 			gl.glLoadIdentity();							// Reset The Modelview Matrix
-			
 		}
 		
 		// Drawing of pretty objects happens here
 		protected void OnExposed (object o, EventArgs e)
 		{
-			Console.WriteLine ("expose");
-			
 			if (this.MakeCurrent() == 0)
 			  return;
 			
@@ -105,7 +98,7 @@ namespace GtkGL {
 			gl.glLoadIdentity();
 			gl.glTranslatef(0.0f,0.0f,-3.0f);				// Move away from the drawing area 3.0
 			
-			// Draw the GLObjects in this GLArea
+			// Draw the GLObjects associated with this GLArea
 			System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
   	
   			while(enumerator.MoveNext()){
@@ -114,10 +107,7 @@ namespace GtkGL {
 					
 			// bring back buffer to front, put front buffer in back
 			this.SwapBuffers ();
-
 		}
-
-		protected int shapeList;
 
 		// One-time configuration of opengl states happens here
 		void OnRealized (object o, EventArgs e)
@@ -148,10 +138,10 @@ namespace GtkGL {
 			// Really Nice Perspective Calculations
 			gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);
 			
+			// Iterate over associated IGLObject objects, calling Init() on each
 			System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
   	
   			while(enumerator.MoveNext()){
-  				Console.WriteLine("Running Init() on objects...");
   				( (GtkGL.IGLObject) enumerator.Current ).Init();
   			}
 		}
@@ -163,8 +153,20 @@ namespace GtkGL {
 			if( this.MakeCurrent() == 0)
 				return;
 				
-			gl.glViewport (0, 0, this.Allocation.Width, this.Allocation.Height);
-			
+			gl.glViewport (0, 0, this.Allocation.Width, this.Allocation.Height);			
 		}
+		
+		// Bound in glwidget.glade		
+		private void OnQuit (object o, System.EventArgs e){
+			Application.Quit();
+		}
+
+		// Bound in glwidget.glade
+		private void OnWindowDeleteEvent (object sender, DeleteEventArgs a) 
+		{
+			Application.Quit ();
+			a.RetVal = true;
+		}
+
 	}
 }

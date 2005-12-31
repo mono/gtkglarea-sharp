@@ -18,7 +18,7 @@ namespace GtkGL {
   		
   		// Reset the rotation to the identity
   		void ResetRotation();
-  		
+  			
     }
     
 }

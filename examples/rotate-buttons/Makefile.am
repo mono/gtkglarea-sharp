@@ -48,9 +48,12 @@ rotateButtonTest.exe: \
 	-pkg:gtk-sharp-2.0 \
 	-out:rotateButtonTest.exe \
 	-resource:$(srcdir)/../common/glwidget.glade \
+	-resource:$(srcdir)/rotation-controller.glade \
+	-nowarn:0169 \
 		$(srcdir)/rotateButtonTest.cs \
 		$(srcdir)/Rotation.cs \
 		$(srcdir)/ObjectRotationButton.cs \
+		$(srcdir)/GLObjectRotationController.cs \
 		$(srcdir)/GLWidget.cs \
 		$(srcdir)/IGLObject.cs \
 		$(srcdir)/GLObjectBase.cs \

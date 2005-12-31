@@ -12,102 +12,41 @@ public class Engine
 		new Engine (args);
 	}
 
+	GLWidget glw;
+	GLObjectRotationController controller;
+
 	public Engine (string[] args) 
 	{
 		Application.Init ();
 		
-		GLWidget glw = new GLWidget();
+		// Create a new GL widget
+		glw = new GLWidget();
 
-		buildControlWindow(glw);
+   		// Create a new Teapot object
+		GtkGL.Teapot teapot = new Teapot();
 
-		Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);		
-
-		// Connect the Signals defined in Glade
-		gxml.Autoconnect (this);
+		// Create a controller that manages rotation of the Teapot object
+		controller = new GLObjectRotationController(teapot);
 		
-		Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
-		vbox1.PackStart( glw );
+		// Add our Teapot object to the GLWidget's list of associated GLObjects
+		glw.AddGLObject( teapot );
 		
+		// Read in the glade file that describes the widget layout
+        Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);
+
+        // Connect the Signals defined in Glade
+        gxml.Autoconnect ( glw );
+
+		// Pack the gl window into the vbox
+        Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
+        vbox1.PackStart ( glw );
+        
+		// Show the GL widget
 		glw.Show();
 		
+		// Go dog, go!
 		Application.Run ();
 	}
 	
-	void buildControlWindow(GtkGL.GLWidget glw)
-	{
-		GtkGL.Teapot teapot = new Teapot();
-	
-		// Add our Teapot to the GLWidget's GLObjectList (this should be made cleaner...)
-		glw.AddGLObject( teapot );
-	
-		Glade.XML controlXML = new Glade.XML (null, "glwidget.glade", "controlWindow", null);
-		
-		Gtk.Window controlWindow = (Gtk.Window)controlXML["controlWindow"];
-		
-		controlWindow.Visible = true;
-		
-		Gtk.Table t = (Gtk.Table)controlXML["table1"];
-				
-		ObjectRotationButton btnXMinus =
-			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
-									 teapot,
-									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 0.0f, 0.0f)
-									);
-
-		t.Attach(btnXMinus, 2, 3, 0, 1);
-		
-		ObjectRotationButton btnXPlus =
-			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
-									 teapot,
-									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 1.0f, 0.0f, 0.0f)
-									);
-			
-		t.Attach(btnXPlus, 3, 4, 0, 1);
-
-		ObjectRotationButton btnYMinus =
-			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
-									 teapot,
-									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 0.0f, 1.0f, 0.0f)
-									);
-
-		t.Attach(btnYMinus, 2, 3, 1, 2);
-		
-		ObjectRotationButton btnYPlus =
-			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
-									 teapot,
-									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 0.0f, 1.0f, 0.0f)
-									 );
-			
-		t.Attach(btnYPlus, 3, 4, 1, 2);
-		
-		ObjectRotationButton btnZMinus =
-			new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
-									 teapot,
-									 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 0.0f, 0.0f, 1.0f)
-									);
-
-		t.Attach(btnZMinus, 2, 3, 2, 3);
-		
-		ObjectRotationButton btnZPlus =
-			new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
-									 teapot,
-									 new GtkGL.Rotation(Rotation.Direction.Clockwise, 0.0f, 0.0f, 1.0f)
-									 );
-			
-		t.Attach(btnZPlus, 3, 4, 2, 3);
-		
-		controlWindow.ShowAll();
-
-	}
-	
-	private void OnQuit (object o, System.EventArgs e){
-		Application.Quit();
-	}
-
-	private void OnWindowDeleteEvent (object sender, DeleteEventArgs a) 
-	{
-		Application.Quit ();
-		a.RetVal = true;
-	}
 }
 

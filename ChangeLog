@@ -1,3 +1,42 @@
+2005-12-31  C.J. Collier  <cjcollier@colliertech.org>
+	Overview: Created an GLObjectRotationController, which encompases
+	the object rotation UI and the handlers associated with it.  This
+	controller contains ObjectRotationButton widgets; a Clockwise and
+	CounterClockwise button for each each axis, X, Y and Z.  The
+	GLObjectRotationController class was refactored out of
+	rotateButtonTest.cs and lives in GLObjectRotationController.cs.
+	Also, the object manipulation widgegt was refactored from the
+	glwidget.glade file into its own rotation-controller.glade file
+
+	* examples/rotate-buttons/Teapot.cs
+	- explicitly specified "new" in method signature.  Yes, we know
+	we're overriding.
+	* examples/rotate-buttons/GLObjectRotationController.cs
+	- created this file by refactoring code out of rotateButtonTest.cs
+	* IGLObject.cs: Newline changes
+	* GLObjectBase.cs
+	- swapped rotation directions.  Had CC-wise going C-wise and vice versa
+	* Makefile.am
+	- Mentioned new .cs and .glade files
+	* rotateButtonTest.mdp
+	- Mentioned new .cs and .glade files
+	* GLWidget.cs
+	- now using Gtk
+	- AddGLObject(): Added object to list *after* connecting handler
+	- Init(): added some comments
+	- Init(): moved handlers into Init() from connectHandlers()
+	- deleted connectHandlers()
+	- OnSizeAllocated(): added comment, removed newline
+	- OnExposed(): modified comment, removed debugging message
+	- OnRealized(): Added comment, removed debugging message
+	- added OnQuit(), OnWindowDeleteEvent() handlers to the class
+	* rotation-controller.glade: Created
+	* rotateButtonTest.cs
+	- created a member variable for the glw widget
+	- same for GLObjectRotationController object
+	- refactored GLObjectRotationController code into new class
+	- moved GLWidget-specific handlers into GLWidget
+
 2005-12-30  C.J. Collier  <cjcollier@colliertech.org>
 	Overview: Rotation on button click has (finally) been implemented.
 	IGLObject objects are required to have an Update EventHandler now.

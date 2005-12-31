@@ -25,6 +25,8 @@
     <File name="./GLWidget.cs" subtype="Code" buildaction="Compile" />
     <File name="./Teapot.cs" subtype="Code" buildaction="Compile" />
     <File name="./IGLObject.cs" subtype="Code" buildaction="Compile" />
+    <File name="./GLObjectRotationController.cs" subtype="Code" buildaction="Compile" />
+    <File name="./rotation-controller.glade" subtype="Code" buildaction="EmbedAsResource" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="Tao.OpenGl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1ca010269a4501ef" />

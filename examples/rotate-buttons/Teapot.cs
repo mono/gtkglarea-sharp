@@ -195,7 +195,7 @@ namespace GtkGL {
 				gl.glEndList ();
 			}
 			
-			public void Rotate(float angle, GtkGL.Rotation rot)
+			public new void Rotate(float angle, GtkGL.Rotation rot)
 			{
 				base.Rotate(angle, rot);
 				        	
@@ -204,7 +204,7 @@ namespace GtkGL {
 		  			Updated (this, null);
 			}
 			
-			public void ResetRotation()
+			public new void ResetRotation()
 			{
 				base.ResetRotation();
 
@@ -212,7 +212,7 @@ namespace GtkGL {
 	  			if (Updated != null)
 		  			Updated (this, null);
 			}
-
+			
 			public bool Draw()
 			{
 				if(rotMatrix != null){
