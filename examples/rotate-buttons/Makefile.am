@@ -5,7 +5,10 @@ EXTRA_DIST = \
 	GLObjectBase.cs \
 	GLWidget.cs \
 	Rotation.cs \
+	RotationUtil.cs \
 	ObjectRotationButton.cs \
+	GLObjectRotationController.cs \
+	rotation-controller.glade \
 	Teapot.cs
 
 CLEANFILES = \

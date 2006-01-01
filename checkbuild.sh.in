@@ -1,0 +1,39 @@
+./autogen.sh --prefix=$HOME/opt 
+if [ $? != 0 ]; then
+    exit 
+fi
+
+make dist-bzip2
+if [ $? != 0 ]; then
+    exit 
+fi
+
+pushd ../tmp
+
+rm -rf gtkglarea-sharp-@VERSION@
+
+tar xfj ../gtkglarea-sharp.build/gtkglarea-sharp-@VERSION@.tar.bz2
+if [ $? != 0 ]; then
+    exit 
+fi
+
+cd gtkglarea-sharp-@VERSION@
+if [ $? != 0 ]; then
+    exit 
+fi
+
+./configure --prefix=$HOME
+
+make
+if [ $? != 0 ]; then
+    exit 
+fi
+
+make uninstall
+
+make install
+if [ $? != 0 ]; then
+    exit 
+fi
+
+popd && echo 'Complete!'

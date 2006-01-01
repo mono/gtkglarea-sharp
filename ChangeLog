@@ -1,3 +1,52 @@
+2005-12-31T22:46  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Entry fields are now filled in when the buttons are
+	pressed.  Sort of.  There's a gimbal lock error causing strange
+	things to happen.  Try it out.  Please tell me if you know how to
+	fix it.
+
+	* rotate-buttons/GLObjectRotationController.cs
+
+	- Created a Hashtable called entryMap.  It maps between the keys,
+	'x', 'y', and 'z'.and the entry widgets (values) for X, Y and Z
+	rotation, respectively.  I think of this as a %hash variable in
+	perl (pseudocode shown here):
+
+	%entryMap = (
+	chr('x') => gtkglWidget("X rotation entry widget"),
+	chr('y') => gtkglWidget("Y rotation entry widget"),
+	chr('z') => gtkglWidget("Z rotation entry widget"),
+	);
+
+	! UpdateRotationValues()
+	- This handler is connected to the IGLObject's Updated event
+	- Every time the object fires an Updated event, the Euler
+	rotation angles are calculated from the internal representation of
+	the object's rotation (currently a rotation matrix, possibly in
+	the future a quaternion) and displayed in the appropriate entry
+	widget.
+	! GLObjectRotationController()
+	- connect afore-mentioned handler to the Updated signal
+	- create afore-mentioned entryMap
+	* rotate-buttons/IGLObject.cs
+	- corrected a comment
+	- add a method to the interface requirements called GetRotation()
+	that returns an euler rotation.  Perhaps it should be called
+	getEulerRotation() instead...  Please don't consider this part of
+	the API hard and fast.  Thanks.
+	* rotate-buttons/GLObjectBase.cs
+	- implemented above-mentioned GetRotation() method in this "base" class
+	* rotate-buttons/Makefile.am
+	- Added RotationUtil.cs and GLObjectRotationController.cs to the
+	prereqs list for rotateButtonTest.exe.  I should have caught the
+	latter sooner than I did.  But I haven't pushed a build in a
+	while, so it's okay :)
+	- added RotationUtil.cs to the mcs command line
+	* rotate-buttons/rotateButtonTest.mdp
+	- Added RotationUtil.cs to the mdp file
+		
+	
+
 2005-12-31  C.J. Collier  <cjcollier@colliertech.org>
 	Overview: Created an GLObjectRotationController, which encompases
 	the object rotation UI and the handlers associated with it.  This
