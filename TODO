@@ -1,3 +1,13 @@
-- in the rotate-buttons example, modification of the entry fields should rotate the object to the desired angle
-  * non-numeric values should be stricken and replaced with the previous value
+- in the rotate-buttons example, modification of the entry fields
+  should rotate the object to the desired angle
+  * non-numeric values should be stricken and replaced with the
+    previous value
   * angles >360 and <0 should be normalized
+
+- the common code in the examples/rotate-buttons example directory
+  should be merged back into examples/common
+  * and then that code should be used to re-implement the glade,
+    trackball and NeHe examples
+
+- Janne's LWO loader code should be used to create a new example for
+  loading lightwave models
