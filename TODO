@@ -1,0 +1,3 @@
+- in the rotate-buttons example, modification of the entry fields should rotate the object to the desired angle
+  * non-numeric values should be stricken and replaced with the previous value
+  * angles >360 and <0 should be normalized
