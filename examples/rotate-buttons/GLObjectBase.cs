@@ -52,6 +52,20 @@ namespace GtkGL {
 		{
 			rotMatrix = null;
 		}
+		
+		public EulerRotation GetRotation()
+		{
+			// If there is a rotation matrix, calculate the euler angles
+			if(rotMatrix != null)
+				return RotationUtil.RotMatrixToEuler(rotMatrix);
+			else{
+				// Otherwise, return a zeroed object
+				EulerRotation rot = new EulerRotation();
+				rot.x = rot.y = rot.z = 0.0f;
+				
+				return rot;
+			}
+		}
         
     }
     

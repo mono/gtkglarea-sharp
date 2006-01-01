@@ -33,10 +33,12 @@ rotatebuttons.exe: \
 rotateButtonTest.exe: \
 	$(srcdir)/rotateButtonTest.cs \
 	$(srcdir)/Rotation.cs \
+	$(srcdir)/RotationUtil.cs \
 	$(srcdir)/IGLObject.cs \
 	$(srcdir)/GLObjectBase.cs \
 	$(srcdir)/GLWidget.cs \
 	$(srcdir)/ObjectRotationButton.cs \
+	$(srcdir)/GLObjectRotationController.cs \
 	$(srcdir)/Teapot.cs \
 	$(srcdir)/../common/glwidget.glade
 	$(MCS) \
@@ -52,6 +54,7 @@ rotateButtonTest.exe: \
 	-nowarn:0169 \
 		$(srcdir)/rotateButtonTest.cs \
 		$(srcdir)/Rotation.cs \
+		$(srcdir)/RotationUtil.cs \
 		$(srcdir)/ObjectRotationButton.cs \
 		$(srcdir)/GLObjectRotationController.cs \
 		$(srcdir)/GLWidget.cs \

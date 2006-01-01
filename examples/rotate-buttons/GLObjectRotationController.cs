@@ -7,14 +7,38 @@ namespace GtkGL {
     	Glade.XML controlXML;
     	Gtk.Window controlWindow;
 		GtkGL.IGLObject glOb;    	
+        System.Collections.Hashtable entryMap;
+        
+        private void UpdateRotationValues(object o, EventArgs e)
+        {
+        	EulerRotation rot = glOb.GetRotation();
+        	
+        	((Gtk.Entry) entryMap['x']).Text = rot.x.ToString();
+        	((Gtk.Entry) entryMap['y']).Text = rot.y.ToString();
+        	((Gtk.Entry) entryMap['z']).Text = rot.z.ToString();
+        }
         
         public GLObjectRotationController(IGLObject glObject) {
         	// Set our member variable to the passed glObject
         	glOb = glObject;
         	
+        	// Update the Rotation values when the glOb is updated
+        	glOb.Updated += this.UpdateRotationValues;
+        	
         	// Grab the controlWindow widget from the glade xml
 			controlXML = new Glade.XML (null, "rotation-controller.glade", "controlWindow", null);
 			controlWindow = (Gtk.Window)controlXML["controlWindow"];
+
+        	// Make a map to these widgets
+        	entryMap = new System.Collections.Hashtable(3);
+        	
+        	foreach (char c in new char [] {'x', 'y', 'z'}) {
+        		string widgetName = c+"RotEntry";
+        		
+        		Gtk.Entry e = (Gtk.Entry) controlXML[widgetName];
+
+        		entryMap.Add(c, e);
+        	}
 			
 			// The controlWindow is hidden by default.  Make it visible
 			controlWindow.Visible = true;

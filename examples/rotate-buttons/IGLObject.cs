@@ -10,7 +10,7 @@ namespace GtkGL {
     	// A hook for initialization tasks
         void Init();
         
-        // Draw the object to the specified GLArea
+        // Draw the object
         bool Draw();
   		
   		// Rotate the object angle degrees in the rot direction
@@ -19,6 +19,8 @@ namespace GtkGL {
   		// Reset the rotation to the identity
   		void ResetRotation();
   			
+  		// Return the Euler rotation
+  		EulerRotation GetRotation();
     }
     
 }
