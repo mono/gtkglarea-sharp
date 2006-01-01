@@ -8,14 +8,34 @@ namespace GtkGL {
     	Gtk.Window controlWindow;
 		GtkGL.IGLObject glOb;    	
         System.Collections.Hashtable entryMap;
+        EulerRotation eRot;
         
         private void UpdateRotationValues(object o, EventArgs e)
         {
-        	EulerRotation rot = glOb.GetRotation();
+        	GtkGL.Rotation rotation = ( (GtkGL.ObjectRotationButton)o ).rotation;
+        	int direction = -1;
         	
-        	((Gtk.Entry) entryMap['x']).Text = rot.x.ToString();
-        	((Gtk.Entry) entryMap['y']).Text = rot.y.ToString();
-        	((Gtk.Entry) entryMap['z']).Text = rot.z.ToString();
+        	if(rotation.dir == Rotation.Direction.Clockwise){
+        		direction = 1;
+        	}
+        	
+        	eRot.x += (direction * rotation.xRot);
+        	eRot.y += (direction * rotation.yRot);
+        	eRot.z += (direction * rotation.zRot);
+        	
+        	UpdateEntryFields();
+        }
+        
+        public void UpdateEntryFields()
+        {
+        	// Normalize the values before displaying
+        	eRot.x = (eRot.x + 360) % 360;
+        	eRot.y = (eRot.y + 360) % 360;
+        	eRot.z = (eRot.z + 360) % 360;
+        
+        	((Gtk.Entry) entryMap['x']).Text = eRot.x.ToString();
+        	((Gtk.Entry) entryMap['y']).Text = eRot.y.ToString();
+        	((Gtk.Entry) entryMap['z']).Text = eRot.z.ToString();       	
         }
         
         public GLObjectRotationController(IGLObject glObject) {
@@ -23,7 +43,7 @@ namespace GtkGL {
         	glOb = glObject;
         	
         	// Update the Rotation values when the glOb is updated
-        	glOb.Updated += this.UpdateRotationValues;
+        	// glOb.Updated += this.UpdateRotationValues;
         	
         	// Grab the controlWindow widget from the glade xml
 			controlXML = new Glade.XML (null, "rotation-controller.glade", "controlWindow", null);
@@ -58,6 +78,7 @@ namespace GtkGL {
 										);
 
 			t.Attach(btnXMinus, 2, 3, 0, 1);
+			btnXMinus.Rotated += UpdateRotationValues;
 			
 
 			// Create a clockwise rotation (on the X axis) button and place it in the table
@@ -68,6 +89,7 @@ namespace GtkGL {
 										);
 				
 			t.Attach(btnXPlus, 3, 4, 0, 1);
+			btnXPlus.Rotated += UpdateRotationValues;
 
 			// Create a counter-clockwise rotation (on the Y axis) button and place it in the table
 			ObjectRotationButton btnYMinus =
@@ -77,6 +99,7 @@ namespace GtkGL {
 										);
 
 			t.Attach(btnYMinus, 2, 3, 1, 2);
+			btnYMinus.Rotated += UpdateRotationValues;
 			
 			// Create a clockwise rotation (on the Y axis) button and place it in the table
 			ObjectRotationButton btnYPlus =
@@ -86,6 +109,7 @@ namespace GtkGL {
 										 );
 				
 			t.Attach(btnYPlus, 3, 4, 1, 2);
+			btnYPlus.Rotated += UpdateRotationValues;
 			
 			// Create a counter-clockwise rotation (on the Z axis) button and place it in the table
 			ObjectRotationButton btnZMinus =
@@ -95,6 +119,7 @@ namespace GtkGL {
 										);
 
 			t.Attach(btnZMinus, 2, 3, 2, 3);
+			btnZMinus.Rotated += UpdateRotationValues;
 			
 			// Create a clockwise rotation (on the Z axis) button and place it in the table
 			ObjectRotationButton btnZPlus =
@@ -104,7 +129,8 @@ namespace GtkGL {
 										 );
 				
 			t.Attach(btnZPlus, 3, 4, 2, 3);
-
+			btnZPlus.Rotated += UpdateRotationValues;
+			
 			// Show the controlWindow and all of its children			
 			controlWindow.ShowAll();
         
@@ -113,6 +139,8 @@ namespace GtkGL {
         // The handler for the reset button
 		public void ResetRotationHandler(object o, System.EventArgs e)
 		{
+			eRot.x = eRot.y = eRot.z = 0.0f;
+			UpdateEntryFields();
 			glOb.ResetRotation();
 		}
 

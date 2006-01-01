@@ -1,3 +1,24 @@
+2006-01-01  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Completed writing code to update the entry fields when
+	the +/- buttons are pressed
+
+	* examples/NeHe/Lessons/Makefile
+	- Added our build testing script
+	* examples/rotate-buttons/GLObjectRotationController.cs
+	- Added an EulerRotation object to the class to keep track of the
+	rotations represented to the user
+	- re-bound to ObjectRotationButton's Rotated event instead of
+	IGLObject's Updated event
+	- now resetting the Euler rotation values and re-displaying when
+	the reset button is triggered.
+	* examples/rotate-buttons/ObjectRotationButton.cs
+	- made the rotation member public
+	- added a Rotated event
+	! RotateObjects()
+	- fire the Rotated event after the object has been rotated
+
+
 2005-12-31T22:46  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Entry fields are now filled in when the buttons are

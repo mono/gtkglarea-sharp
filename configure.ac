@@ -141,6 +141,7 @@ examples/NeHe/Makefile
 examples/NeHe/Lessons/Makefile
 sources/Makefile
 gtkglarea-sharp.pc
+checkbuild.sh
 ])
 
 echo "---"

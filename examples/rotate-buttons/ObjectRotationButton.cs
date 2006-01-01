@@ -4,7 +4,7 @@ namespace GtkGL {
     
     public class ObjectRotationButton : Gtk.Button {
         
-        private GtkGL.Rotation rotation;
+        public GtkGL.Rotation rotation;
         private GtkGL.IGLObject glObject;
         private float rotAngle;
      
@@ -40,9 +40,18 @@ namespace GtkGL {
         	doRotate = false;
         }
         
+        // our Rotated event handler
+		public event EventHandler Rotated;
+        
         bool RotateObject ()
-        {        	
+        {   
+
+			// Tell the glObject to rotate itself
         	glObject.Rotate(rotAngle, rotation);
+        	
+        	// Fire off our Rotated event
+        	if(Rotated != null)
+        		Rotated(this, null);
         	
         	return doRotate;
         }
