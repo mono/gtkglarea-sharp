@@ -10,6 +10,15 @@ namespace GtkGL {
         System.Collections.Hashtable entryMap;
         EulerRotation eRot;
         
+        /*
+        // This handler is attached to ObjectRotationButton's Rotated event.
+        // Every time the button modifies the object's rotation, the Rotated event fires.
+        // When the object's rotation is modified, we modify our copy of the object's rotation.
+        // TODO: I personally think that we should get the rotation data from the object directly,
+        // but this proves to be difficult, as I don't know how to convert from a rotation matrix
+        // to Euler angles without causing gimbal lock.  This will likely be changed when I find
+        // a work-around.
+        */
         private void UpdateRotationValues(object o, EventArgs e)
         {
         	GtkGL.Rotation rotation = ( (GtkGL.ObjectRotationButton)o ).rotation;
@@ -26,9 +35,41 @@ namespace GtkGL {
         	UpdateEntryFields();
         }
         
+        /*
+        // This handler is attached to the entry fields' Activated event
+        // When the user enters a new value and presses enter, this handler fires.
+        // TODO: I also need to attach the "tabbed out of" event to this method and do some
+        // final checks to make sure the current value is not the same as what "tabbed out of" 
+        */
+        private void UpdateObjectRotation(object o, EventArgs e)
+        {
+        	// Clear the rotation state, don't fire the Update handlers
+        	glOb.ResetRotation(false);
+        
+        	// Rotate the object based on our Euler angles
+        	
+        	// First on the X axis, don't fire the Update handlers
+        	Rotation tmpRot = new Rotation(Rotation.Direction.Clockwise, 1.0f, 0.0f, 0.0f);
+        	eRot.x = (float) Convert.ToSingle(((Gtk.Entry)entryMap['x']).Text.ToString());
+        	glOb.Rotate(eRot.x, tmpRot, false);
+        	
+        	// Then on the Y axis, don't fire the Update handlers
+        	tmpRot = new Rotation(Rotation.Direction.Clockwise, 0.0f, 1.0f, 0.0f);
+        	eRot.y = (float) Convert.ToSingle(((Gtk.Entry)entryMap['y']).Text.ToString());
+        	glOb.Rotate(eRot.y, tmpRot, false);
+        	
+        	// Then on the Z axis.  This time, fire the Update handlers
+        	tmpRot = new Rotation(Rotation.Direction.Clockwise, 0.0f, 0.0f, 1.0f);
+        	eRot.z = (float) Convert.ToSingle(((Gtk.Entry)entryMap['z']).Text.ToString());
+        	glOb.Rotate(eRot.z, tmpRot);
+        	
+        }
+        
+        // This method updates the values stored in the X, Y and Z entry fields.
+        // It is used more than once, so it gets its own handle :)
         public void UpdateEntryFields()
         {
-        	// Normalize the values before displaying
+        	// Normalize negative values before displaying
         	eRot.x = (eRot.x + 360) % 360;
         	eRot.y = (eRot.y + 360) % 360;
         	eRot.z = (eRot.z + 360) % 360;
@@ -38,13 +79,12 @@ namespace GtkGL {
         	((Gtk.Entry) entryMap['z']).Text = eRot.z.ToString();       	
         }
         
+        // The constructor.  Takes as its argument the glObject that it will control (and track)
+        // the rotation of
         public GLObjectRotationController(IGLObject glObject) {
         	// Set our member variable to the passed glObject
         	glOb = glObject;
-        	
-        	// Update the Rotation values when the glOb is updated
-        	// glOb.Updated += this.UpdateRotationValues;
-        	
+        	      	
         	// Grab the controlWindow widget from the glade xml
 			controlXML = new Glade.XML (null, "rotation-controller.glade", "controlWindow", null);
 			controlWindow = (Gtk.Window)controlXML["controlWindow"];
@@ -56,6 +96,13 @@ namespace GtkGL {
         		string widgetName = c+"RotEntry";
         		
         		Gtk.Entry e = (Gtk.Entry) controlXML[widgetName];
+        		
+        		// Align left
+        		e.Alignment = 0.0f;
+        		
+        		// When the user presses enter or tab, update the object's rotation
+        		e.Activated += UpdateObjectRotation;
+        		e.FocusOutEvent += UpdateObjectRotation;
 
         		entryMap.Add(c, e);
         	}

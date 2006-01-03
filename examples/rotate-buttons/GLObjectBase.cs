@@ -5,7 +5,7 @@ namespace GtkGL {
     using gl=Tao.OpenGl.Gl;
     
     abstract class GLObjectBase {
-    
+
         protected ArrayList GLAreaList = null;
         
         protected int shapeID;

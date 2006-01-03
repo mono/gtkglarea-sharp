@@ -3,6 +3,7 @@
 namespace GtkGL {
     using System;
     
+    // Rotation in degrees, positive or negative.  Normalized is range [0,359]
     public struct EulerRotation {
     	public float x, y, z;
     }

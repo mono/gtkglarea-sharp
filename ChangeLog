@@ -1,3 +1,28 @@
+2006-01-02  C.J. Collier  <cjcollier@colliertech.org>
+	
+	Overview: The entry fields may now be used to rotate the object as
+	well as the buttons.  They are updated when the buttons are
+	pressed, and if a number is entered into them, the object is
+	rotated to that angle
+
+	* examples/rotate-buttons/Teapot.cs
+	- added methods to rotate and reset rotation that take a third
+	argument which indicates whether or not the handler should be
+	fired
+	* examples/rotate-buttons/GLObjectRotationController.cs
+	- added lots of documentation
+	- added a method to update the rotation of the object based on the
+	values entered into the entry fields
+	- aligned numbers left
+	- added the UpdateObjectRotation method to the event object's
+	Activated and FocusOutEvent events
+	* examples/rotate-buttons/RotationUtil.cs
+	- documented the EulerRotation struct
+	* examples/rotate-buttons/IGLObject.cs
+	- added the method signatures for optional Updated event firing
+	* examples/rotate-buttons/GLObjectBase.cs
+	- whitespace
+	
 2006-01-01  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Completed writing code to update the entry fields when

@@ -2,7 +2,6 @@
   should rotate the object to the desired angle
   * non-numeric values should be stricken and replaced with the
     previous value
-  * angles >360 and <0 should be normalized
 
 - the common code in the examples/rotate-buttons example directory
   should be merged back into examples/common

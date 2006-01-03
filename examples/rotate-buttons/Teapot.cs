@@ -182,7 +182,7 @@ namespace GtkGL {
 			}
 			
 			// our Updated event handler
-			public event EventHandler Updated;
+			public new event EventHandler Updated;
 			
 			// Cache the drawing of the object
 			public new void Init()
@@ -195,12 +195,32 @@ namespace GtkGL {
 				gl.glEndList ();
 			}
 			
+			public void Rotate(float angle, GtkGL.Rotation rot, bool doUpdate)
+			{
+			
+				base.Rotate(angle, rot);
+				
+				// If the caller asked to have the update fired, fire it.
+				if(doUpdate && Updated != null)
+					Updated (this, null);
+			
+			}
+			
 			public new void Rotate(float angle, GtkGL.Rotation rot)
 			{
 				base.Rotate(angle, rot);
 				        	
 	  			// Tell our handlers that we have been updated
 	  			if (Updated != null)
+		  			Updated (this, null);
+			}
+			
+			public new void ResetRotation(bool doUpdate)
+			{
+				base.ResetRotation();
+
+	  			// Tell our handlers that we have been updated
+	  			if (doUpdate && Updated != null)
 		  			Updated (this, null);
 			}
 			
