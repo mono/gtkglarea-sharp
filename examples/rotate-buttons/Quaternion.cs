@@ -38,17 +38,35 @@ namespace GtkGL {
         
         public static Quaternion operator +(Quaternion q1, Quaternion q2)
         {
+        	Console.WriteLine("Attempting to add q1 to q2.");
         	if(q1 == null)
         		return q2;
         		
         	if(q2 == null)
         		return q1;
+        		
+        	Console.WriteLine("Neither are null.");
+        
+        	Console.WriteLine("q1 = [{0} {1} {2} {3}]",
+        					  Math.Round(q1.W, 4),
+        					  Math.Round(q1.X, 4),
+        					  Math.Round(q1.Y, 4),
+        					  Math.Round(q1.Z, 4) );
+
+          	Console.WriteLine("q2 = [{0} {1} {2} {3}]",
+        					  Math.Round(q2.W, 4),
+        					  Math.Round(q2.X, 4),
+        					  Math.Round(q2.Y, 4),
+        					  Math.Round(q2.Z, 4) );
+
         
         	Quaternion t1 = q1,
         			   t2 = q2,
         			   t3 = Quaternion.VCross(q1, q2),
         			   tf;
-        			   
+        	
+        	
+        	
         	t1.VScale(q2.Z);
         	t2.VScale(q1.Z);
         	t3 = Quaternion.VCross(q2, q1);
@@ -61,6 +79,12 @@ namespace GtkGL {
         		count = 0;
         		tf.Normalize();
         	}
+        	
+        	Console.WriteLine("sum = [{0} {1} {2} {3}]",
+        					  Math.Round(tf.W, 4),
+        					  Math.Round(tf.X, 4),
+        					  Math.Round(tf.Y, 4),
+        					  Math.Round(tf.Z, 4) );
         	
         	return tf;
         	
@@ -95,6 +119,14 @@ namespace GtkGL {
         	x *= factor;
         	y *= factor;
         	z *= factor;
+        }
+        
+        public Quaternion(float[] q)
+        {
+        	this.w = (double) q[0];
+        	this.x = (double) q[1];
+        	this.y = (double) q[2];
+        	this.z = (double) q[3];
         }
         
         public Quaternion(double[] q)

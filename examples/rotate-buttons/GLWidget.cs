@@ -24,7 +24,7 @@ namespace GtkGL {
 		    (int)GtkGL._GDK_GL_CONFIGS.None,
 		};
 		
-		ArrayList GLObjectList;
+		protected ArrayList GLObjectList;
 		
 		public void AddGLObject(IGLObject ob)
 		{
