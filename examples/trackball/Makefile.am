@@ -1,7 +1,19 @@
 all: trackballTest.exe
 
-trackballTest.exe: $(srcdir)/trackballTest.cs $(srcdir)/../common/Teapot.cs $(srcdir)/../common/Trackball.cs $(srcdir)/../common/GLWidget.cs $(srcdir)/TrackballWidget.cs
-	$(MCS) \
+
+
+trackballTest.exe: \
+	trackballTest.cs \
+	IGLObject.cs \
+	GLObjectBase.cs \
+	GLWidget.cs \
+	TrackballWidget.cs \
+	EulerRotation.cs \
+	Quaternion.cs \
+	RotationMatrix.cs \
+	glwidget.glade \
+	Teapot.cs
+	$(MCS) -debug \
 	-lib:@top_builddir@/gtkglarea \
 	-r:gtkglarea-sharp.dll \
 	-pkg:tao-opengl-glu \
@@ -9,12 +21,35 @@ trackballTest.exe: $(srcdir)/trackballTest.cs $(srcdir)/../common/Teapot.cs $(sr
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:trackballTest.exe \
-	-resource:$(srcdir)/../common/glwidget.glade \
-		$(srcdir)/trackballTest.cs \
-		$(srcdir)/TrackballWidget.cs \
-		$(srcdir)/../common/Teapot.cs \
-		$(srcdir)/../common/GLWidget.cs \
-		$(srcdir)/../common/Trackball.cs
+	-resource:$(srcdir)/glwidget.glade \
+		trackballTest.cs \
+		IGLObject.cs \
+		GLObjectBase.cs \
+		GLWidget.cs \
+		TrackballWidget.cs \
+		EulerRotation.cs \
+		Quaternion.cs \
+		RotationMatrix.cs \
+		Trackball.cs \
+		Teapot.cs
+
+EXTRA_DIST = \
+	trackballTest.cs \
+	IGLObject.cs \
+	GLObjectBase.cs \
+	GLWidget.cs \
+	TrackballWidget.cs \
+	EulerRotation.cs \
+	Quaternion.cs \
+	RotationMatrix.cs \
+	glwidget.glade \
+	Trackball.cs \
+	Teapot.cs
+
+CLEANFILES = \
+	trackballTest.exe \
+	rotateButtonTest.exe.mdb
+
 
 EXTRA_DIST = \
 	trackballTest.cs \

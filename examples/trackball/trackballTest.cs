@@ -3,6 +3,8 @@ using System;
 using Gtk;
 using Glade;
 
+using GtkGL;
+
 public class Engine
 {
 	public static void Main (string[] args)
@@ -10,23 +12,35 @@ public class Engine
 		new Engine (args);
 	}
 	
+	GtkGL.TrackballWidget glw;
 
 	public Engine (string[] args) 
 	{
 		Application.Init ();
 
+		// Create a new GL widget
+		glw = new TrackballWidget();
+		
+		// Create a new Teapot object
+		GtkGL.Teapot teapot = new Teapot();
+
+		// Add our Teapot object to the GLWidget's list of associated GLObjects
+		glw.AddGLObject( teapot );
+		
+		// Read in the glade file that describes the widget layout
 		Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);
 
 		// Connect the Signals defined in Glade
 		gxml.Autoconnect (this);
 		
-		GlWidget glw = new TrackballWidget();
+		// Pack the gl window into the vbox
+        Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
+        vbox1.PackStart ( glw );
 
-		Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
-		vbox1.PackStart( glw.glArea );
+		// Show the GL widget
+		glw.Show();
 		
-		glw.glArea.Show();
-		
+		// Go dog.  Go!
 		Application.Run ();
 	}
 	
