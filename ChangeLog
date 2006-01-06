@@ -1,3 +1,40 @@
+2006-01-06T15:17  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Applying new classes from rotate-buttons to this
+	example.  Linked to the new class files from ../rotate-buttons and
+	got a compiling version working.  Runtime errors, though.
+
+	* EulerRotation.cs
+	- created link
+	* trackballTest.cs
+	- There is now a class variable called glw
+	- Set glw to a new instance of TrackballWidget
+	- created a new Teapot
+	- added teapot to glw
+	- replaced glw.glArea with glw
+	* IGLObject.cs
+	- created link	
+	* TrackballWidget.cs
+	- replaced the float[] quat with a Quaternion
+	- replaced glArea. with this.
+	- placed into the GtkGL. namespace
+	- when OnMotionNotify is called, all glObjects associated with
+	this glArea get Rotate()d
+	- removed onExposed.  parent class will handle exposed event.
+	* GLObjectBase.cs
+	- created link	
+	* RotationMatrix.cs
+	- created link	
+	* Makefile.am
+	- re-structured to be like Makefile.am from ../rotation-buttons/
+	* Quaternion.cs
+	- created link	
+	* GLWidget.cs
+	- created link	
+
+
+	
+
 2006-01-06T12:06  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Fixed EulerRotation.ToRotationMatrix()
