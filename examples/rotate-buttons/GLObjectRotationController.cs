@@ -14,23 +14,10 @@ namespace GtkGL {
         // This handler is attached to ObjectRotationButton's Rotated event.
         // Every time the button modifies the object's rotation, the Rotated event fires.
         // When the object's rotation is modified, we modify our copy of the object's rotation.
-        // TODO: I personally think that we should get the rotation data from the object directly,
-        // but this proves to be difficult, as I don't know how to convert from a rotation matrix
-        // to Euler angles without causing gimbal lock.  This will likely be changed when I find
-        // a work-around.
         */
         private void UpdateRotationValues(object o, EventArgs e)
         {
-        	GtkGL.Rotation rotation = ( (GtkGL.ObjectRotationButton)o ).rotation;
-        	int direction = -1;
-        	
-        	if(rotation.dir == Rotation.Direction.Clockwise){
-        		direction = 1;
-        	}
-        	
-        	eRot.x += (direction * rotation.xRot);
-        	eRot.y += (direction * rotation.yRot);
-        	eRot.z += (direction * rotation.zRot);
+        	eRot = glOb.GetRotation();
         	
         	UpdateEntryFields();
         }
@@ -43,40 +30,47 @@ namespace GtkGL {
         */
         private void UpdateObjectRotation(object o, EventArgs e)
         {
+        	
         	// Clear the rotation state, don't fire the Update handlers
         	glOb.ResetRotation(false);
         
         	// Rotate the object based on our Euler angles
         	
-        	// First on the X axis, don't fire the Update handlers
-        	Rotation tmpRot = new Rotation(Rotation.Direction.Clockwise, 1.0f, 0.0f, 0.0f);
-        	eRot.x = (float) Convert.ToSingle(((Gtk.Entry)entryMap['x']).Text.ToString());
-        	glOb.Rotate(eRot.x, tmpRot, false);
-        	
-        	// Then on the Y axis, don't fire the Update handlers
-        	tmpRot = new Rotation(Rotation.Direction.Clockwise, 0.0f, 1.0f, 0.0f);
-        	eRot.y = (float) Convert.ToSingle(((Gtk.Entry)entryMap['y']).Text.ToString());
-        	glOb.Rotate(eRot.y, tmpRot, false);
-        	
-        	// Then on the Z axis.  This time, fire the Update handlers
-        	tmpRot = new Rotation(Rotation.Direction.Clockwise, 0.0f, 0.0f, 1.0f);
-        	eRot.z = (float) Convert.ToSingle(((Gtk.Entry)entryMap['z']).Text.ToString());
-        	glOb.Rotate(eRot.z, tmpRot);
+        	// Grab the current rotation from the object
+        	eRot = glOb.GetRotation();
+ 			
+ 			// Get the new values from the entry fields
+ 			float newX = Convert.ToSingle(((Gtk.Entry)entryMap['x']).Text.ToString());
+ 			float newY = Convert.ToSingle(((Gtk.Entry)entryMap['y']).Text.ToString());
+ 			float newZ = Convert.ToSingle(((Gtk.Entry)entryMap['z']).Text.ToString());
+ 			
+ 			// Create a new rotation from these values
+ 			GtkGL.EulerRotation newRot = new GtkGL.EulerRotation(newX,newY,newZ);
+ 			
+ 			// Find the difference between the two
+ 			GtkGL.EulerRotation diffRot = eRot - newRot;
+ 										
+        	// If the rotation has changed, apply it to the object
+        	if(diffRot != GtkGL.EulerRotation.Identity)
+        		glOb.Rotate(diffRot);
         	
         }
         
-        // This method updates the values stored in the X, Y and Z entry fields.
+        // This method updates the values stored in the X, Y and Z entry fields from the object's rotation
         // It is used more than once, so it gets its own handle :)
         public void UpdateEntryFields()
         {
+        	// Grab the current rotation
+        	eRot = glOb.GetRotation();
+        	
         	// Normalize negative values before displaying
-        	eRot.x = (eRot.x + 360) % 360;
-        	eRot.y = (eRot.y + 360) % 360;
-        	eRot.z = (eRot.z + 360) % 360;
+        	eRot.X = (eRot.X + 360) % 360;
+        	eRot.Y = (eRot.Y + 360) % 360;
+        	eRot.Z = (eRot.Z + 360) % 360;
         
-        	((Gtk.Entry) entryMap['x']).Text = eRot.x.ToString();
-        	((Gtk.Entry) entryMap['y']).Text = eRot.y.ToString();
-        	((Gtk.Entry) entryMap['z']).Text = eRot.z.ToString();       	
+        	((Gtk.Entry) entryMap['x']).Text = eRot.X.ToString();
+        	((Gtk.Entry) entryMap['y']).Text = eRot.Y.ToString();
+        	((Gtk.Entry) entryMap['z']).Text = eRot.Z.ToString();       	
         }
         
         // The constructor.  Takes as its argument the glObject that it will control (and track)
@@ -121,7 +115,7 @@ namespace GtkGL {
 			ObjectRotationButton btnXMinus =
 				new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
 										 glOb,
-										 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 1.0f, 0.0f, 0.0f)
+										 new GtkGL.EulerRotation(-1.0, 0.0, 0.0)
 										);
 
 			t.Attach(btnXMinus, 2, 3, 0, 1);
@@ -132,7 +126,7 @@ namespace GtkGL {
 			ObjectRotationButton btnXPlus =
 				new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
 										 glOb,
-										 new GtkGL.Rotation(Rotation.Direction.Clockwise, 1.0f, 0.0f, 0.0f)
+										 new GtkGL.EulerRotation(1.0, 0.0, 0.0)
 										);
 				
 			t.Attach(btnXPlus, 3, 4, 0, 1);
@@ -142,7 +136,7 @@ namespace GtkGL {
 			ObjectRotationButton btnYMinus =
 				new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
 										 glOb,
-										 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 0.0f, 1.0f, 0.0f)
+										 new GtkGL.EulerRotation(0.0, -1.0, 0.0)
 										);
 
 			t.Attach(btnYMinus, 2, 3, 1, 2);
@@ -152,7 +146,7 @@ namespace GtkGL {
 			ObjectRotationButton btnYPlus =
 				new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
 										 glOb,
-										 new GtkGL.Rotation(Rotation.Direction.Clockwise, 0.0f, 1.0f, 0.0f)
+										 new GtkGL.EulerRotation(0.0, 1.0, 0.0)
 										 );
 				
 			t.Attach(btnYPlus, 3, 4, 1, 2);
@@ -162,7 +156,7 @@ namespace GtkGL {
 			ObjectRotationButton btnZMinus =
 				new ObjectRotationButton(new Image(Stock.Remove, IconSize.Button),
 										 glOb,
-										 new GtkGL.Rotation(Rotation.Direction.CounterClockwise, 0.0f, 0.0f, 1.0f)
+										 new GtkGL.EulerRotation(0.0, 0.0, -1.0)
 										);
 
 			t.Attach(btnZMinus, 2, 3, 2, 3);
@@ -172,7 +166,7 @@ namespace GtkGL {
 			ObjectRotationButton btnZPlus =
 				new ObjectRotationButton(new Image(Stock.Add, IconSize.Button),
 										 glOb,
-										 new GtkGL.Rotation(Rotation.Direction.Clockwise, 0.0f, 0.0f, 1.0f)
+										 new GtkGL.EulerRotation(0.0, 0.0, 1.0)
 										 );
 				
 			t.Attach(btnZPlus, 3, 4, 2, 3);
@@ -186,7 +180,7 @@ namespace GtkGL {
         // The handler for the reset button
 		public void ResetRotationHandler(object o, System.EventArgs e)
 		{
-			eRot.x = eRot.y = eRot.z = 0.0f;
+			eRot.X = eRot.Y = eRot.Z = 0.0f;
 			UpdateEntryFields();
 			glOb.ResetRotation();
 		}

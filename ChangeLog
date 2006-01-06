@@ -1,3 +1,49 @@
+2006-01-06  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: GtkGL.Rotation has been deprecated.  Now replaced with
+	one of EulerRotation, Quaternion or RotationMatrix.  Replacing
+	float variables with double.  Let's see how this works...  Also,
+	turned on debugging symbols
+
+	* configure.ac
+	- bumped version to 0.0.8
+	* checkbuild.sh.in
+	- added command to push new version to colliertech.com/downloads/...
+	* examples/rotate-buttons/GLObjectRotationController.cs
+	- rather than storing a local copy, we get the rotation from the object
+	- using EulerRotation rather than Rotation
+	* examples/rotate-buttons/ObjectRotationButton.cs
+	- removed GtkGL.Rotation and replaced with GtkGL.EulerRotation
+	* examples/rotate-buttons/GLObjectBase.cs
+	- now using a GtkGL.RotationMatrix instead of a float[16]
+	- adding a GtkGL.EulerRotation and GtkGL.Quaternion for flavor
+	- added implementations of Rotate() that accept Quaternion,
+	EulerRotation and RotationMatrix
+	- removed the one that accepts GtkGL.Rotation
+	- ResetRotation sets the rotation to the identity rather than null
+	- GetRotation catches gimbal lock exception
+	- Instead of converting from RotationMatrix, it should return the local EulerRotation object.
+	* examples/rotate-buttons/RotationMatrix.cs
+	- Added file.  Represents a Rotation Matrix
+	* examples/rotate-buttons/Quaternion.cs
+	- Added file.  Represents a Quaternion
+	* examples/rotate-buttons/EulerRotation.cs
+	Added file.  Represents a Euler Rotation
+	* examples/rotate-buttons/Teapot.cs
+	- replaced Rotate() methods with new versions
+	- changed f to d in glMultMatrixf
+	* examples/rotate-buttons/RotationUtil.cs
+	- removed EulerRotation, since there is now a EulerRotation.cs
+	- using Accessors rather than hitting the member variables directly
+	* examples/rotate-buttons/IGLObject.cs
+	- replaced GtkGL.Rotation version of Rotate with Euler, Quat and Matrix
+	* examples/rotate-buttons/Makefile.am
+	- added Euler Quat and Matrix cs files
+	- added -debug to the mcs command line
+	* examples/rotate-buttons/rotateButtonTest.mdp
+	- added Euler Quat and Matrix cs files
+
+
 2006-01-02  C.J. Collier  <cjcollier@colliertech.org>
 	
 	Overview: The entry fields may now be used to rotate the object as

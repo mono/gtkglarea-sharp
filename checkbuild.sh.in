@@ -37,3 +37,5 @@ if [ $? != 0 ]; then
 fi
 
 popd && echo 'Complete!'
+
+scp gtkglarea-sharp-@VERSION@.tar.bz2 colliertech.org:/var/www/colliertech.com/htdocs/downloads/gtkglarea-sharp/

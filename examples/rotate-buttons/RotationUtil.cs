@@ -3,11 +3,6 @@
 namespace GtkGL {
     using System;
     
-    // Rotation in degrees, positive or negative.  Normalized is range [0,359]
-    public struct EulerRotation {
-    	public float x, y, z;
-    }
-    
     public class RotationUtil {
         
         private RotationUtil() {
@@ -50,9 +45,9 @@ namespace GtkGL {
     		
     		EulerRotation eRot = new EulerRotation();
     		
-    		eRot.x = angle_x;
-    		eRot.y = angle_y;
-    		eRot.z = angle_z;
+    		eRot.X = angle_x;
+    		eRot.Y = angle_y;
+    		eRot.Z = angle_z;
     		
     		return eRot;
         }

@@ -7,20 +7,22 @@ namespace GtkGL {
         public GtkGL.Rotation rotation;
         private GtkGL.IGLObject glObject;
         private float rotAngle;
+        
+        GtkGL.EulerRotation eRot;
      
         private bool doRotate;
         
-        public ObjectRotationButton(GtkGL.IGLObject glObject, GtkGL.Rotation rot) : base() {
+        public ObjectRotationButton(GtkGL.IGLObject glObject, GtkGL.EulerRotation rot) : base() {
         	Init(glObject, rot);
         }
 
-        public ObjectRotationButton(Gtk.Widget widget, GtkGL.IGLObject glObject, GtkGL.Rotation rot) : base(widget) {
+        public ObjectRotationButton(Gtk.Widget widget, GtkGL.IGLObject glObject, GtkGL.EulerRotation rot) : base(widget) {
         	Init(glObject, rot);
         }
         
-        private void Init(GtkGL.IGLObject glObject, GtkGL.Rotation rot)
+        private void Init(GtkGL.IGLObject glObject, GtkGL.EulerRotation rot)
         {
-        	this.rotation = rot;
+        	this.eRot = rot;
         	this.glObject = glObject;
         	
         	this.rotAngle = 1.0f;
@@ -44,10 +46,9 @@ namespace GtkGL {
 		public event EventHandler Rotated;
         
         bool RotateObject ()
-        {   
-
+        {
 			// Tell the glObject to rotate itself
-        	glObject.Rotate(rotAngle, rotation);
+        	glObject.Rotate(eRot);
         	
         	// Fire off our Rotated event
         	if(Rotated != null)

@@ -12,12 +12,12 @@ namespace GtkGL {
         
         // Draw the object
         bool Draw();
-        
-        // Rotate the object 'angle' degrees in the 'rot' direction, and fire the 'Updated' handlers if 'doUpdate'
-        void Rotate(float angle, GtkGL.Rotation rot, bool doUpdate);
-  		  		
-  		// Rotate the object angle degrees in the rot direction
-  		void Rotate(float angle, GtkGL.Rotation rot);
+
+  		// Rotate the object by passing a quaternion
+  		void Rotate(GtkGL.Quaternion quat);
+  		
+  		// Rotate the object by passing an Euler rotation
+  		void Rotate(GtkGL.EulerRotation eRot);
   		
   		// Reset the rotation to the identity, and fire the 'Updated' handlers if 'doUpdate'
   		void ResetRotation(bool doUpdate);

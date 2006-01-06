@@ -195,22 +195,20 @@ namespace GtkGL {
 				gl.glEndList ();
 			}
 			
-			public void Rotate(float angle, GtkGL.Rotation rot, bool doUpdate)
+			public new void Rotate(GtkGL.Quaternion quat)
 			{
-			
-				base.Rotate(angle, rot);
+				base.Rotate(quat);
 				
-				// If the caller asked to have the update fired, fire it.
-				if(doUpdate && Updated != null)
-					Updated (this, null);
-			
+				// Tell our handlers that we have been updated
+	  			if (Updated != null)
+		  			Updated (this, null);
 			}
 			
-			public new void Rotate(float angle, GtkGL.Rotation rot)
+			public new void Rotate(GtkGL.EulerRotation eRot)
 			{
-				base.Rotate(angle, rot);
-				        	
-	  			// Tell our handlers that we have been updated
+				base.Rotate(eRot);
+				
+				// Tell our handlers that we have been updated
 	  			if (Updated != null)
 		  			Updated (this, null);
 			}
@@ -237,7 +235,7 @@ namespace GtkGL {
 			{
 				if(rotMatrix != null){
 					// Apply the rotation matrix
-					gl.glMultMatrixf(rotMatrix);
+					gl.glMultMatrixd(rotMatrix.Matrix);
 				}
 				
 				// Draw the image from the display list
