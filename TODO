@@ -1,3 +1,6 @@
+- Find a way around the gimbal lock problems in rotation-buttons
+example
+
 - in the rotate-buttons example, modification of the entry fields
   should rotate the object to the desired angle
   * non-numeric values should be stricken and replaced with the
