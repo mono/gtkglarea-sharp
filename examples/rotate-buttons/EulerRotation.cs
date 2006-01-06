@@ -23,17 +23,20 @@ namespace GtkGL {
         public static EulerRotation operator +(EulerRotation rot1, EulerRotation rot2)
         {
         	if(rot1 == null)
-        		return rot2;
-        		
-        	if(rot2 == null)
+        		if(rot2 == null)
+        			return null;
+        		else
+        			return rot2;
+       		
+       		if(rot2 == null)
         		return rot1;
         
         	EulerRotation newRotation = new EulerRotation(0.0, 0.0, 0.0);
-        	
+
         	newRotation.X = ( (rot1.X + rot2.X) % 360 );
         	newRotation.Y = ( (rot1.Y + rot2.Y) % 360 );
         	newRotation.Z = ( (rot1.Z + rot2.Z) % 360 );
-        	
+
         	return newRotation;
         }
         
@@ -138,15 +141,19 @@ namespace GtkGL {
         		
         	double[] matrix = GtkGL.RotationMatrix.Identity.Matrix;
         	
-        	// Assuming the angles are in radians.
-		    double ch = Math.Cos(x);
-		    double sh = Math.Sin(x);
+        	// Convert to radians
+        	double Xradians = x * 2 * Math.PI / 360.0;
+        	double Yradians = y * 2 * Math.PI / 360.0;
+        	double Zradians = z * 2 * Math.PI / 360.0;
+        	
+		    double ch = Math.Cos(Xradians);
+		    double sh = Math.Sin(Xradians);
 		    
-		    double ca = Math.Cos(y);
-		    double sa = Math.Sin(y);
+		    double ca = Math.Cos(Yradians);
+		    double sa = Math.Sin(Yradians);
 		    
-		    double cb = Math.Cos(z);
-		    double sb = Math.Sin(z);
+		    double cb = Math.Cos(Zradians);
+		    double sb = Math.Sin(Zradians); 
 
 		    matrix[0*4 + 0] = ch * ca;
 		    matrix[0*4 + 1] = sh*sb - ch*sa*cb;

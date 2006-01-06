@@ -14,10 +14,14 @@ namespace GtkGL {
         // This handler is attached to ObjectRotationButton's Rotated event.
         // Every time the button modifies the object's rotation, the Rotated event fires.
         // When the object's rotation is modified, we modify our copy of the object's rotation.
+        // TODO: I personally think that we should get the rotation data from the object directly,
+        // but this proves to be difficult, as I don't know how to convert from a rotation matrix
+        // to Euler angles without causing gimbal lock.  This will likely be changed when I find
+        // a work-around.
         */
         private void UpdateRotationValues(object o, EventArgs e)
         {
-        	eRot = glOb.GetRotation();
+        	eRot = glOb.GetEulerRotation();
         	
         	UpdateEntryFields();
         }
@@ -37,7 +41,7 @@ namespace GtkGL {
         	// Rotate the object based on our Euler angles
         	
         	// Grab the current rotation from the object
-        	eRot = glOb.GetRotation();
+        	eRot = glOb.GetEulerRotation();
  			
  			// Get the new values from the entry fields
  			float newX = Convert.ToSingle(((Gtk.Entry)entryMap['x']).Text.ToString());
@@ -50,7 +54,8 @@ namespace GtkGL {
  			// Find the difference between the two
  			GtkGL.EulerRotation diffRot = eRot - newRot;
  										
-        	// If the rotation has changed, apply it to the object
+        	// If the rotation has changed, create a quaternion from the Euler rotation
+        	// and apply it to the object
         	if(diffRot != GtkGL.EulerRotation.Identity)
         		glOb.Rotate(diffRot);
         	
@@ -61,7 +66,7 @@ namespace GtkGL {
         public void UpdateEntryFields()
         {
         	// Grab the current rotation
-        	eRot = glOb.GetRotation();
+        	eRot = glOb.GetEulerRotation();
         	
         	// Normalize negative values before displaying
         	eRot.X = (eRot.X + 360) % 360;

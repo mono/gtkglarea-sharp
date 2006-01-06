@@ -11,6 +11,18 @@ namespace GtkGL {
     		set { if(value.Length == 16) matrix = value; }
     	}
     	
+    	        
+        public static RotationMatrix operator +(RotationMatrix m1, RotationMatrix m2)
+        {
+        	double[] newRot = new double[16];
+        	
+        	for(int i = 0; i < 16; i++){
+        		newRot[i] = m1.Matrix[i] + m2.Matrix[i];
+        	}
+        	
+        	return new GtkGL.RotationMatrix(newRot);
+        }
+    	
         void Clear()
         {
         	matrix = new double[16];

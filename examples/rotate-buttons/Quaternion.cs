@@ -26,6 +26,12 @@ namespace GtkGL {
         	set { w = value; if(Updated != null) Updated(this, null); }
         	get { return w; }
         }
+        
+        static Quaternion identity = null;
+        
+        public static Quaternion Identity {
+        	get { if (identity == null) identity = new Quaternion(0,0,0,1); return identity; }
+        }
                
         const int RENORMCOUNT = 97;
         static int count = 0;

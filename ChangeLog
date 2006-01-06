@@ -1,3 +1,30 @@
+2006-01-06T12:06  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Fixed EulerRotation.ToRotationMatrix()
+	
+	* examples/rotate-buttons/GLObjectRotationController.cs
+	- remove TODO from GLObjectRotationController.cs (complete)
+	- Created Get*Rotation, for Euler, Quaternion and Matrix
+	- fixed docs
+	* examples/rotate-buttons/ObjectRotationButton.cs
+	- added bools to make sure the handlers aren't connected >1 times
+	* examples/rotate-buttons/RotationMatrix.cs
+	- Added an operator + for RotationMatrix objects
+	* examples/rotate-buttons/GLObjectBase.cs
+	- made setting of euler, matrix, quat an atomic action
+	- cleaned up the Rotate() methods
+	- ResetRotation sets eRot to EulerRotation.Identity()
+	- added Get*Rotation() methods
+	* examples/rotate-buttons/Quaternion.cs
+	- added an Identity property
+	* examples/rotate-buttons/EulerRotation.cs
+	- added Get
+	- cleaned up the null test in operator +
+	- fixed the ToRotationMatrix() method
+	* examples/rotate-buttons/IGLObject.cs
+	- added Get*Rotation to the interface
+
+
 2006-01-06  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: GtkGL.Rotation has been deprecated.  Now replaced with

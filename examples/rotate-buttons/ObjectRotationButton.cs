@@ -20,15 +20,23 @@ namespace GtkGL {
         	Init(glObject, rot);
         }
         
+        bool pressedConnected = false;
+        bool releasedConnected = false;
+        
         private void Init(GtkGL.IGLObject glObject, GtkGL.EulerRotation rot)
         {
         	this.eRot = rot;
         	this.glObject = glObject;
-        	
-        	this.rotAngle = 1.0f;
-        	
-        	this.Pressed += OnPressed;
-			this.Released += OnReleased;
+        	       	
+        	if(pressedConnected == false){
+        		this.Pressed += OnPressed;
+        		pressedConnected = true;
+        	}
+        		
+        	if(releasedConnected == false){
+				this.Released += OnReleased;
+				releasedConnected = true;
+			}
         }
         
         void OnPressed (object o, System.EventArgs e)

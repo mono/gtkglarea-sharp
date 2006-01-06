@@ -14,77 +14,98 @@ namespace GtkGL {
         protected GtkGL.EulerRotation eRot = null;
         protected GtkGL.Quaternion quat = null;
         
+        // Make setting of euler, quat and matrix an atomic action
+        private GtkGL.EulerRotation ERot {
+        	get { return eRot; }
+        	set {
+        		if(value == null)
+        			eRot = GtkGL.EulerRotation.Identity;
+        		else
+        			eRot = value;
+        	
+        		eRot = value;
+        		quat = eRot.ToQuaternion();
+        		rotMatrix = eRot.ToRotMatrix();
+        	}
+        }
+        
+        // Make setting of euler, quat and matrix an atomic action
+        private GtkGL.Quaternion Quat {
+        	get { return quat; }
+        	set {
+        		if(value == null)
+        			quat = GtkGL.Quaternion.Identity;
+        		else
+        			quat = value;
+
+        		eRot = quat.ToEulerRotation();
+        		rotMatrix = quat.ToRotMatrix();
+        	}
+        }
+        
+        // Make setting of euler, quat and matrix an atomic action
+        private GtkGL.RotationMatrix RotMatrix {
+        	get { return rotMatrix; }
+        	set {
+        		if(value == null)
+        			rotMatrix = GtkGL.RotationMatrix.Identity;
+				else
+        			rotMatrix = value;
+        		
+        		eRot = rotMatrix.ToEulerRotation();
+        		quat = rotMatrix.ToQuaternion();
+        	}
+        }
+        
         public void Rotate(GtkGL.Quaternion q)
         {
-        	eRot += q.ToEulerRotation();
-        	quat += q;
-        	
-        	Rotate(q.ToRotMatrix());
+        	Quat += q;
         }
         
         public void Rotate(GtkGL.EulerRotation er)
         {
-			quat += er.ToQuaternion();
-			eRot += er;
-			
-			Rotate(er.ToRotMatrix());
+			ERot += er;	
         }
         
         
         public void Rotate(GtkGL.RotationMatrix rm)
         {
-        	// We're going to operate on the modelview matrix
-			gl.glMatrixMode(gl.GL_MODELVIEW_MATRIX);
-			
-			// First, save the current state by pushing a new matrix onto the stack
-        	gl.glPushMatrix();
-        	
-        	// Then clear the newly pushed matrix so we have a clean slate to work with
-      		gl.glLoadIdentity();
-
-			// Rotate by the matrix passed
-			gl.glMultMatrixd(rm.Matrix);
-        	
-			// If there is already a rotation, we will apply it as well
-        	if(rotMatrix != null)
-        		gl.glMultMatrixd(rotMatrix.Matrix);
-        	
-        	// Create a temporary rotation matrix (4x4)
-        	double[] newRM = new double[16];
-        	
-        	// Get the value of our rotated matrix
-        	gl.glGetDoublev(gl.GL_MODELVIEW_MATRIX, newRM);
-        	
-        	// Assign that value to our object's rotMatrix object
-        	rotMatrix.Matrix = newRM;
-        	
-        	// Pop the head off of the matrix stack, since we're done fiddling.
-        	gl.glPopMatrix();
-
+        	RotMatrix += rm;
         }
         
 		public void ResetRotation()
 		{
-			rotMatrix = GtkGL.RotationMatrix.Identity;
+			ERot = GtkGL.EulerRotation.Identity;
 		}
 		
-		public EulerRotation GetRotation()
+		public EulerRotation GetEulerRotation()
 		{
-			// If there is a rotation matrix, calculate the euler angles
-			if(rotMatrix != null){
-				GtkGL.EulerRotation er = null;
+			if(eRot != null)
+				return eRot;
 
-				try {
-					er = rotMatrix.ToEulerRotation();
-				}catch(GtkGL.EulerRotation.GimbalLock gl){
-					Console.WriteLine("Caught Gimbal Lock!");
-					er = rotMatrix.ToQuaternion().ToEulerRotation();
-				}
+			ERot = GtkGL.EulerRotation.Identity;
+
+			return ERot; 
+		}
+		
+		public Quaternion GetQuaternion()
+		{
+			if(quat != null)
+				return quat;
+			
+			Quat = GtkGL.Quaternion.Identity;
+			
+			return Quat;
+		}
+		
+		public RotationMatrix GetRotationMatrix()
+		{
+			if(rotMatrix != null)
+				return rotMatrix;
 				
-				return er;
-			}
-			else
-				return GtkGL.EulerRotation.Identity;
+			RotMatrix = GtkGL.RotationMatrix.Identity;
+			
+			return RotMatrix;
 		}
         
     }

@@ -25,8 +25,14 @@ namespace GtkGL {
   		// Reset the rotation to the identity
   		void ResetRotation();
   			
-  		// Return the Euler rotation
-  		EulerRotation GetRotation();
+  		// Return the rotation as Euler angles
+  		EulerRotation GetEulerRotation();
+  		
+  		// Return the rotation as a Quaternion
+  		Quaternion GetQuaternion();
+  		
+  		// Return the RotationMatrix
+  		RotationMatrix GetRotationMatrix();
     }
     
 }
