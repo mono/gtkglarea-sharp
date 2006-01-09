@@ -59,7 +59,7 @@ namespace GtkGL {
         
         public void Rotate(GtkGL.Quaternion q)
         {
-        	Quat += q;
+        	Quat *= q;
         }
         
         public void Rotate(GtkGL.EulerRotation er)

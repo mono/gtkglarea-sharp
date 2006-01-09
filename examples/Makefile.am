@@ -3,4 +3,5 @@ SUBDIRS = \
 	trackball \
 	rotate-buttons \
 	glade \
-	common
+	resources \
+	util

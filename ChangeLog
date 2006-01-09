@@ -1,3 +1,37 @@
+2006-01-09  C.J. Collier  <cjcollier@colliertech.org>
+	* examples/trackball/Vector.cs
+	- New link to ../rotate-buttons/Vector.cs
+	* examples/trackball/TrackballWidget.cs
+	- removed debug print statements
+	* examples/trackball/Makefile.am
+	- Added Vector.cs
+	* examples/trackball/trackballTest.mdp
+	- re-structured for new code
+	* examples/GtkGlAreaSharpExamples.mds
+	- removed old project
+	- added new projects
+	! moved common to util:
+	examples/common
+	examples/common/Teapot.cs
+	examples/common/glwidget.glade
+	examples/common/Trackball.cs
+	examples/common/Makefile.am
+	examples/common/GLWidget.cs
+	* examples/rotate-buttons/GLObjectBase.cs
+	- changed += to *=
+	* examples/rotate-buttons/Quaternion.cs
+	- shortened line
+	- changed operator+ to operator*
+	- re-wrote operator* based on Vector code
+	- removed Vector-specific code and placed in Vector.cs
+	* examples/rotate-buttons/Vector.cs
+	- Moved vector-specific code from Quaternion.cs to Vector.cs
+	* examples/resources
+	- created a directory to contain images and glade-ish things
+	* examples/util
+	- renamed common to util
+
+
 2006-01-06T15:17  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Applying new classes from rotate-buttons to this

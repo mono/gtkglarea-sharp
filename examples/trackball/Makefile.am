@@ -10,6 +10,7 @@ trackballTest.exe: \
 	TrackballWidget.cs \
 	EulerRotation.cs \
 	Quaternion.cs \
+	Vector.cs \
 	RotationMatrix.cs \
 	glwidget.glade \
 	Teapot.cs
@@ -29,9 +30,31 @@ trackballTest.exe: \
 		TrackballWidget.cs \
 		EulerRotation.cs \
 		Quaternion.cs \
+		Vector.cs \
 		RotationMatrix.cs \
 		Trackball.cs \
 		Teapot.cs
+
+EXTRA_DIST = \
+	rotatebuttons.cs \
+	rotateButtonTest.cs \
+	IGLObject.cs \
+	GLObjectBase.cs \
+	GLWidget.cs \
+	Rotation.cs \
+	EulerRotation.cs \
+	Quaternion.cs \
+	RotationMatrix.cs \
+	RotationUtil.cs \
+	ObjectRotationButton.cs \
+	GLObjectRotationController.cs \
+	rotation-controller.glade \
+	Teapot.cs
+
+CLEANFILES = \
+	trackballTest.exe \
+	trackballTest.exe.mdb
+
 
 EXTRA_DIST = \
 	trackballTest.cs \
@@ -41,18 +64,9 @@ EXTRA_DIST = \
 	TrackballWidget.cs \
 	EulerRotation.cs \
 	Quaternion.cs \
+	Vector.cs \
 	RotationMatrix.cs \
 	glwidget.glade \
 	Trackball.cs \
 	Teapot.cs
 
-CLEANFILES = \
-	trackballTest.exe \
-	rotateButtonTest.exe.mdb
-
-
-EXTRA_DIST = \
-	trackballTest.cs \
-	TrackballWidget.cs
-
-CLEANFILES = trackballTest.exe

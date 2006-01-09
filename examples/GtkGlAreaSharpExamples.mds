@@ -1,16 +1,20 @@
 <Combine name="GtkGlAreaSharpExamples" fileversion="2.0">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
-      <Entry configuration="Debug" build="True" name="teapot" />
+      <Entry configuration="Debug" build="True" name="rotateButtonTest" />
+      <Entry configuration="Debug" build="True" name="trackballTest" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
-      <Entry configuration="Release" build="True" name="teapot" />
+      <Entry configuration="Debug" build="True" name="rotateButtonTest" />
+      <Entry configuration="Debug" build="True" name="trackballTest" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="teapot" single="True">
-    <Execute type="None" entry="teapot" />
+    <Execute type="None" entry="rotateButtonTest" />
+    <Execute type="None" entry="trackballTest" />
   </StartMode>
   <Entries>
-    <Entry filename="./GtkGlAreaSharpExamples.mdp" />
+    <Entry filename="./rotate-buttons/rotateButtonTest.mdp" />
+    <Entry filename="./trackball/trackballTest.mdp" />
   </Entries>
 </Combine>

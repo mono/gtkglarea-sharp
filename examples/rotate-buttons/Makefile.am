@@ -7,6 +7,7 @@ EXTRA_DIST = \
 	Rotation.cs \
 	EulerRotation.cs \
 	Quaternion.cs \
+	Vector.cs \
 	RotationMatrix.cs \
 	RotationUtil.cs \
 	ObjectRotationButton.cs \
@@ -26,8 +27,8 @@ all: \
 
 rotatebuttons.exe: \
 	$(srcdir)/rotatebuttons.cs \
-	$(srcdir)/../common/Teapot.cs \
-	$(srcdir)/../common/Trackball.cs
+	$(srcdir)/../util/Teapot.cs \
+	$(srcdir)/../util/Trackball.cs
 	$(MCS) -debug \
         -lib:@top_builddir@/gtkglarea \
         -r:gtkglarea-sharp.dll \
@@ -35,14 +36,15 @@ rotatebuttons.exe: \
         -pkg:gtk-sharp-2.0 \
         -out:rotatebuttons.exe \
                 $(srcdir)/rotatebuttons.cs \
-                $(srcdir)/../common/Teapot.cs \
-                $(srcdir)/../common/Trackball.cs
+                $(srcdir)/../util/Teapot.cs \
+                $(srcdir)/../util/Trackball.cs
 
 rotateButtonTest.exe: \
 	$(srcdir)/rotateButtonTest.cs \
 	$(srcdir)/Rotation.cs \
 	$(srcdir)/EulerRotation.cs \
 	$(srcdir)/Quaternion.cs \
+	$(srcdir)/Vector.cs \
 	$(srcdir)/RotationMatrix.cs \
 	$(srcdir)/RotationUtil.cs \
 	$(srcdir)/IGLObject.cs \
@@ -51,7 +53,7 @@ rotateButtonTest.exe: \
 	$(srcdir)/ObjectRotationButton.cs \
 	$(srcdir)/GLObjectRotationController.cs \
 	$(srcdir)/Teapot.cs \
-	$(srcdir)/../common/glwidget.glade
+	$(srcdir)/../resources/glwidget.glade
 	$(MCS) -debug \
 	-lib:@top_builddir@/gtkglarea \
 	-r:gtkglarea-sharp.dll \
@@ -60,13 +62,14 @@ rotateButtonTest.exe: \
 	-pkg:glade-sharp-2.0 \
 	-pkg:gtk-sharp-2.0 \
 	-out:rotateButtonTest.exe \
-	-resource:$(srcdir)/../common/glwidget.glade \
+	-resource:$(srcdir)/../resources/glwidget.glade \
 	-resource:$(srcdir)/rotation-controller.glade \
 	-nowarn:0169 \
 		$(srcdir)/rotateButtonTest.cs \
 		$(srcdir)/Rotation.cs \
 		$(srcdir)/EulerRotation.cs \
 		$(srcdir)/Quaternion.cs \
+		$(srcdir)/Vector.cs \
 		$(srcdir)/RotationMatrix.cs \
 		$(srcdir)/RotationUtil.cs \
 		$(srcdir)/ObjectRotationButton.cs \

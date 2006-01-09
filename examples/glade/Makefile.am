@@ -1,6 +1,6 @@
 all: gladeTest.exe
 
-gladeTest.exe: $(srcdir)/gladeTest.cs $(srcdir)/../common/Teapot.cs $(srcdir)/../common/GLWidget.cs
+gladeTest.exe: $(srcdir)/gladeTest.cs $(srcdir)/../util/Teapot.cs $(srcdir)/../util/GLWidget.cs
 	$(MCS) \
 	-lib:@top_builddir@/gtkglarea \
 	-r:gtkglarea-sharp.dll \
@@ -9,10 +9,10 @@ gladeTest.exe: $(srcdir)/gladeTest.cs $(srcdir)/../common/Teapot.cs $(srcdir)/..
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:gladeTest.exe \
-	-resource:$(srcdir)/../common/glwidget.glade \
+	-resource:$(srcdir)/../resources/glwidget.glade \
 		$(srcdir)/gladeTest.cs \
-		$(srcdir)/../common/Teapot.cs \
-		$(srcdir)/../common/GLWidget.cs
+		$(srcdir)/../util/Teapot.cs \
+		$(srcdir)/../util/GLWidget.cs
 
 
 EXTRA_DIST = \

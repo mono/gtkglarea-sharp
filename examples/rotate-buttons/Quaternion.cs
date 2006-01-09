@@ -30,96 +30,43 @@ namespace GtkGL {
         static Quaternion identity = null;
         
         public static Quaternion Identity {
-        	get { if (identity == null) identity = new Quaternion(0,0,0,1); return identity; }
+        		get {
+	        		if (identity == null)
+	        			identity =
+	        				new Quaternion(0,0,0,1);
+	        				
+	        		return identity;
+    	    		}
         }
                
         const int RENORMCOUNT = 97;
         static int count = 0;
         
-        public static Quaternion operator +(Quaternion q1, Quaternion q2)
+        public static Quaternion operator *(Quaternion q1, Quaternion q2)
         {
-        	Console.WriteLine("Attempting to add q1 to q2.");
-        	if(q1 == null)
-        		return q2;
+        	if(q1 == null) return null;
         		
-        	if(q2 == null)
-        		return q1;
-        		
-        	Console.WriteLine("Neither are null.");
-        
-        	Console.WriteLine("q1 = [{0} {1} {2} {3}]",
-        					  Math.Round(q1.W, 4),
-        					  Math.Round(q1.X, 4),
-        					  Math.Round(q1.Y, 4),
-        					  Math.Round(q1.Z, 4) );
+        	if(q2 == null) return null;
 
-          	Console.WriteLine("q2 = [{0} {1} {2} {3}]",
-        					  Math.Round(q2.W, 4),
-        					  Math.Round(q2.X, 4),
-        					  Math.Round(q2.Y, 4),
-        					  Math.Round(q2.Z, 4) );
-
-        
-        	Quaternion t1 = q1,
-        			   t2 = q2,
-        			   t3 = Quaternion.VCross(q1, q2),
-        			   tf;
+        	Vector v1 = new Vector(q1.x, q1.y, q1.z);
+        	Vector v2 = new Vector(q2.x, q2.y, q2.z);
         	
+        	double angle = ((q1.w * q2.w) - Vector.Dot(v1, v2));
         	
+        	Vector cross = Vector.Cross(v1, v2);
         	
-        	t1.VScale(q2.Z);
-        	t2.VScale(q1.Z);
-        	t3 = Quaternion.VCross(q2, q1);
+        	v1 *= q2.w;
+        	v2 *= q1.w;
         	
-        	tf = Quaternion.VAdd(t1,t2);
-        	tf = Quaternion.VAdd(t3,tf);
-        	tf.Z = (q1.Z * q2.Z) - Quaternion.VDot(q1, q2); 
-        	
-        	if (++count > RENORMCOUNT) {
-        		count = 0;
-        		tf.Normalize();
-        	}
-        	
-        	Console.WriteLine("sum = [{0} {1} {2} {3}]",
-        					  Math.Round(tf.W, 4),
-        					  Math.Round(tf.X, 4),
-        					  Math.Round(tf.Y, 4),
-        					  Math.Round(tf.Z, 4) );
-        	
-        	return tf;
-        	
+        	Quaternion result = new Quaternion(angle,
+        									  (v1.x + v2.x + cross.x),
+        									  (v1.y + v2.y + cross.y),
+        									  (v1.z + v2.z + cross.z)
+							  				  );
+ 
+			return result;
         }
         
-        private static Quaternion VCross(Quaternion q1, Quaternion q2)
-        {
-        	return new Quaternion( (q1.X * q2.Y) - (q1.Y * q2.X),
-        						   (q1.Y * q2.W) - (q1.W * q2.Y),
-        						   (q1.W * q2.X) - (q1.X * q2.W),
-        						   0
-        						   );
-        									 
-        }
-        
-        private static Quaternion VAdd(Quaternion q1, Quaternion q2)
-        {
-        	return new Quaternion( q1.W + q2.W,
-        						   q1.X + q2.X,
-        						   q1.Y + q2.Y,
-        						   0
-        						   );
-        }
-        
-        private static double VDot(Quaternion q1, Quaternion q2)
-        {
-        	return (q1.W * q2.W) + (q1.X * q2.X) + (q1.Y * q2.Y);
-        }
-        
-        private void VScale(double factor)
-        {
-        	x *= factor;
-        	y *= factor;
-        	z *= factor;
-        }
         
         public Quaternion(float[] q)
         {

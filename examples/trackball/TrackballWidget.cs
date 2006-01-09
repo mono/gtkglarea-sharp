@@ -61,8 +61,6 @@ namespace GtkGL {
 	  		}
 				
 			if(button1Pressed == true){
-				Console.WriteLine("Dragging...");
-				
 				// Create a quaternion based on the mouse movement
 				float[] spinQuat = new float[4];
 				tb.trackball(ref spinQuat,
@@ -99,7 +97,6 @@ namespace GtkGL {
 		
 		void OnButtonPress (object o, Gtk.ButtonPressEventArgs e)
 		{
-			Console.WriteLine("Button Pressed!");
 			if(e.Event.Button == 1){
 				button1Pressed = true;
 				
@@ -112,7 +109,6 @@ namespace GtkGL {
 		
 		void OnButtonRelease (object o, Gtk.ButtonReleaseEventArgs e)
 		{
-			Console.WriteLine("Button Released!");
 			if(e.Event.Button == 1){
 				button1Pressed = false;
 			}
