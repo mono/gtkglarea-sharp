@@ -1,63 +1,32 @@
-EXTRA_DIST = \
-	rotatebuttons.cs \
-	rotateButtonTest.cs \
-	IGLObject.cs \
-	GLObjectBase.cs \
-	GLWidget.cs \
-	Rotation.cs \
-	EulerRotation.cs \
-	Quaternion.cs \
-	Vector.cs \
-	RotationMatrix.cs \
-	RotationUtil.cs \
-	ObjectRotationButton.cs \
+SOURCE_FILES = \
 	GLObjectRotationController.cs \
-	rotation-controller.glade \
-	Teapot.cs
+	ObjectRotationButton.cs \
+	rotateButtonTest.cs	
+
+EXTRA_DIST = \
+	$(SOURCE_FILES) \
+	rotation-controller.glade
 
 CLEANFILES = \
 	rotateButtonTest.exe \
-	rotatebuttons.exe \
 	rotateButtonTest.exe.mdb \
-	rotatebuttons.exe.mdb
+	rotateButtonTest.pidb
 
-all: \
-	rotateButtonTest.exe \
-	rotatebuttons.exe
+all: 	rotateButtonTest.exe
 
-rotatebuttons.exe: \
-	$(srcdir)/rotatebuttons.cs \
-	$(srcdir)/../util/Teapot.cs \
-	$(srcdir)/../util/Trackball.cs
-	$(MCS) -debug \
-        -lib:@top_builddir@/gtkglarea \
-        -r:gtkglarea-sharp.dll \
-        -pkg:tao-opengl-glu \
-        -pkg:gtk-sharp-2.0 \
-        -out:rotatebuttons.exe \
-                $(srcdir)/rotatebuttons.cs \
-                $(srcdir)/../util/Teapot.cs \
-                $(srcdir)/../util/Trackball.cs
+run: rotateButtonTest.exe
+	MONO_PATH=$(srcdir)/../util mono rotateButtonTest.exe
+
 
 rotateButtonTest.exe: \
-	$(srcdir)/rotateButtonTest.cs \
-	$(srcdir)/Rotation.cs \
-	$(srcdir)/EulerRotation.cs \
-	$(srcdir)/Quaternion.cs \
-	$(srcdir)/Vector.cs \
-	$(srcdir)/RotationMatrix.cs \
-	$(srcdir)/RotationUtil.cs \
-	$(srcdir)/IGLObject.cs \
-	$(srcdir)/GLObjectBase.cs \
-	$(srcdir)/GLWidget.cs \
-	$(srcdir)/ObjectRotationButton.cs \
-	$(srcdir)/GLObjectRotationController.cs \
-	$(srcdir)/Teapot.cs \
+	$(SOURCE_FILES) \
 	$(srcdir)/../resources/glwidget.glade
 	$(MCS) -debug \
 	-lib:@top_builddir@/gtkglarea \
-	-r:gtkglarea-sharp.dll \
 	-lib:$(GTKSHARP_PREFIX)/lib \
+	-lib:$(srcdir)/../util \
+	-r:gtkglarea-sharp.dll \
+	-r:gtkglarea-sharp-util.dll \
 	-pkg:tao-opengl-glu \
 	-pkg:glade-sharp-2.0 \
 	-pkg:gtk-sharp-2.0 \
@@ -65,17 +34,4 @@ rotateButtonTest.exe: \
 	-resource:$(srcdir)/../resources/glwidget.glade \
 	-resource:$(srcdir)/rotation-controller.glade \
 	-nowarn:0169 \
-		$(srcdir)/rotateButtonTest.cs \
-		$(srcdir)/Rotation.cs \
-		$(srcdir)/EulerRotation.cs \
-		$(srcdir)/Quaternion.cs \
-		$(srcdir)/Vector.cs \
-		$(srcdir)/RotationMatrix.cs \
-		$(srcdir)/RotationUtil.cs \
-		$(srcdir)/ObjectRotationButton.cs \
-		$(srcdir)/GLObjectRotationController.cs \
-		$(srcdir)/GLWidget.cs \
-		$(srcdir)/IGLObject.cs \
-		$(srcdir)/GLObjectBase.cs \
-		$(srcdir)/Teapot.cs
-
+	$(SOURCE_FILES)

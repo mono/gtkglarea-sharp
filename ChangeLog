@@ -1,3 +1,10 @@
+2006-01-10  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Moved common code into examples/util/ and compiled them
+	down to a gtkglarea-sharp-util.dll file.  I added a make run entry
+	for each of the examples, since they require a modification to the
+	MONO_PATH environment variable.
+
 2006-01-09  C.J. Collier  <cjcollier@colliertech.org>
 	* examples/trackball/Vector.cs
 	- New link to ../rotate-buttons/Vector.cs

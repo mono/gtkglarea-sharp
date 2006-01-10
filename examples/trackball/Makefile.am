@@ -1,55 +1,28 @@
+SOURCE_FILES = \
+	trackballTest.cs \
+	TrackballWidget.cs \
+	Trackball.cs
+
 all: trackballTest.exe
 
-
+run: trackballTest.exe
+	MONO_PATH=$(srcdir)/../util mono trackballTest.exe
 
 trackballTest.exe: \
-	trackballTest.cs \
-	IGLObject.cs \
-	GLObjectBase.cs \
-	GLWidget.cs \
-	TrackballWidget.cs \
-	EulerRotation.cs \
-	Quaternion.cs \
-	Vector.cs \
-	RotationMatrix.cs \
-	glwidget.glade \
-	Teapot.cs
+	$(SOURCE_FILES) \
+	$(srcdir)/../resources/glwidget.glade
 	$(MCS) -debug \
 	-lib:@top_builddir@/gtkglarea \
+	-lib:$(srcdir)/../util \
 	-r:gtkglarea-sharp.dll \
+	-r:gtkglarea-sharp-util.dll \
 	-pkg:tao-opengl-glu \
 	-lib:$(GTKSHARP_PREFIX)/lib \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:trackballTest.exe \
-	-resource:$(srcdir)/glwidget.glade \
-		trackballTest.cs \
-		IGLObject.cs \
-		GLObjectBase.cs \
-		GLWidget.cs \
-		TrackballWidget.cs \
-		EulerRotation.cs \
-		Quaternion.cs \
-		Vector.cs \
-		RotationMatrix.cs \
-		Trackball.cs \
-		Teapot.cs
-
-EXTRA_DIST = \
-	rotatebuttons.cs \
-	rotateButtonTest.cs \
-	IGLObject.cs \
-	GLObjectBase.cs \
-	GLWidget.cs \
-	Rotation.cs \
-	EulerRotation.cs \
-	Quaternion.cs \
-	RotationMatrix.cs \
-	RotationUtil.cs \
-	ObjectRotationButton.cs \
-	GLObjectRotationController.cs \
-	rotation-controller.glade \
-	Teapot.cs
+	-resource:$(srcdir)/../resources/glwidget.glade \
+	$(SOURCE_FILES)
 
 CLEANFILES = \
 	trackballTest.exe \
@@ -57,16 +30,5 @@ CLEANFILES = \
 
 
 EXTRA_DIST = \
-	trackballTest.cs \
-	IGLObject.cs \
-	GLObjectBase.cs \
-	GLWidget.cs \
-	TrackballWidget.cs \
-	EulerRotation.cs \
-	Quaternion.cs \
-	Vector.cs \
-	RotationMatrix.cs \
-	glwidget.glade \
-	Trackball.cs \
-	Teapot.cs
+	$(SOURCE_FILES)
 

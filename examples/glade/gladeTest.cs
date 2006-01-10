@@ -2,6 +2,7 @@
 using System;
 using Gtk;
 using Glade;
+using GtkGL;
 
 public class Engine
 {
@@ -20,12 +21,12 @@ public class Engine
 		// Connect the Signals defined in Glade
 		gxml.Autoconnect (this);
 		
-		GlWidget glw = new GlWidget();
+		GLWidget glw = new GLWidget();
 
 		Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
-		vbox1.PackStart( glw.glArea );
+		vbox1.PackStart( glw );
 		
-		glw.glArea.Show();
+		glw.Show();
 		
 		Application.Run ();
 	}
