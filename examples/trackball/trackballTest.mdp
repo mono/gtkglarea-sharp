@@ -17,9 +17,9 @@
     <excludeFiles />
   </DeploymentInformation>
   <Contents>
-    <File name="./trackballTest.cs" subtype="Code" buildaction="Compile" />
     <File name="./TrackballWidget.cs" subtype="Code" buildaction="Compile" />
     <File name="./glwidget.glade" subtype="Code" buildaction="EmbedAsResource" />
+    <File name="./TrackballExample.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="GtkGLAreaUtil" />
