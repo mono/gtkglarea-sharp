@@ -5,16 +5,16 @@ using Glade;
 
 using GtkGL;
 
-public class Engine
+public class TrackballExample
 {
 	public static void Main (string[] args)
 	{
-		new Engine (args);
+		new TrackballExample (args);
 	}
 	
 	GtkGL.TrackballWidget glw;
 
-	public Engine (string[] args) 
+	public TrackballExample (string[] args) 
 	{
 		Application.Init ();
 

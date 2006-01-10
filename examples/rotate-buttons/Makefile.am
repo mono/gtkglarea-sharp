@@ -1,24 +1,24 @@
 SOURCE_FILES = \
 	GLObjectRotationController.cs \
 	ObjectRotationButton.cs \
-	rotateButtonTest.cs	
+	RotateButtonExample.cs	
 
 EXTRA_DIST = \
 	$(SOURCE_FILES) \
 	rotation-controller.glade
 
 CLEANFILES = \
-	rotateButtonTest.exe \
-	rotateButtonTest.exe.mdb \
-	rotateButtonTest.pidb
+	RotateButtonExample.exe \
+	RotateButtonExample.exe.mdb \
+	RotateButtonExample.pidb
 
-all: 	rotateButtonTest.exe
+all: 	RotateButtonExample.exe
 
-run: rotateButtonTest.exe
-	MONO_PATH=$(srcdir)/../util mono rotateButtonTest.exe
+run: RotateButtonExample.exe
+	MONO_PATH=$(srcdir)/../util mono RotateButtonExample.exe
 
 
-rotateButtonTest.exe: \
+RotateButtonExample.exe: \
 	$(SOURCE_FILES) \
 	$(srcdir)/../resources/glwidget.glade
 	$(MCS) -debug \
@@ -30,7 +30,7 @@ rotateButtonTest.exe: \
 	-pkg:tao-opengl-glu \
 	-pkg:glade-sharp-2.0 \
 	-pkg:gtk-sharp-2.0 \
-	-out:rotateButtonTest.exe \
+	-out:RotateButtonExample.exe \
 	-resource:$(srcdir)/../resources/glwidget.glade \
 	-resource:$(srcdir)/rotation-controller.glade \
 	-nowarn:0169 \

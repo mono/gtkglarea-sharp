@@ -1,14 +1,14 @@
+all: TrackballExample.exe
+
+run: TrackballExample.exe
+	MONO_PATH=$(srcdir)/../util mono TrackballExample.exe
+
 SOURCE_FILES = \
-	trackballTest.cs \
+	TrackballExample.cs \
 	TrackballWidget.cs \
 	Trackball.cs
 
-all: trackballTest.exe
-
-run: trackballTest.exe
-	MONO_PATH=$(srcdir)/../util mono trackballTest.exe
-
-trackballTest.exe: \
+TrackballExample.exe: \
 	$(SOURCE_FILES) \
 	$(srcdir)/../resources/glwidget.glade
 	$(MCS) -debug \
@@ -20,13 +20,13 @@ trackballTest.exe: \
 	-lib:$(GTKSHARP_PREFIX)/lib \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
-	-out:trackballTest.exe \
+	-out:TrackballExample.exe \
 	-resource:$(srcdir)/../resources/glwidget.glade \
-	$(SOURCE_FILES)
+		$(SOURCE_FILES)
 
 CLEANFILES = \
-	trackballTest.exe \
-	trackballTest.exe.mdb
+	TrackballExample.exe \
+	TrackballExample.exe.mdb
 
 
 EXTRA_DIST = \

@@ -1,13 +1,13 @@
-<Project name="rotateButtonTest" fileversion="2.0" language="C#" ctype="DotNetProject">
+<Project name="GladeExample" fileversion="2.0" language="C#" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Debug" assembly="rotateButtonTest" />
+      <Output directory="./bin/Debug" assembly="GladeExample" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Release" assembly="rotateButtonTest" />
+      <Output directory="./bin/Release" assembly="GladeExample" />
       <Build debugmode="False" target="Exe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
@@ -17,17 +17,10 @@
     <excludeFiles />
   </DeploymentInformation>
   <Contents>
+    <File name="./GladeExample.cs" subtype="Code" buildaction="Compile" />
     <File name="../resources/glwidget.glade" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="./ObjectRotationButton.cs" subtype="Code" buildaction="Compile" />
-    <File name="./rotateButtonTest.cs" subtype="Code" buildaction="Compile" />
-    <File name="./GLObjectRotationController.cs" subtype="Code" buildaction="Compile" />
-    <File name="./rotation-controller.glade" subtype="Code" buildaction="EmbedAsResource" />
   </Contents>
   <References>
-    <ProjectReference type="Gac" localcopy="True" refto="Tao.OpenGl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1ca010269a4501ef" />
-    <ProjectReference type="Gac" localcopy="True" refto="Tao.OpenGl.Glu, Version=1.5.0.3, Culture=neutral, PublicKeyToken=3661ea75021374b5" />
-    <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <ProjectReference type="Gac" localcopy="True" refto="gtkglarea-sharp, Version=0.0.2.0, Culture=neutral, PublicKeyToken=7df758c0fb49fe62" />
     <ProjectReference type="Project" localcopy="True" refto="GtkGLAreaUtil" />
   </References>
 </Project>

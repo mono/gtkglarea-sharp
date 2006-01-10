@@ -4,14 +4,14 @@ using Gtk;
 using Glade;
 using GtkGL;
 
-public class Engine
+public class GladeExample
 {
 	public static void Main (string[] args)
 	{
-		new Engine (args);
+		new GladeExample (args);
 	}
 
-	public Engine (string[] args) 
+	public GladeExample (string[] args) 
 	{
 		Application.Init ();
 
