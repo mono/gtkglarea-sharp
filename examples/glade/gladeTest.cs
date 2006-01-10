@@ -10,7 +10,6 @@ public class Engine
 	{
 		new Engine (args);
 	}
-	
 
 	public Engine (string[] args) 
 	{

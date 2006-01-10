@@ -32,11 +32,9 @@ namespace GtkGL {
         public static Quaternion Identity {
         		get {
 	        		if (identity == null)
-	        			identity =
-	        				new Quaternion(0,0,0,1);
-	        				
+	        			identity = new Quaternion(1,0,0,0);	        				
 	        		return identity;
-    	    		}
+    	    	}
         }
                
         const int RENORMCOUNT = 97;
