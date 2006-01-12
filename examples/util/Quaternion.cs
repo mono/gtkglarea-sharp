@@ -152,28 +152,28 @@ namespace GtkGL {
 			return new GtkGL.EulerRotation(heading, attitude, bank);
 		}
 		
-		public GtkGL.RotationMatrix ToRotMatrix()
+		public GtkGL.TransformationMatrix ToTransMatrix()
 		{
-			double[] rotMatrix = new double[16];
+			double[] transMatrix = new double[16];
 			
-	        rotMatrix[4 * 0 + 0] = 1.0 - 2.0f * (y * y + z * z);
-		    rotMatrix[4 * 0 + 1] = 2.0 * (x * y - z * w);
-		    rotMatrix[4 * 0 + 2] = 2.0 * (z * x + y * w);
+	        transMatrix[4 * 0 + 0] = 1.0 - 2.0f * (y * y + z * z);
+		    transMatrix[4 * 0 + 1] = 2.0 * (x * y - z * w);
+		    transMatrix[4 * 0 + 2] = 2.0 * (z * x + y * w);
 
-		    rotMatrix[4 * 1 + 0] = 2.0 * (x * y + z * w);
-		    rotMatrix[4 * 1 + 1]= 1.0 - 2.0f * (z * z + x * x);
-		    rotMatrix[4 * 1 + 2] = 2.0 * (y * z - x * w);
+		    transMatrix[4 * 1 + 0] = 2.0 * (x * y + z * w);
+		    transMatrix[4 * 1 + 1]= 1.0 - 2.0f * (z * z + x * x);
+		    transMatrix[4 * 1 + 2] = 2.0 * (y * z - x * w);
 
-		    rotMatrix[4 * 2 + 0] = 2.0 * (z * x - y * w);
-	    	rotMatrix[4 * 2 + 1] = 2.0 * (y * z + x * w);
-		    rotMatrix[4 * 2 + 2] = 1.0 - 2.0f * (y * y + x * x);
+		    transMatrix[4 * 2 + 0] = 2.0 * (z * x - y * w);
+	    	transMatrix[4 * 2 + 1] = 2.0 * (y * z + x * w);
+		    transMatrix[4 * 2 + 2] = 1.0 - 2.0f * (y * y + x * x);
 
-			rotMatrix[3] = rotMatrix[7] = rotMatrix[11] =
-			rotMatrix[12] = rotMatrix[13] = rotMatrix[14] = 0.0;
+			transMatrix[3] = transMatrix[7] = transMatrix[11] =
+			transMatrix[12] = transMatrix[13] = transMatrix[14] = 0.0;
 			
-			rotMatrix[15] = 1.0;
+			transMatrix[15] = 1.0;
 		    
-		    return new GtkGL.RotationMatrix(rotMatrix);
+		    return new GtkGL.TransformationMatrix(transMatrix);
 		}
     }
     

@@ -195,6 +195,24 @@ namespace GtkGL {
 				gl.glEndList ();
 			}
 			
+	        public new void Translate(float x, float y, float z)
+	        {
+	        	base.Translate(x, y, z);
+	        	
+				// Tell our handlers that we have been updated
+				if (Updated != null)
+	        		Updated (this, null);
+	        }
+	        
+	        public new void Translate(double x, double y, double z)
+	        {
+	        	base.Translate(x, y, z);
+	        	
+				// Tell our handlers that we have been updated
+				if (Updated != null)
+	        		Updated (this, null);
+	        }			
+			
 			public new void Rotate(GtkGL.Quaternion quat)
 			{
 				base.Rotate(quat);
@@ -233,9 +251,9 @@ namespace GtkGL {
 			
 			public bool Draw()
 			{
-				if(rotMatrix != null){
-					// Apply the rotation matrix
-					gl.glMultMatrixd(rotMatrix.Matrix);
+				if(transMatrix != null){
+					// Apply the transformation matrix
+					gl.glMultMatrixd(transMatrix.Matrix);
 				}
 				
 				// Draw the image from the display list

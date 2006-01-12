@@ -6,7 +6,9 @@ SOURCE_FILES = \
 	Rotation.cs \
 	Vector.cs \
 	Quaternion.cs \
-	RotationMatrix.cs \
+	TransformationMatrix.cs \
+	Triangle.cs \
+	Square.cs \
 	Teapot.cs
 
 

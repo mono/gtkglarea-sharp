@@ -1,5 +1,7 @@
-- Find a way around the gimbal lock problems in rotation-buttons
-example
+- Get Triangle and Square objects drawing themselves correctly
+
+- Re-factor Euler angle stuff into the rotation-button test and out of
+the GLObjectBase and IGLObject
 
 - in the rotate-buttons example, modification of the entry fields
   should rotate the object to the desired angle
@@ -13,3 +15,6 @@ example
 
 - Janne's LWO loader code should be used to create a new example for
   loading lightwave models
+
+- Speak with John Carmack about the potential of letting me use one of
+id's .mdl or .md3 files in a model-loading example

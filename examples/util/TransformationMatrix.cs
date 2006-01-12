@@ -2,7 +2,7 @@
 namespace GtkGL {
     using System;
     
-    public class RotationMatrix {
+    public class TransformationMatrix {
     	private double[] matrix;
     	
     	public double[] Matrix
@@ -12,15 +12,30 @@ namespace GtkGL {
     	}
     	
     	        
-        public static RotationMatrix operator +(RotationMatrix m1, RotationMatrix m2)
+        public static TransformationMatrix operator +(TransformationMatrix m1, TransformationMatrix m2)
         {
-        	double[] newRot = new double[16];
+        	double[] newMatrix = new double[16];
         	
         	for(int i = 0; i < 16; i++){
-        		newRot[i] = m1.Matrix[i] + m2.Matrix[i];
+        		newMatrix[i] = m1.Matrix[i] + m2.Matrix[i];
         	}
         	
-        	return new GtkGL.RotationMatrix(newRot);
+        	return new GtkGL.TransformationMatrix(newMatrix);
+        }
+        
+        public static TransformationMatrix operator *(TransformationMatrix m1, TransformationMatrix m2)
+        {
+        	double[] newMatrix = new double[16];
+			Console.WriteLine("Multiplying the matrix!");
+        	for(int i = 0; i < 16; i++){
+        		double sum = 0.0;
+        		for(int j = 0; j < 4; j++){
+        			sum += m1.Matrix[(i%4) + j*4] * m2.Matrix[(i/4)*4 + j]; 
+        		}
+        		newMatrix[i] = sum;
+        	}
+        	
+        	return new GtkGL.TransformationMatrix(newMatrix);
         }
     	
         void Clear()
@@ -31,7 +46,7 @@ namespace GtkGL {
         	}   
         }
         
-    	static RotationMatrix identity;
+    	static TransformationMatrix identity;
     	// The identity matrix:
     	/*
     	
@@ -42,7 +57,7 @@ namespace GtkGL {
     	
     	*/
     	
-    	public static RotationMatrix Identity
+    	public static TransformationMatrix Identity
     	{
     		get { 
     			if(identity != null)
@@ -57,7 +72,7 @@ namespace GtkGL {
 	        			identityMatrix[i] = 0;
 	        	}   
     			
-    			identity = new RotationMatrix(identityMatrix);
+    			identity = new TransformationMatrix(identityMatrix);
     			
     			return identity;
     		}
@@ -65,11 +80,11 @@ namespace GtkGL {
     	
     	GtkGL.Quaternion quat;
         
-        public RotationMatrix() {
+        public TransformationMatrix() {
 			matrix = Identity.Matrix;
         }
         
-        public RotationMatrix(double[] rotMatrix)
+        public TransformationMatrix(double[] rotMatrix)
         {
         	Matrix = rotMatrix;
         }

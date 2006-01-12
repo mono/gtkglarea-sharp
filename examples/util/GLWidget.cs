@@ -77,6 +77,10 @@ namespace GtkGL {
 			// http://www.opengl.org/documentation/specs/man_pages/hardcopy/GL/html/glu/perspective.html
 			glu.gluPerspective(45.0f,(float)width/(float)height,0.1f,100.0f);
 			
+			gl.glTranslatef(0.0f,0.0f,-6.0f);				// Move away from the drawing area 3.0
+			
+
+			
 			gl.glMatrixMode(gl.GL_MODELVIEW);				// Select The Modelview Matrix
 			gl.glLoadIdentity();							// Reset The Modelview Matrix
 		}
@@ -86,18 +90,16 @@ namespace GtkGL {
 		{
 			if (this.MakeCurrent() == 0)
 			  return;
-			
-			// Clear the scene
-			gl.glClear (gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);
-			
+			  
+			gl.glMatrixMode(gl.GL_MODELVIEW_MATRIX);
 			// Replace current matrix with the identity matrix
 			gl.glLoadIdentity ();
+			
+			// Clear the scene
+			gl.glClear (gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);		
+			
 			gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
-			// Translate a bit...
-			gl.glLoadIdentity();
-			gl.glTranslatef(0.0f,0.0f,-3.0f);				// Move away from the drawing area 3.0
-			
 			// Draw the GLObjects associated with this GLArea
 			System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
   	

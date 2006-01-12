@@ -12,6 +12,10 @@ namespace GtkGL {
         
         // Draw the object
         bool Draw();
+        
+        // Translation (movement) methods
+        void Translate(float x, float y, float z);
+        void Translate(double x, double y, double z);
 
   		// Rotate the object by passing a quaternion
   		void Rotate(GtkGL.Quaternion quat);
@@ -31,8 +35,8 @@ namespace GtkGL {
   		// Return the rotation as a Quaternion
   		Quaternion GetQuaternion();
   		
-  		// Return the RotationMatrix
-  		RotationMatrix GetRotationMatrix();
+  		// Return the TransformationMatrix
+  		TransformationMatrix GetTransformationMatrix();
     }
     
 }

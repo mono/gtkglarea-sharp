@@ -10,7 +10,7 @@ namespace GtkGL {
         
         protected int shapeID;
         
-        protected GtkGL.RotationMatrix rotMatrix = null;
+        protected GtkGL.TransformationMatrix transMatrix = null;
         protected GtkGL.EulerRotation eRot = null;
         protected GtkGL.Quaternion quat = null;
         
@@ -25,7 +25,7 @@ namespace GtkGL {
         	
         		eRot = value;
         		quat = eRot.ToQuaternion();
-        		rotMatrix = eRot.ToRotMatrix();
+        		transMatrix = eRot.ToTransMatrix();
         	}
         }
         
@@ -39,22 +39,41 @@ namespace GtkGL {
         			quat = value;
 
         		eRot = quat.ToEulerRotation();
-        		rotMatrix = quat.ToRotMatrix();
+        		transMatrix = quat.ToTransMatrix();
         	}
         }
         
         // Make setting of euler, quat and matrix an atomic action
-        private GtkGL.RotationMatrix RotMatrix {
-        	get { return rotMatrix; }
+        private GtkGL.TransformationMatrix TransMatrix {
+        	get { return transMatrix; }
         	set {
         		if(value == null)
-        			rotMatrix = GtkGL.RotationMatrix.Identity;
+        			transMatrix = GtkGL.TransformationMatrix.Identity;
 				else
-        			rotMatrix = value;
+        			transMatrix = value;
         		
-        		eRot = rotMatrix.ToEulerRotation();
-        		quat = rotMatrix.ToQuaternion();
+        		eRot = transMatrix.ToEulerRotation();
+        		quat = transMatrix.ToQuaternion();
         	}
+        }
+        
+        public void Translate(float x, float y, float z)
+        {
+        	this.Translate((double) x, (double) y, (double) z);
+        }
+        
+        public void Translate(double x, double y, double z)
+        {
+        	GtkGL.TransformationMatrix tm = GtkGL.TransformationMatrix.Identity;
+			        	
+        	tm.Matrix[12] = x;
+        	tm.Matrix[13] = y;
+        	tm.Matrix[14] = z;
+
+        	if(this.transMatrix == null)
+        		this.transMatrix = GtkGL.TransformationMatrix.Identity;
+
+			this.transMatrix *= tm;
         }
         
         public void Rotate(GtkGL.Quaternion q)
@@ -68,9 +87,9 @@ namespace GtkGL {
         }
         
         
-        public void Rotate(GtkGL.RotationMatrix rm)
+        public void Rotate(GtkGL.TransformationMatrix tm)
         {
-        	RotMatrix += rm;
+        	TransMatrix *= tm;
         }
         
 		public void ResetRotation()
@@ -98,14 +117,14 @@ namespace GtkGL {
 			return Quat;
 		}
 		
-		public RotationMatrix GetRotationMatrix()
+		public TransformationMatrix GetTransformationMatrix()
 		{
-			if(rotMatrix != null)
-				return rotMatrix;
+			if(transMatrix != null)
+				return transMatrix;
 				
-			RotMatrix = GtkGL.RotationMatrix.Identity;
+			TransMatrix = GtkGL.TransformationMatrix.Identity;
 			
-			return RotMatrix;
+			return TransMatrix;
 		}
         
     }

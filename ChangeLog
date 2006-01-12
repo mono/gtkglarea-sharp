@@ -1,3 +1,59 @@
+2006-01-11  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview:Renamed RotationMatrix to TransformationMatrix (I'm
+	thinking of getting rid of the matrix and replacing it with a
+	quaternion for rotation + a vector for scale and a vector for
+	translation).  Triangle and Square objects now draw themselves
+	correctly.  I've also had a chance to straighten out the IGLObject
+	Translate() methods.
+
+	* configure.ac
+	- Bumped version
+	* TODO
+	- removed GimbalLock issue from TODO list
+	- added item for re-factoring Euler angles
+	- added item for .mdl / .md3 files
+	* examples/NeHe/Lessons/Lesson01.cs
+	- changed namespace from NeHe.Lesson01 to NeHe
+	- basically replaced with GladeExample code
+	* examples/NeHe/Lessons/Lesson02.cs
+	- changed namespace from NeHe.Lesson02 to NeHe
+	- added Triangle, Square objects.  Translated them
+	- removed methods that are implemented in GLObjectBase
+	- added onquit and onwindowdeleteevent methods
+	* examples/NeHe/Lessons/Makefile.am
+	- re-organized sources into SOURCE_FILES
+	- created a MCS_ARGS variable to reduce duplicate code
+	* examples/trackball/TrackballExample.mdp
+	- added resources directory to project
+	* examples/GtkGlAreaSharpExamples.mds
+	- renamed *test to *example
+	- added NeHe project
+	- added GtkGLAreaUtil
+	- added GladeExample
+	* examples/util/TransformationMatrix.cs
+	- renamed from RotationMatrix.cs
+	- added operator *()
+	* examples/util/Teapot.cs
+	- added Translate() methods	
+	* examples/util/EulerRotation.cs
+	- renamed rotationmatrix to transformationmatrix	
+	* examples/util/IGLObject.cs
+	- added Translate() methods
+	- renamed rotationmatrix to transformationmatrix
+	* examples/util/GLObjectBase.cs
+	- renamed rotationmatrix to transformationmatrix	
+	* examples/util/RotationMatrix.cs
+	- renamed to TransformationMatrix.cs
+	* examples/util/Makefile.am
+	- renamed rotationmatrix to transformationmatrix
+	- added Triangle, Square
+	* examples/util/Quaternion.cs
+	- renamed rotationmatrix to transformationmatrix
+	* examples/util/GLWidget.cs
+	- moved the projection translation into the resize handler
+
+
 2006-01-10  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Moved common code into examples/util/ and compiled them

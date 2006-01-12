@@ -6,7 +6,7 @@ namespace GtkGL {
     public class EulerRotation {
         double x, y, z;
 
-        GtkGL.RotationMatrix rotMatrix;
+        GtkGL.TransformationMatrix transMatrix;
         GtkGL.Quaternion quat;
         
         public static EulerRotation operator -(EulerRotation rot1, EulerRotation rot2)
@@ -92,7 +92,7 @@ namespace GtkGL {
 		{
 			// This should happen when the Updated handler fires
 			quat = null;
-			rotMatrix = null;
+			transMatrix = null;
 		}
 
 	   	public class GimbalLock : System.Exception {
@@ -134,12 +134,12 @@ namespace GtkGL {
         	ConnectHandlers();        	
         }
         
-        public GtkGL.RotationMatrix ToRotMatrix()
+        public GtkGL.TransformationMatrix ToTransMatrix()
         {
-        	if(rotMatrix != null)
-        		return this.rotMatrix;
+        	if(transMatrix != null)
+        		return this.transMatrix;
         		
-        	double[] matrix = GtkGL.RotationMatrix.Identity.Matrix;
+        	double[] matrix = GtkGL.TransformationMatrix.Identity.Matrix;
         	
         	// Convert to radians
         	double Xradians = x * 2 * Math.PI / 360.0;
@@ -165,9 +165,9 @@ namespace GtkGL {
 		    matrix[2*4 + 1] =  sh*sa*cb + ch*sb;
 		    matrix[2*4 + 2] = -sh*sa*sb + ch*cb;
 		    
-		    rotMatrix = new GtkGL.RotationMatrix(matrix); 
+		    transMatrix = new GtkGL.TransformationMatrix(matrix); 
 		    
-		    return rotMatrix;
+		    return transMatrix;
         }
         
         public GtkGL.Quaternion ToQuaternion()
