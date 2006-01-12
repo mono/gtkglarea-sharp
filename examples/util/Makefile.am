@@ -7,8 +7,6 @@ SOURCE_FILES = \
 	Vector.cs \
 	Quaternion.cs \
 	TransformationMatrix.cs \
-	Triangle.cs \
-	Square.cs \
 	Teapot.cs
 
 

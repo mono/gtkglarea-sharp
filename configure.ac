@@ -140,6 +140,12 @@ examples/util/Makefile
 examples/resources/Makefile
 examples/NeHe/Makefile
 examples/NeHe/Lessons/Makefile
+examples/NeHe/Lessons/01/Makefile
+examples/NeHe/Lessons/02/Makefile
+examples/NeHe/Lessons/03/Makefile
+examples/NeHe/Lessons/04/Makefile
+examples/NeHe/Lessons/05/Makefile
+examples/NeHe/Lessons/06/Makefile
 sources/Makefile
 gtkglarea-sharp.pc
 checkbuild.sh

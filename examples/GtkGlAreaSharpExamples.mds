@@ -3,30 +3,30 @@
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry configuration="Debug" build="True" name="RotateButtonExample" />
       <Entry configuration="Debug" build="True" name="TrackballExample" />
-      <Entry configuration="Debug" build="True" name="NeHe" />
       <Entry configuration="Debug" build="True" name="GtkGLAreaUtil" />
       <Entry configuration="Debug" build="True" name="GladeExample" />
+      <Entry configuration="Debug" build="True" name="NeHe" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry configuration="Debug" build="True" name="RotateButtonExample" />
       <Entry configuration="Debug" build="True" name="TrackballExample" />
-      <Entry configuration="Debug" build="True" name="NeHe" />
       <Entry configuration="Debug" build="True" name="GtkGLAreaUtil" />
       <Entry configuration="Debug" build="True" name="GladeExample" />
+      <Entry configuration="Debug" build="True" name="NeHe" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="RotateButtonExample" single="True">
     <Execute type="None" entry="RotateButtonExample" />
     <Execute type="None" entry="TrackballExample" />
-    <Execute type="None" entry="NeHe" />
     <Execute type="None" entry="GtkGLAreaUtil" />
     <Execute type="None" entry="GladeExample" />
+    <Execute type="None" entry="NeHe" />
   </StartMode>
   <Entries>
     <Entry filename="./rotate-buttons/RotateButtonExample.mdp" />
     <Entry filename="./trackball/TrackballExample.mdp" />
-    <Entry filename="./NeHe/NeHe.mds" />
     <Entry filename="./util/GtkGLAreaUtil.mdp" />
     <Entry filename="./glade/GladeExample.mdp" />
+    <Entry filename="./NeHe/NeHe.mds" />
   </Entries>
 </Combine>

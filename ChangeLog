@@ -1,3 +1,10 @@
+2006-01-11T19:10  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Moved Lessons/Lesson0N.* to Lessons/0N/Lesson0N.*,
+	removed excess debug print statements, moved Triangle.cs and
+	Square.cs into NeHe/Lessons/02/
+
+
 2006-01-11  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview:Renamed RotationMatrix to TransformationMatrix (I'm

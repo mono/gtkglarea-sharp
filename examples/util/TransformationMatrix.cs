@@ -26,7 +26,6 @@ namespace GtkGL {
         public static TransformationMatrix operator *(TransformationMatrix m1, TransformationMatrix m2)
         {
         	double[] newMatrix = new double[16];
-			Console.WriteLine("Multiplying the matrix!");
         	for(int i = 0; i < 16; i++){
         		double sum = 0.0;
         		for(int j = 0; j < 4; j++){
