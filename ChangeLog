@@ -1,3 +1,35 @@
+2006-01-12T17:39  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Changed internal representation of Translation, Scale
+	and Rotation from Euler Rotation + Quaternion + Rotation Matrix to
+	Quaternion + scale vector + translation vector.  I moved the old
+	code into rotate-buttons, which is the only example that relies on
+	internal representation as Euler angles.  This change makes NeHe
+	example 4 work correctly
+
+	* 04/Lesson04.mdp
+	- added Colored*.cs
+	* 04/Makefile.am
+	- added Colored*.cs
+	- added reference to GladeExample.cs
+	- added run: target
+	- using $(SOURCE_FILES)
+	* 04/Lesson04.cs
+	- changed namespace name to NeHe
+	- threw out old code and replaced with the new hotnes from
+	...-util.  Read the diff :)
+	* util/GLObjectBase
+	- re-factored euler rotations out and quaternion + scale,
+	translation vectors in
+	- TransMatrix get{} now constructs a translation matrix from the
+	quat and vectors
+	- all of the set{}s now manipulate quat, translation, and scale
+	- Translate() now manipulates translation
+	- Rotate() methods now convert the passed arg and call the quat version
+	- ResetRotation() sets Quat instead of ERot
+	- GetTransformationMatrix() now returns TransMatrix
+	- Draw now calls glMultMatrixd(this.TransMatrix.Matrix)
+	
 2006-01-12  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: removed lighting from default GtkGL.GLWidget

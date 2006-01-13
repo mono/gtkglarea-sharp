@@ -16,7 +16,6 @@ all: \
 run: Lesson03.exe
 	MONO_PATH=$(top_srcdir)/examples/util mono Lesson03.exe
 
-
 EXTRA_DIST = \
 	$(SOURCE_FILES)
 

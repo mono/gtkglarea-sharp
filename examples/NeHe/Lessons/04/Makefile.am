@@ -1,5 +1,9 @@
 SOURCE_FILES = \
-	Lesson04.cs
+	Lesson04.cs \
+	$(top_srcdir)/examples/glade/GladeExample.cs \
+	ColoredTriangle.cs \
+	ColoredSquare.cs
+
 
 CLEANFILES = \
 	Lesson04.exe \
@@ -8,6 +12,9 @@ CLEANFILES = \
 
 all: \
 	Lesson04.exe
+
+run: Lesson04.exe
+	MONO_PATH=$(top_srcdir)/examples/util mono Lesson04.exe
 
 EXTRA_DIST = \
 	$(SOURCE_FILES)
@@ -23,8 +30,8 @@ MCS_ARGS = \
 	-nowarn:0169 \
 	-r:gtkglarea-sharp-util.dll
 
-Lesson04.exe: Lesson04.cs
+Lesson04.exe: $(SOURCE_FILES)
 	mcs \
 		$(MCS_ARGS) \
-		Lesson04.cs \
+		$(SOURCE_FILES) \
 		-out:Lesson04.exe

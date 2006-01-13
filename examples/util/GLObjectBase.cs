@@ -12,8 +12,8 @@ namespace GtkGL {
         
         protected int shapeID;
         
-        protected GtkGL.TransformationMatrix transMatrix = null;
-        protected GtkGL.EulerRotation eRot = null;
+		protected double[] scale = null;
+		protected double[] translation = null;
         protected GtkGL.Quaternion quat = null;
         
 		// our Updated event handler
@@ -34,16 +34,12 @@ namespace GtkGL {
         
         // Make setting of euler, quat and matrix an atomic action
         protected GtkGL.EulerRotation ERot {
-        	get { return eRot; }
+        	get { return quat.ToEulerRotation(); }
         	set {
         		if(value == null)
-        			eRot = GtkGL.EulerRotation.Identity;
-        		else
-        			eRot = value;
-        	
-        		eRot = value;
-        		quat = eRot.ToQuaternion();
-        		transMatrix = eRot.ToTransMatrix();
+        			quat = GtkGL.Quaternion.Identity;
+
+        		quat = value.ToQuaternion();
         	}
         }
         
@@ -53,25 +49,54 @@ namespace GtkGL {
         	set {
         		if(value == null)
         			quat = GtkGL.Quaternion.Identity;
-        		else
-        			quat = value;
 
-        		eRot = quat.ToEulerRotation();
-        		transMatrix = quat.ToTransMatrix();
+        		quat = value;
         	}
         }
         
         // Make setting of euler, quat and matrix an atomic action
         protected GtkGL.TransformationMatrix TransMatrix {
-        	get { return transMatrix; }
+        	get {
+        		if(quat == null)
+        			Quat = GtkGL.Quaternion.Identity;
+
+        		GtkGL.TransformationMatrix tm = quat.ToTransMatrix();
+
+        		if(translation != null){
+					tm.Matrix[12] = translation[0];
+        			tm.Matrix[13] = translation[1];
+        			tm.Matrix[14] = translation[2];
+        		}
+        		
+        		if(scale != null){
+        			tm.Matrix[3]  = scale[0];
+        			tm.Matrix[7]  = scale[1];
+        			tm.Matrix[11] = scale[2];
+        		}
+        		
+        		return tm;
+        	}
+        	
         	set {
         		if(value == null)
-        			transMatrix = GtkGL.TransformationMatrix.Identity;
-				else
-        			transMatrix = value;
+        			quat = GtkGL.Quaternion.Identity;
+
+        		quat = value.ToQuaternion();
         		
-        		eRot = transMatrix.ToEulerRotation();
-        		quat = transMatrix.ToQuaternion();
+        		if(translation == null)
+        			translation = new double[3];
+        			
+        		translation[0] = value.Matrix[12];
+        		translation[1] = value.Matrix[13];
+        		translation[3] = value.Matrix[14];
+        		
+        		if(scale == null)
+        			scale = new double[3];
+        			
+        		scale[0] = value.Matrix[3];
+        		scale[1] = value.Matrix[7];
+        		scale[2] = value.Matrix[11];
+        		
         	}
         }
         
@@ -82,17 +107,13 @@ namespace GtkGL {
         
         public void Translate(double x, double y, double z)
         {
-        	GtkGL.TransformationMatrix tm = GtkGL.TransformationMatrix.Identity;
-			        	
-        	tm.Matrix[12] = x;
-        	tm.Matrix[13] = y;
-        	tm.Matrix[14] = z;
+        	if(this.translation == null)
+        		this.translation = new double[3];
+        		
+        	translation[0] = x;
+        	translation[1] = y;
+        	translation[2] = z;
 
-        	if(this.transMatrix == null)
-        		this.transMatrix = GtkGL.TransformationMatrix.Identity;
-
-			this.transMatrix *= tm;
-			
 			// Tell our handlers that we have been updated
   			if (Updated != null)
 	  			Updated (this, null);			
@@ -109,34 +130,23 @@ namespace GtkGL {
         
         public void Rotate(GtkGL.EulerRotation er)
         {
-			ERot += er;
-			
-			// Tell our handlers that we have been updated
-  			if (Updated != null)
-	  			Updated (this, null);        				
+        	Rotate(er.ToQuaternion());
         }
         
         
         public void Rotate(GtkGL.TransformationMatrix tm)
         {
-        	TransMatrix *= tm;
-			// Tell our handlers that we have been updated
-  			if (Updated != null)
-	  			Updated (this, null);        
+        	Rotate(tm.ToQuaternion());
 	  	}
         
 		public void ResetRotation()
 		{
-			ERot = GtkGL.EulerRotation.Identity;
-
-			// Tell our handlers that we have been updated
-  			if (Updated != null)
-	  			Updated (this, null);        				
+			ResetRotation(true);
 		}
 		
 		public void ResetRotation(bool doUpdate)
 		{
-			ERot = GtkGL.EulerRotation.Identity;
+			Quat = GtkGL.Quaternion.Identity;
 
 			// Tell our handlers that we have been updated
   			if (doUpdate && Updated != null)
@@ -145,12 +155,7 @@ namespace GtkGL {
 		
 		public EulerRotation GetEulerRotation()
 		{
-			if(eRot != null)
-				return eRot;
-
-			ERot = GtkGL.EulerRotation.Identity;
-
-			return ERot; 
+			return Quat.ToEulerRotation(); 
 		}
 		
 		public Quaternion GetQuaternion()
@@ -165,11 +170,6 @@ namespace GtkGL {
 		
 		public TransformationMatrix GetTransformationMatrix()
 		{
-			if(transMatrix != null)
-				return transMatrix;
-				
-			TransMatrix = GtkGL.TransformationMatrix.Identity;
-			
 			return TransMatrix;
 		}
 		
@@ -177,14 +177,11 @@ namespace GtkGL {
 		{
 			gl.glPushMatrix();
 
-			if(transMatrix != null){
-				// Apply the transformation matrix
-				gl.glMultMatrixd(transMatrix.Matrix);
-			}
+			gl.glMultMatrixd(this.TransMatrix.Matrix);
 			
 			// Draw the image from the display list
-	  		//gl.glCallList (shapeID);
-	  		DrawObject();
+	  		gl.glCallList (shapeID);
+	  		//DrawObject();
 	  		
 	  		gl.glPopMatrix();
 	  		 

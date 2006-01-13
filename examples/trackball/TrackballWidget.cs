@@ -81,8 +81,7 @@ namespace GtkGL {
 												   	(double) spinQuat[1],
 												   	(double) spinQuat[2]
 												  	);
-				
-												  	
+  	
 				// Apply rotation to all objects								  	
 				System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
 				
