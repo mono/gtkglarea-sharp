@@ -4,7 +4,6 @@ SOURCE_FILES = \
 	ColoredTriangle.cs \
 	ColoredSquare.cs
 
-
 CLEANFILES = \
 	Lesson04.exe \
 	Lesson04.exe.pidb
@@ -20,6 +19,7 @@ EXTRA_DIST = \
 	$(SOURCE_FILES)
 
 MCS_ARGS = \
+	-debug \
 	-lib:$(top_srcdir)/examples/util/ \
 	-lib:$(top_srcdir)/gtkglarea/ \
 	-resource:$(top_srcdir)/examples/resources/glwidget.glade \
