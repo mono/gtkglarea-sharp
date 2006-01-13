@@ -17,7 +17,6 @@ TrackballExample.exe: \
 	-r:gtkglarea-sharp.dll \
 	-r:gtkglarea-sharp-util.dll \
 	-pkg:tao-opengl-glu \
-	-lib:$(GTKSHARP_PREFIX)/lib \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:TrackballExample.exe \

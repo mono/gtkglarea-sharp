@@ -137,6 +137,7 @@ examples/rotate-buttons/Makefile
 examples/glade/Makefile
 examples/trackball/Makefile
 examples/util/Makefile
+examples/shapes/Makefile
 examples/resources/Makefile
 examples/NeHe/Makefile
 examples/NeHe/Lessons/Makefile

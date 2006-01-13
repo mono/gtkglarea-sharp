@@ -6,8 +6,7 @@ SOURCE_FILES = \
 	Rotation.cs \
 	Vector.cs \
 	Quaternion.cs \
-	TransformationMatrix.cs \
-	Teapot.cs
+	TransformationMatrix.cs
 
 
 EXTRA_DIST = $(SOURCE_FILES)
