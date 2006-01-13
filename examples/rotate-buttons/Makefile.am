@@ -1,6 +1,8 @@
 SOURCE_FILES = \
 	GLObjectRotationController.cs \
 	ObjectRotationButton.cs \
+	OldGLObjectBase.cs \
+	OldTeapot.cs \
 	RotateButtonExample.cs	
 
 EXTRA_DIST = \

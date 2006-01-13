@@ -25,7 +25,7 @@ public class Engine
 		glw.GLSetup += GtkGL.GLWidget.EnableLighting;		
 
    		// Create a new Teapot object
-		GtkGL.Teapot teapot = new Teapot();
+		GtkGL.OldTeapot teapot = new OldTeapot();
 
 		// Create a controller that manages rotation of the Teapot object
 		controller = new GLObjectRotationController(teapot);
