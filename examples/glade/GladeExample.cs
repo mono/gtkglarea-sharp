@@ -4,40 +4,41 @@ using Gtk;
 using Glade;
 using GtkGL;
 
-public class GladeExample
+namespace GtkGL
 {
-	public static void Main (string[] args)
+	public class GladeExample
 	{
-		new GladeExample (args);
-	}
+		public GLWidget glw;
+		public Gtk.Window window;
 
-	public GladeExample (string[] args) 
-	{
-		Application.Init ();
+		public GladeExample () 
+		{
+			Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);
 
-		Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);
+			// Connect the Signals defined in Glade
+			gxml.Autoconnect (this);
+			
+			// Create a new glw widget and request a size
+			glw = new GLWidget ();
 
-		// Connect the Signals defined in Glade
-		gxml.Autoconnect (this);
+			// Create a new Vertical Box that the glw can live in
+			VBox vb = (Gtk.VBox)gxml["vbox1"];
+						
+			// Pack the glw widget into the VBox
+			vb.PackStart (glw);
+			
+			window = (Gtk.Window)gxml["glwidget"];
+		}
 		
-		GLWidget glw = new GLWidget();
+		private void OnQuit (object o, System.EventArgs e){
+			Application.Quit();
+		}
 
-		Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
-		vbox1.PackStart( glw );
-		
-		glw.Show();
-		
-		Application.Run ();
-	}
-	
-	private void OnQuit (object o, System.EventArgs e){
-		Application.Quit();
+		private void OnWindowDeleteEvent (object sender, DeleteEventArgs a) 
+		{
+			Application.Quit ();
+			a.RetVal = true;
+		}
 	}
 
-	private void OnWindowDeleteEvent (object sender, DeleteEventArgs a) 
-	{
-		Application.Quit ();
-		a.RetVal = true;
-	}
 }
-

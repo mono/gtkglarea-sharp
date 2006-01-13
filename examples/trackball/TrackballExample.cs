@@ -38,7 +38,10 @@ public class TrackballExample
         vbox1.PackStart ( glw );
 
 		// Show the GL widget
-		glw.Show();
+		Gtk.Window window = (Gtk.Window)gxml["glwidget"];
+		window.Show();
+
+		glw.Show();	
 		
 		// Go dog.  Go!
 		Application.Run ();

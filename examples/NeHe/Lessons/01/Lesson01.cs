@@ -16,40 +16,21 @@ namespace NeHe
 {
 	public class Lesson01
 	{
-	
-	public static void Main (string[] args)
-	{
-		new Lesson01 ();
-	}
-	
-	public Lesson01()
-	{
-		Application.Init ();
+		public static int Main (string[] args)
+		{
+			Gtk.Application.Init ();
 
-		Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);
-
-		// Connect the Signals defined in Glade
-		gxml.Autoconnect (this);
-		
-		GLWidget glw = new GLWidget();
-
-		Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
-		vbox1.PackStart( glw );
-		
-		glw.Show();
-		
-		Application.Run ();
-	}
-	
-	private void OnQuit (object o, System.EventArgs e){
-		Application.Quit();
-	}
-
-	private void OnWindowDeleteEvent (object sender, DeleteEventArgs a) 
-	{
-		Application.Quit ();
-		a.RetVal = true;
-	}
-	
+			GtkGL.GladeExample gladeWindow = new GtkGL.GladeExample ();
+			
+			// Show GL Window			
+			// Is this a bug?  Shouldn't ShowAll do what these two commands do?
+			// gladeWindow.window.ShowAll();
+			gladeWindow.window.Show();
+			gladeWindow.glw.Show();
+			
+			Gtk.Application.Run ();
+			
+			return 0;
+		}
 	}
 }

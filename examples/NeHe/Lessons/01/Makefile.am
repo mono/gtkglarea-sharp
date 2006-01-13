@@ -1,5 +1,6 @@
 SOURCE_FILES = \
-	Lesson01.cs
+	Lesson01.cs \
+	$(top_srcdir)/examples/glade/GladeExample.cs
 
 CLEANFILES = \
 	Lesson01.exe \
@@ -8,6 +9,10 @@ CLEANFILES = \
 
 all: \
 	Lesson01.exe
+
+run: Lesson01.exe
+	MONO_PATH=$(top_srcdir)/examples/util mono Lesson01.exe
+
 
 EXTRA_DIST = \
 	$(SOURCE_FILES)
@@ -26,5 +31,5 @@ MCS_ARGS = \
 Lesson01.exe: Lesson01.cs
 	mcs \
 		$(MCS_ARGS) \
-		Lesson01.cs \
+		$(SOURCE_FILES) \
 		-out:Lesson01.exe

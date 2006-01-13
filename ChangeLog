@@ -1,3 +1,76 @@
+2006-01-12  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: removed lighting from default GtkGL.GLWidget
+	configuration.  The examples that use lighting now explicitly turn
+	it on.  The GL Window is hidden by default.  The examples that use
+	it must explicitly .Show() it.  ColoredTriangle and ColoredSquare
+	classes are now fully implemented, and NeHe lesson 03 now uses
+	them.  Added the NeHe.mds solution.
+
+	* 01/Lesson01.cs
+	- re-factored to use GtkGL.GladeExample class for basic class
+	construction
+	* 01/Makefile.am
+	- Added dependancy on GladeExample.cs
+	- added a run target
+	- added $(SOURCE_FILES) to mcs commandline instead of explicitly
+	listing the .cs file
+	* 02/Square.cs
+	- now in the NeHe namespace
+	- Renamed DrawSquare to DrawObject (changed this in GLObjectBase, too)
+	- re-factored common code into GLObjectBase
+	* 02/Lesson02.cs
+	- re-factored common code into GladeExample and GLObjectBase
+	* 02/Makefile.am
+	- added dependency on GladeExample.cs
+	- created run: target
+	* 02/Triangle.cs
+	- see Square.cs
+	* 03/ColoredTriangle
+	- created.  Based on 02/Triangle, but colored :)
+	* 03/Lesson03.mdp
+	- added Colored*
+	* 03/Makefile.am
+	- added GladeExample and Colored* to the dependency list
+	- added run: target
+	- now using $(SOURCE_FILES)
+	* 03/Lesson03.cs
+	- see 02/Lesson02.cs
+	* 03/ColoredSquare
+	- see 03/ColoredTriangle
+	* trackball/TrackballExample.cs
+	- now explicitly showing the window and glw
+	* trackball/TrackballWidget.cs
+	- explicitly enabled lighting
+	* trackball/Makefile.am
+	- added the .pidb file to CLEAN targets
+	* rotate-button/RotateButtonExample.cs
+	- explicitly enabled lighting
+	- now explicitly showing the window and glw
+	* glade/GladeExample.mdp
+	- added Engine.cs
+	* glade/Makefile.am
+	- added Engine.cs
+	* glade/GladeExample.cs
+	- re-factored common stuff into GladeExample and specific stuff
+	into Engine
+	* util/Teapot.cs
+	- re-named DrawTeapot to DrawObject in order to make the method
+	more generic
+	- moved common methods into GtkGL.GLObjectBase
+	* util/GLObjectBase.cs
+	- Now firing the Updated handler from here
+	- placed generic Init() method here
+	- Quat is protected
+	- TransMatrix is protected
+	* GLWidget.cs
+	- corrected incorrect comment
+	- moved the Clear command to before the LoadIdentity call
+	- added an EnableLighting method
+	- added an eventHandler to make extending the GL setup easier
+	- moved GL setup into InitGL()
+
+	
 2006-01-11T19:10  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Moved Lessons/Lesson0N.* to Lessons/0N/Lesson0N.*,

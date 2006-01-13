@@ -21,6 +21,8 @@ public class Engine
 		
 		// Create a new GL widget
 		glw = new GLWidget();
+		
+		glw.GLSetup += GtkGL.GLWidget.EnableLighting;		
 
    		// Create a new Teapot object
 		GtkGL.Teapot teapot = new Teapot();
@@ -41,6 +43,10 @@ public class Engine
         Gtk.VBox vbox1 = (Gtk.VBox)gxml["vbox1"];
         vbox1.PackStart ( glw );
         
+		// Show the GL widget
+		Gtk.Window window = (Gtk.Window)gxml["glwidget"];
+		window.Show();
+
 		// Show the GL widget
 		glw.Show();
 		

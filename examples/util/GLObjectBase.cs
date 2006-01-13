@@ -4,7 +4,9 @@ namespace GtkGL {
     using GtkGL;
     using gl=Tao.OpenGl.Gl;
     
-    public abstract class GLObjectBase {
+    // public abstract class GLObjectBase { // This doesn't work because of a bug:
+    // http://bugzilla.ximian.com/show_bug.cgi?id=76122 - GLObjectBase shouldn't need to implement IGLObject
+	public abstract class GLObjectBase : IGLObject {    
 
         protected ArrayList GLAreaList = null;
         
@@ -14,8 +16,24 @@ namespace GtkGL {
         protected GtkGL.EulerRotation eRot = null;
         protected GtkGL.Quaternion quat = null;
         
+		// our Updated event handler
+		public event EventHandler Updated;
+        
+		protected virtual void DrawObject()	{}   
+		
+		// Cache the drawing of the object
+		public new void Init()
+		{
+	  		// Do some genlist magic
+			shapeID = gl.glGenLists (1);
+
+			gl.glNewList (shapeID, gl.GL_COMPILE);
+				DrawObject();
+			gl.glEndList ();
+		}
+        
         // Make setting of euler, quat and matrix an atomic action
-        private GtkGL.EulerRotation ERot {
+        protected GtkGL.EulerRotation ERot {
         	get { return eRot; }
         	set {
         		if(value == null)
@@ -30,7 +48,7 @@ namespace GtkGL {
         }
         
         // Make setting of euler, quat and matrix an atomic action
-        private GtkGL.Quaternion Quat {
+        protected GtkGL.Quaternion Quat {
         	get { return quat; }
         	set {
         		if(value == null)
@@ -44,7 +62,7 @@ namespace GtkGL {
         }
         
         // Make setting of euler, quat and matrix an atomic action
-        private GtkGL.TransformationMatrix TransMatrix {
+        protected GtkGL.TransformationMatrix TransMatrix {
         	get { return transMatrix; }
         	set {
         		if(value == null)
@@ -74,28 +92,56 @@ namespace GtkGL {
         		this.transMatrix = GtkGL.TransformationMatrix.Identity;
 
 			this.transMatrix *= tm;
+			
+			// Tell our handlers that we have been updated
+  			if (Updated != null)
+	  			Updated (this, null);			
         }
         
         public void Rotate(GtkGL.Quaternion q)
         {
         	Quat *= q;
+        	
+			// Tell our handlers that we have been updated
+  			if (Updated != null)
+	  			Updated (this, null);        	
         }
         
         public void Rotate(GtkGL.EulerRotation er)
         {
-			ERot += er;	
+			ERot += er;
+			
+			// Tell our handlers that we have been updated
+  			if (Updated != null)
+	  			Updated (this, null);        				
         }
         
         
         public void Rotate(GtkGL.TransformationMatrix tm)
         {
         	TransMatrix *= tm;
-        }
+			// Tell our handlers that we have been updated
+  			if (Updated != null)
+	  			Updated (this, null);        
+	  	}
         
 		public void ResetRotation()
 		{
 			ERot = GtkGL.EulerRotation.Identity;
+
+			// Tell our handlers that we have been updated
+  			if (Updated != null)
+	  			Updated (this, null);        				
 		}
+		
+		public void ResetRotation(bool doUpdate)
+		{
+			ERot = GtkGL.EulerRotation.Identity;
+
+			// Tell our handlers that we have been updated
+  			if (doUpdate && Updated != null)
+	  			Updated (this, null);        				
+		}		
 		
 		public EulerRotation GetEulerRotation()
 		{
@@ -126,6 +172,24 @@ namespace GtkGL {
 			
 			return TransMatrix;
 		}
+		
+		public virtual bool Draw()
+		{
+			gl.glPushMatrix();
+
+			if(transMatrix != null){
+				// Apply the transformation matrix
+				gl.glMultMatrixd(transMatrix.Matrix);
+			}
+			
+			// Draw the image from the display list
+	  		//gl.glCallList (shapeID);
+	  		DrawObject();
+	  		
+	  		gl.glPopMatrix();
+	  		 
+	  		return true;
+		}		
         
     }
     

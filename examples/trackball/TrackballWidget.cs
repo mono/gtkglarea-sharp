@@ -1,5 +1,6 @@
 using System;
-    
+
+using Tao.OpenGl;
 using gl=Tao.OpenGl.Gl;
 using GtkGL;
 
@@ -17,6 +18,8 @@ namespace GtkGL {
 		
 	    public TrackballWidget() : base()
 	    {
+			base.GLSetup += GtkGL.GLWidget.EnableLighting;
+	    
 	    	// Create and initialize the quaternion
 			quat = new GtkGL.Quaternion(0.0, 0.0, 0.0, 1.0);
 

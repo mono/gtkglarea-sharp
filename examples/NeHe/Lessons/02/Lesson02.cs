@@ -16,72 +16,31 @@ namespace NeHe
 {
 	public class Lesson02
 	{
-		/* GlWidget is a widget defined in the GtkGL namespace and is a
-		 * specialized GtkDrawingArea with GL cow powers.
-		 */
-		
-		GtkGL.GLWidget glw;
-		GtkGL.Triangle triangle = null;
-		GtkGL.Square square = null;
-
 		public static int Main (string[] argc)
 		{
-			new Lesson02();
-
-			return 1;
-		}		
-
-		public Lesson02()
-		{
-			Gtk.Application.Init ();
+			Application.Init ();
 			
-			Glade.XML gxml = new Glade.XML (null, "glwidget.glade", "glwidget", null);
+			GtkGL.GladeExample gladeWindow = new GtkGL.GladeExample();
 			
-			// Connect the Signals defined in Glade
-			gxml.Autoconnect (this);
-			
-			// Create a new glw widget and request a size
-			glw = new GLWidget ();		
-			
-
-	   		// Create a new Triangle object and add it to our gl window
-			triangle = new Triangle();
+	   		// Create a new Triangle object, translate it a bit and add it to our gl window
+			Triangle triangle = new Triangle();
 			triangle.Translate(-1.5,0.0,-3);
-			glw.AddGLObject( triangle );			
+			gladeWindow.glw.AddGLObject( triangle );			
 
-			// Create a new Square object and add it to our gl window
-			square = new Square();
+			// Create a new Square object, translate it a bit and add it to our gl window
+			Square square = new Square();
 			square.Translate(1.5,0.0,-3);
-			glw.AddGLObject( square );
+			gladeWindow.glw.AddGLObject( square );
 			
-			// Create a new Vertical Box that the glw can live in
-			VBox vb = (Gtk.VBox)gxml["vbox1"];
-			
-			// Pack the glw widget into the VBox
-			vb.PackStart (glw, true, true, 0);
-
-			// Show all of glw's contained widgets
-			Gtk.Window win = (Gtk.Window)gxml["glwidget"];
-			win.ShowAll ();
+			// Show GL Window
+			// Is this a bug?  Shouldn't ShowAll do what these two commands do?
+			// gladeWindow.window.ShowAll();
+			gladeWindow.window.Show();
+			gladeWindow.glw.Show();
 			
 			Application.Run ();
-		}
-				
-		private void OnQuit (object o, System.EventArgs e){
-			Application.Quit();
-		}
 
-		private void OnWindowDeleteEvent (object sender, DeleteEventArgs a) 
-		{
-			Application.Quit ();
-			a.RetVal = true;
-		}
-		
-		void OnUnrealized (object o, EventArgs e)
-		{
-			Application.Quit();
-		}
-		
-
+			return 0;
+		}		
 	}
 }

@@ -4,7 +4,8 @@ run: GladeExample.exe
 	MONO_PATH=$(srcdir)/../util mono GladeExample.exe
 
 SOURCE_FILES = \
-	GladeExample.cs
+	GladeExample.cs \
+	Engine.cs
 
 GladeExample.exe: \
 	$(SOURCE_FILES) \
@@ -20,6 +21,7 @@ GladeExample.exe: \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:GladeExample.exe \
+	-nowarn:0169 \
 	-resource:$(srcdir)/../resources/glwidget.glade \
 	$(SOURCE_FILES)
 

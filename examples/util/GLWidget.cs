@@ -77,9 +77,7 @@ namespace GtkGL {
 			// http://www.opengl.org/documentation/specs/man_pages/hardcopy/GL/html/glu/perspective.html
 			glu.gluPerspective(45.0f,(float)width/(float)height,0.1f,100.0f);
 			
-			gl.glTranslatef(0.0f,0.0f,-6.0f);				// Move away from the drawing area 3.0
-			
-
+			gl.glTranslatef(0.0f,0.0f,-6.0f);				// Move away from the drawing area 6.0
 			
 			gl.glMatrixMode(gl.GL_MODELVIEW);				// Select The Modelview Matrix
 			gl.glLoadIdentity();							// Reset The Modelview Matrix
@@ -91,15 +89,14 @@ namespace GtkGL {
 			if (this.MakeCurrent() == 0)
 			  return;
 			  
-			gl.glMatrixMode(gl.GL_MODELVIEW_MATRIX);
+			//gl.glMatrixMode(gl.GL_MODELVIEW_MATRIX);
+
+			// Clear the scene
+			gl.glClear (gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);
+
 			// Replace current matrix with the identity matrix
 			gl.glLoadIdentity ();
-			
-			// Clear the scene
-			gl.glClear (gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);		
-			
-			gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
-
+						
 			// Draw the GLObjects associated with this GLArea
 			System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
   	
@@ -110,27 +107,41 @@ namespace GtkGL {
 			// bring back buffer to front, put front buffer in back
 			this.SwapBuffers ();
 		}
-
-		// One-time configuration of opengl states happens here
-		void OnRealized (object o, EventArgs e)
+		
+		public static void EnableLighting (object o, EventArgs e)
 		{
-			if (this.MakeCurrent() == 0)
-			  return;
-
+			float[] position = {-2.0f, 2.0f, 2.0f, 0.5f};
+			Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, position);
+			Gl.glEnable (Gl.GL_LIGHTING);
+		}		
+		
+		// Connect a method to this handler to extend the state setup
+		public event EventHandler GLSetup;
+		
+		// One-time configuration of opengl states happens here
+		protected virtual void InitGL()
+		{
+			// Run the associated Setup methods first
+			if(GLSetup != null)
+				GLSetup(this, null);
+		
+			gl.glShadeModel(gl.GL_SMOOTH);						// Enables Smooth Shading
 			gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 			gl.glClearDepth (1.0f);
+			
+			gl.glEnable(gl.GL_DEPTH_TEST);						// Enables Depth Testing
+			gl.glDepthFunc(gl.GL_LEQUAL);						// The Type Of Depth Test To Do
+			// Really Nice Perspective Calculations
+			gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);				
 
 			float[] materialSpecular = {1.0f, 1.0f, 1.0f, 0.15f};
 			float[] materialShininess = {100.0f};
-			float[] position = {-2.0f, 2.0f, 2.0f, 0.5f};
-
+			
 			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, materialSpecular);
-			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);
-			Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, position);
+			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);			
 
 			Gl.glFrontFace (Gl.GL_CW);
 
-			Gl.glEnable (Gl.GL_LIGHTING);
 			Gl.glEnable (Gl.GL_LIGHT0);
 			Gl.glEnable (Gl.GL_AUTO_NORMAL);
 			Gl.glEnable (Gl.GL_NORMALIZE);
@@ -139,7 +150,19 @@ namespace GtkGL {
 			gl.glShadeModel (gl.GL_SMOOTH);
 			// Really Nice Perspective Calculations
 			gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);
+		
+			return;
+		}
+
+		// Fired off when the widget is realized
+		void OnRealized (object o, EventArgs e)
+		{
+			if (this.MakeCurrent() == 0)
+			  return;
 			
+			// Run the state setup routine
+			InitGL();
+
 			// Iterate over associated IGLObject objects, calling Init() on each
 			System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
   	

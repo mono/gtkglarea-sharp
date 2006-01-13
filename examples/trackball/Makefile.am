@@ -26,7 +26,8 @@ TrackballExample.exe: \
 
 CLEANFILES = \
 	TrackballExample.exe \
-	TrackballExample.exe.mdb
+	TrackballExample.exe.mdb \
+	TrackballExample.exe.pidb
 
 
 EXTRA_DIST = \

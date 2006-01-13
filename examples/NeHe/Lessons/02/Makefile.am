@@ -1,5 +1,6 @@
 SOURCE_FILES = \
 	Lesson02.cs \
+	$(top_srcdir)/examples/glade/GladeExample.cs \
 	Triangle.cs \
 	Square.cs
 
@@ -11,6 +12,10 @@ CLEANFILES = \
 
 all: \
 	Lesson02.exe
+
+run: Lesson02.exe
+	MONO_PATH=$(top_srcdir)/examples/util mono Lesson02.exe
+
 
 EXTRA_DIST = \
 	$(SOURCE_FILES)

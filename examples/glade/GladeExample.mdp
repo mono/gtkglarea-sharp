@@ -19,6 +19,7 @@
   <Contents>
     <File name="./GladeExample.cs" subtype="Code" buildaction="Compile" />
     <File name="../resources/glwidget.glade" subtype="Code" buildaction="EmbedAsResource" />
+    <File name="./Engine.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="GtkGLAreaUtil" />
