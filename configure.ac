@@ -2,7 +2,7 @@ AC_INIT(README)
 AC_CANONICAL_SYSTEM
 
 ## Bump this for every release
-AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.12)
+AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.13)
 
 AM_MAINTAINER_MODE
 
