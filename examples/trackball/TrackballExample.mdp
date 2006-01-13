@@ -20,7 +20,6 @@
     <File name="./TrackballWidget.cs" subtype="Code" buildaction="Compile" />
     <File name="./TrackballExample.cs" subtype="Code" buildaction="Compile" />
     <File name="../resources" subtype="Directory" buildaction="Compile" />
-    <File name="../resources/glwidget.glade" subtype="Code" buildaction="EmbedAsResource" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="GtkGLAreaUtil" />
