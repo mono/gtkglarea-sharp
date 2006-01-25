@@ -1,0 +1,16 @@
+<gapi-parser-input>
+
+  <api filename="../gtkglext/gtkglext-api.raw">
+  <!--
+  TODO:
+  Find out what gtkglext compiles to on windows and use that dll name here
+  -->
+    <library name="libgtkglext-win32-2.0-0.dll">
+      <namespace name="GtkGLExt">
+        <dir>gtkglext-1.0.6/gtk</dir>
+        <dir>gtkglext-1.0.6/gdk</dir>
+      </namespace>
+    </library>
+  </api>
+
+</gapi-parser-input>

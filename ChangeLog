@@ -1,3 +1,14 @@
+2006-01-25  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Added beginnings of support for gtkglext in this package
+
+	* sources/gtkglext-sharp.sources.xml
+	- Added a sources file that describes the code hierarchy
+	* sources/Makefile.am
+	- added the commands and variables for GTKGLEXT
+	* gtkglext/
+	- created a directory for the generated code to live in
+
 2006-01-12T17:39  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Changed internal representation of Translation, Scale
