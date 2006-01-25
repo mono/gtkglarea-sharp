@@ -3,6 +3,8 @@ namespace GtkGL {
     using System.Collections;
     using GtkGL;
     using gl=Tao.OpenGl.Gl;
+
+	
     
     // public abstract class GLObjectBase { // This doesn't work because of a bug:
     // http://bugzilla.ximian.com/show_bug.cgi?id=76122 - GLObjectBase shouldn't need to implement IGLObject
@@ -11,6 +13,13 @@ namespace GtkGL {
         protected ArrayList GLAreaList = null;
         
         protected int shapeID;
+
+	public int ID { get { return shapeID; } }
+	public bool Selected { get { return true; } set { } }
+	
+        public void Scale(double[] factor) { }
+        public void Scale(double xFactor, double yFactor, double zFactor) { }
+        public void Scale(double factor) { }
         
         protected GtkGL.TransformationMatrix transMatrix = null;
         protected GtkGL.EulerRotation eRot = null;

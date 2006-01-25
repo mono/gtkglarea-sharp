@@ -4,5 +4,6 @@ SUBDIRS = \
 	NeHe \
 	trackball \
 	rotate-buttons \
+	pick-object \
 	glade \
 	resources

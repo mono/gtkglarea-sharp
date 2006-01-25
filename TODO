@@ -1,20 +1,12 @@
-- Get Triangle and Square objects drawing themselves correctly
+- in the pick-object example, Engine.Throb() needs to be implemented
 
-- Re-factor Euler angle stuff into the rotation-button test and out of
-the GLObjectBase and IGLObject
-
-- in the rotate-buttons example, modification of the entry fields
-  should rotate the object to the desired angle
-  * non-numeric values should be stricken and replaced with the
-    previous value
-
-- the common code in the examples/rotate-buttons example directory
-  should be merged back into examples/common
-  * and then that code should be used to re-implement the glade,
-    trackball and NeHe examples
+- in the rotate-buttons example non-numeric values should be stricken
+  and replaced with the previous value
 
 - Janne's LWO loader code should be used to create a new example for
   loading lightwave models
 
 - Speak with John Carmack about the potential of letting me use one of
 id's .mdl or .md3 files in a model-loading example
+
+- build an object pick example

@@ -13,9 +13,16 @@ namespace GtkGL {
         // Draw the object
         bool Draw();
         
+        int ID { get; }
+        bool Selected { get; set; }
+        
         // Translation (movement) methods
         void Translate(float x, float y, float z);
         void Translate(double x, double y, double z);
+        
+        void Scale(double[] factor);
+        void Scale(double xFactor, double yFactor, double zFactor);
+        void Scale(double factor);
 
   		// Rotate the object by passing a quaternion
   		void Rotate(GtkGL.Quaternion quat);

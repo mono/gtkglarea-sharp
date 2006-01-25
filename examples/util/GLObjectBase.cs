@@ -12,12 +12,42 @@ namespace GtkGL {
         
         protected int shapeID;
         
+        public int ID {
+        	get { return shapeID; }
+        }
+        
+        protected bool selected = false;
+
+        
+        public bool Selected {
+        	get { return selected; }
+        	set {
+        		if(value == true){
+        			if(SelectedEvent != null)
+        				SelectedEvent(this, null);
+        		}else{
+        			if(DeSelectedEvent != null)
+        				DeSelectedEvent(this, null);
+        		}
+
+        		selected = value;
+        	}
+        }
+        
+        protected float alphaValue = 1.0f;
+        
 		protected double[] scale = null;
 		protected double[] translation = null;
         protected GtkGL.Quaternion quat = null;
         
 		// our Updated event handler
 		public event EventHandler Updated;
+		
+		// our SelectedEvent event handler
+		public event EventHandler SelectedEvent;
+		
+		// our DeSelectedEvent event handler
+		public event EventHandler DeSelectedEvent;
         
 		protected virtual void DrawObject()	{}   
 		
@@ -59,21 +89,27 @@ namespace GtkGL {
         	get {
         		if(quat == null)
         			Quat = GtkGL.Quaternion.Identity;
+        			
+        		if(translation == null)
+        			translation = new double[3];
+        			
+        		if(scale == null)
+        			scale = new double[3];
 
+				// begin generating the transformation by converting the Quaternion into a rotation matrix
         		GtkGL.TransformationMatrix tm = quat.ToTransMatrix();
 
-        		if(translation != null){
-					tm.Matrix[12] = translation[0];
-        			tm.Matrix[13] = translation[1];
-        			tm.Matrix[14] = translation[2];
-        		}
+				// Next, add the translation X, Y and Z factors to the matrix
+				tm.Matrix[12] = translation[0];
+       			tm.Matrix[13] = translation[1];
+       			tm.Matrix[14] = translation[2];
         		
-        		if(scale != null){
-        			tm.Matrix[3]  = scale[0];
-        			tm.Matrix[7]  = scale[1];
-        			tm.Matrix[11] = scale[2];
-        		}
+        		// And finally, add the X, Y and Z scale factors to the matrix
+       			tm.Matrix[3]  = scale[0];
+       			tm.Matrix[7]  = scale[1];
+       			tm.Matrix[11] = scale[2];
         		
+        		// Return the constructed TransformationMatrix
         		return tm;
         	}
         	
@@ -81,25 +117,55 @@ namespace GtkGL {
         		if(value == null)
         			quat = GtkGL.Quaternion.Identity;
 
+				// Set our internal quaternion from the Transformation Matrix
         		quat = value.ToQuaternion();
         		
         		if(translation == null)
         			translation = new double[3];
-        			
+        		
+        		// Set our internal translation factors from the matrix
         		translation[0] = value.Matrix[12];
         		translation[1] = value.Matrix[13];
         		translation[3] = value.Matrix[14];
         		
         		if(scale == null)
         			scale = new double[3];
-        			
+        		
+        		// Set our internal scale factors from the matrix
         		scale[0] = value.Matrix[3];
         		scale[1] = value.Matrix[7];
         		scale[2] = value.Matrix[11];
         		
         	}
         }
-        
+
+	  	public void Scale(double[] factor)
+	  	{
+	  		if(factor.Length != 3)
+	  			return;
+	  			
+	  		this.Scale(factor[0], factor[1], factor[1]);
+	  	}
+	  	
+	  	public void Scale(double factor)
+	  	{
+	  		this.Scale(factor, factor, factor);
+	  	}
+	  	
+	  	public void Scale(double xFactor, double yFactor, double zFactor)
+	  	{
+	  		if(this.scale == null)
+	  			this.scale = new double[3];
+	  	
+	  		scale[0] = xFactor;
+	  		scale[1] = yFactor;
+	  		scale[2] = zFactor;
+	  		
+	  		// Tell our handlers that we have been updated
+	  		if (Updated != null)
+	  			Updated (this, null);
+	  	}
+
         public void Translate(float x, float y, float z)
         {
         	this.Translate((double) x, (double) y, (double) z);
@@ -179,9 +245,11 @@ namespace GtkGL {
 
 			gl.glMultMatrixd(this.TransMatrix.Matrix);
 			
+			gl.glPushName(shapeID);
 			// Draw the image from the display list
 	  		gl.glCallList (shapeID);
 	  		//DrawObject();
+	  		gl.glPopName();
 	  		
 	  		gl.glPopMatrix();
 	  		 

@@ -1,13 +1,13 @@
-<Project name="TrackballExample" fileversion="2.0" language="C#" ctype="DotNetProject">
+<Project name="ObjectPickExample" fileversion="2.0" language="C#" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Debug" assembly="trackballTest" />
+      <Output directory="./bin/Debug" assembly="ObjectPickExample" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Release" assembly="trackballTest" />
+      <Output directory="./bin/Release" assembly="ObjectPickExample" />
       <Build debugmode="False" target="Exe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
@@ -17,12 +17,14 @@
     <excludeFiles />
   </DeploymentInformation>
   <Contents>
-    <File name="./TrackballWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="./TrackballExample.cs" subtype="Code" buildaction="Compile" />
-    <File name="../resources" subtype="Directory" buildaction="Compile" />
+    <File name="./Engine.cs" subtype="Code" buildaction="Compile" />
+    <File name="./PickWidget.cs" subtype="Code" buildaction="Compile" />
     <File name="./Trackball.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ObjectPickExample.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="GtkGLAreaUtil" />
+    <ProjectReference type="Project" localcopy="True" refto="GladeExample" />
+    <ProjectReference type="Project" localcopy="True" refto="ShapesExample" />
   </References>
 </Project>

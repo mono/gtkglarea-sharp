@@ -111,6 +111,8 @@ namespace GtkGL {
 		public static void EnableLighting (object o, EventArgs e)
 		{
 			float[] position = {-2.0f, 2.0f, 2.0f, 0.5f};
+
+			Gl.glEnable (Gl.GL_LIGHT0);
 			Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, position);
 			Gl.glEnable (Gl.GL_LIGHTING);
 		}		
@@ -124,29 +126,32 @@ namespace GtkGL {
 			// Run the associated Setup methods first
 			if(GLSetup != null)
 				GLSetup(this, null);
-		
+			
 			gl.glShadeModel(gl.GL_SMOOTH);						// Enables Smooth Shading
 			gl.glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 			gl.glClearDepth (1.0f);
 			
-			gl.glEnable(gl.GL_DEPTH_TEST);						// Enables Depth Testing
-			gl.glDepthFunc(gl.GL_LEQUAL);						// The Type Of Depth Test To Do
+			Gl.glEnable (Gl.GL_AUTO_NORMAL);
+			Gl.glEnable (Gl.GL_NORMALIZE);
+			gl.glEnable (gl.GL_DEPTH_TEST);						// Enables Depth Testing
+			gl.glEnable (gl.GL_BLEND);
+			gl.glEnable (gl.GL_COLOR_MATERIAL);
+
+			gl.glBlendFunc (gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA);
+			gl.glDepthFunc (gl.GL_LEQUAL);						// The Type Of Depth Test To Do
 			// Really Nice Perspective Calculations
-			gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);				
+			gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);		
 
 			float[] materialSpecular = {1.0f, 1.0f, 1.0f, 0.15f};
 			float[] materialShininess = {100.0f};
+			// int[] materialEmission = { 0, 0, 0, 255 };
 			
-			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, materialSpecular);
-			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);			
+			// gl.glMaterialiv(gl.GL_FRONT_AND_BACK, gl.GL_EMISSION, materialEmission);
+			//Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, materialSpecular);
+			//Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, materialShininess);			
 
 			Gl.glFrontFace (Gl.GL_CW);
-
-			Gl.glEnable (Gl.GL_LIGHT0);
-			Gl.glEnable (Gl.GL_AUTO_NORMAL);
-			Gl.glEnable (Gl.GL_NORMALIZE);
-			Gl.glEnable (Gl.GL_DEPTH_TEST);
-			Gl.glDepthFunc (Gl.GL_LEQUAL);
+			
 			gl.glShadeModel (gl.GL_SMOOTH);
 			// Really Nice Perspective Calculations
 			gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT, gl.GL_NICEST);

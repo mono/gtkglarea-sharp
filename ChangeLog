@@ -1,3 +1,65 @@
+2006-01-25T13:27  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: Added examples/pick-object and got the pyramid to throb
+
+	* configure.ac
+	- bumped version
+	- added examples/pick-object/Makefile
+	* TODO
+	- removed some items, added others
+	* checkbuild.sh.in
+	- added pgp key signing
+	- generalized the file a bit
+	* examples/NeHe/Lessons/04/Lesson04.mdp
+	- removed shapes from this project.  Getting them from shapes.dll
+	* examples/NeHe/Lessons/04/Makefile.am
+	- corrected a typo
+	* examples/NeHe/Lessons/04/Lesson04.cs
+	- qualified shape names
+	* examples/NeHe/Lessons/05/Lesson05.mdp
+	- removed shapes from this project.  Getting them from shapes.dll
+	- added a reference to ShapesExample
+	* examples/NeHe/Lessons/05/Makefile.am
+	- removed shapes
+	* examples/trackball/Makefile.am
+	- added --debug to mcs args
+	- added Teapot.cs from shapes/
+	- added shapes/ dir to -libs list
+	* examples/trackball/TrackballExample.mdp
+	- added Trackball.cs
+	* examples/GtkGlAreaSharpExamples.mds
+	- added ObjectPickExample and ShapesExample, LWObjectExample
+	* examples/lwo/lw.c
+	- yoinked from gtkglarea
+	* examples/lwo/lw.h
+	- see above
+	* examples/lwo/penguin.lwo
+	- also the same
+	* examples/shapes/ColoredTriangle.cs
+	- changed namespace
+	* examples/shapes/Cube.cs
+	- changed namespace
+	- changed color3f to color4f
+	* examples/shapes/Square.cs
+	- changed namespace
+	* examples/shapes/Triangle.cs
+	- changed namespace
+	* examples/shapes/ColoredSquare.cs
+	- changed namespace
+	* examples/Makefile.am
+	- added the pick-object/ directory to the list of SUBDIRS
+	* examples/rotate-buttons/OldGLObjectBase.cs
+	- tweaked the API so it follows the same API, but doesn't
+	implement much of the functionality.  Really, folks... don't use
+	this one.  Go with the other one.  I should throw NotImplemented
+	exceptions.
+	* examples/pick-object/ObjectPickExample.mdp
+	- created a new MDP
+	* examples/pick-object/Engine.cs
+	- This is where the Throb() method is implemented.  It is also
+	where the GL window is instantiated.
+	* examples/pick-object/Makefile.am
+
 2006-01-25  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: Added beginnings of support for gtkglext in this package

@@ -1,17 +1,22 @@
 SOURCE_FILES = \
-	Lesson05.cs \
+	Engine.cs \
+	$(top_srcdir)/examples/trackball/Trackball.cs \
+	PickWidget.cs \
+	ObjectPickExample.cs \
 	$(top_srcdir)/examples/glade/GladeExample.cs
 
 CLEANFILES = \
-	Lesson05.exe \
-	Lesson05.exe.pidb
-
+	PickExample.exe \
+	PickExample.exe.pidb \
+	PickExample.exe.mdb
 
 all: \
-	Lesson05.exe
+	PickExample.exe
 
-run: Lesson05.exe
-	MONO_PATH=$(top_srcdir)/examples/util mono Lesson05.exe
+run: PickExample.exe
+	MONO_PATH="$(top_srcdir)/examples/util:$(top_srcdir)/examples/shapes" \
+	mono PickExample.exe
+
 
 EXTRA_DIST = \
 	$(SOURCE_FILES)
@@ -30,8 +35,8 @@ MCS_ARGS = \
 	-r:shapes.dll \
 	-r:gtkglarea-sharp-util.dll
 
-Lesson05.exe: $(SOURCE_FILES)
+PickExample.exe: $(SOURCE_FILES)
 	mcs \
 		$(MCS_ARGS) \
 		$(SOURCE_FILES) \
-		-out:Lesson05.exe
+		-out:PickExample.exe

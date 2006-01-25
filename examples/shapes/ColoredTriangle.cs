@@ -1,5 +1,5 @@
 
-namespace NeHe {
+namespace GtkGL {
     using System;
     
     using gl=Tao.OpenGl.Gl;

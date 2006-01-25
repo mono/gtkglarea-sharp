@@ -27,7 +27,7 @@ MCS_ARGS = \
 	-pkg:tao-opengl-glu \
 	-nowarn:0169 \
 	-r:gtkglarea-sharp.dll \
-	-r:gtkglarea-sharp-util.dll
+	-r:gtkglarea-sharp-util.dll \
 	-r:shapes.dll
 
 Lesson04.exe: $(SOURCE_FILES)

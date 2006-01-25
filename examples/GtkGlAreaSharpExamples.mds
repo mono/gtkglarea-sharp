@@ -6,6 +6,9 @@
       <Entry configuration="Debug" build="True" name="GtkGLAreaUtil" />
       <Entry configuration="Debug" build="True" name="GladeExample" />
       <Entry configuration="Debug" build="True" name="NeHe" />
+      <Entry configuration="Debug" build="True" name="LWObjectExample" />
+      <Entry configuration="Debug" build="True" name="ObjectPickExample" />
+      <Entry configuration="Debug" build="True" name="ShapesExample" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry configuration="Debug" build="True" name="RotateButtonExample" />
@@ -13,6 +16,9 @@
       <Entry configuration="Debug" build="True" name="GtkGLAreaUtil" />
       <Entry configuration="Debug" build="True" name="GladeExample" />
       <Entry configuration="Debug" build="True" name="NeHe" />
+      <Entry configuration="Debug" build="True" name="LWObjectExample" />
+      <Entry configuration="Debug" build="True" name="ObjectPickExample" />
+      <Entry configuration="Debug" build="True" name="ShapesExample" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="RotateButtonExample" single="True">
@@ -21,6 +27,9 @@
     <Execute type="None" entry="GtkGLAreaUtil" />
     <Execute type="None" entry="GladeExample" />
     <Execute type="None" entry="NeHe" />
+    <Execute type="None" entry="LWObjectExample" />
+    <Execute type="None" entry="ObjectPickExample" />
+    <Execute type="None" entry="ShapesExample" />
   </StartMode>
   <Entries>
     <Entry filename="./rotate-buttons/RotateButtonExample.mdp" />
@@ -28,5 +37,8 @@
     <Entry filename="./util/GtkGLAreaUtil.mdp" />
     <Entry filename="./glade/GladeExample.mdp" />
     <Entry filename="./NeHe/NeHe.mds" />
+    <Entry filename="./lwo/LWObjectExample.mdp" />
+    <Entry filename="./pick-object/ObjectPickExample.mdp" />
+    <Entry filename="./shapes/ShapesExample.mdp" />
   </Entries>
 </Combine>

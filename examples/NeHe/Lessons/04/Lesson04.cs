@@ -19,8 +19,8 @@ namespace NeHe
 	public class Lesson04
 	{
 		static GtkGL.GladeExample gladeWindow;
-		static ColoredSquare square;
-		static ColoredTriangle triangle;
+		static GtkGL.ColoredSquare square;
+		static GtkGL.ColoredTriangle triangle;
 	
 		public static int Main (string[] argc)
 		{
@@ -29,12 +29,12 @@ namespace NeHe
 			GtkGL.GladeExample gladeWindow = new GtkGL.GladeExample();			
 
 	   		// Create a new Triangle object, translate it a bit and add it to our gl window
-			triangle = new ColoredTriangle();
+			triangle = new GtkGL.ColoredTriangle();
 			triangle.Translate(-1.5,0.0,-3);
 			gladeWindow.glw.AddGLObject( triangle );			
 
 			// Create a new Square object, translate it a bit and add it to our gl window
-			square = new ColoredSquare();
+			square = new GtkGL.ColoredSquare();
 			square.Translate(1.5,0.0,-3);
 			gladeWindow.glw.AddGLObject( square );
 			

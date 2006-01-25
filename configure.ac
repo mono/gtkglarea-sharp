@@ -2,7 +2,7 @@ AC_INIT(README)
 AC_CANONICAL_SYSTEM
 
 ## Bump this for every release
-AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.13)
+AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.15)
 
 AM_MAINTAINER_MODE
 
@@ -138,6 +138,7 @@ examples/glade/Makefile
 examples/trackball/Makefile
 examples/util/Makefile
 examples/shapes/Makefile
+examples/pick-object/Makefile
 examples/resources/Makefile
 examples/NeHe/Makefile
 examples/NeHe/Lessons/Makefile
