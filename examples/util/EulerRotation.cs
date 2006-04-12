@@ -6,6 +6,11 @@ namespace GtkGL {
     public class EulerRotation {
         double x, y, z;
 
+   	public class GimbalLock : System.Exception {
+    		public GimbalLock() : base() {}
+	}
+
+
         GtkGL.TransformationMatrix transMatrix;
         GtkGL.Quaternion quat;
         
@@ -95,9 +100,6 @@ namespace GtkGL {
 			transMatrix = null;
 		}
 
-	   	public class GimbalLock : System.Exception {
-    		GimbalLock() : base() {}
-	    }
 
         static EulerRotation identity = null;
         
