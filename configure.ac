@@ -58,13 +58,13 @@ PKG_CHECK_MODULES(TAO_DEPENDENCIES, tao-opengl >= $TAO_REQUIRED_VERSION, has_tao
 if test "x$has_mono" = "xtrue"; then
 AC_PATH_PROG(RUNTIME, mono, no)
 AC_PATH_PROG(CSC, mcs, no)
-if test `uname -s` = "Darwin"; then
-	LIB_PREFIX=
-	LIB_SUFFIX=.dylib
-else
+#if test `uname -s` = "Darwin"; then
+#	LIB_PREFIX=
+#	LIB_SUFFIX=.dylib
+#else
 	LIB_PREFIX=.so
 	LIB_SUFFIX=
-fi
+#fi
 else
 AC_PATH_PROG(CSC, csc.exe, no)
 if test x$CSC = "xno"; then
