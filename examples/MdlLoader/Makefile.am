@@ -29,7 +29,8 @@ MCS_ARGS = \
 	-pkg:glade-sharp-2.0 \
 	-lib:$(srcdir)/../util \
 	-r:gtkglarea-sharp-util.dll \
-	-resource:$(srcdir)/../resources/glwidget.glade
+	-resource:$(srcdir)/../resources/glwidget.glade \
+	-nowarn:0169
 
 $(EXAMPLE_NAME).exe: $(SOURCE_FILES)
 	mcs \
