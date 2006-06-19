@@ -1,3 +1,6 @@
+2006-06-19T13:57  C.J. Collier  <cjcollier@colliertech.org>
+	re-factored code under the examples/MdlLoader directory
+	
 2006-06-19  C.J. Collier  <cjcollier@colliertech.org>
 
 	Overview: This concludes the translation of the C version of
