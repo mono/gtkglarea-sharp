@@ -1,13 +1,13 @@
 using GtkGL;
 
-namespace GladeExample {
+namespace Mdl {
     using System;
     
     public class Engine {
 		public static int Main (string[] args)
 		{
-			Mdl.MdlLoader loader = new Mdl.MdlLoader();
-			Mdl.Mdl myMdl = loader.Load("/home/cjcollier/id/models/armor.mdl");
+			MdlLoader loader = new MdlLoader();
+			Mdl myMdl = loader.Load("/home/cjcollier/id/models/armor.mdl");
 		
 			Gtk.Application.Init ();
 
