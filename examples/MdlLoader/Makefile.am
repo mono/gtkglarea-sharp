@@ -2,6 +2,8 @@ EXAMPLE_NAME=MdlLoader
 
 SOURCE_FILES = \
 	$(EXAMPLE_NAME).cs \
+	Mdl.cs \
+	MdlTypes.cs \
 	Engine.cs \
 	GladeExample.cs
 
