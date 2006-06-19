@@ -125,11 +125,28 @@ namespace Mdl {
 
 			mdl_t mdlTStruct      = readMdlT(fstream);
 			texgroup_struct[] tgs = readTexGroupStructs(mdlTStruct, fstream);
-			stvert_t[] vertData   = readVertData(mdlTStruct, fstream);			
+			stvert_t[] vertData   = readVertData(mdlTStruct, fstream);
+			dtriangle_t[] triData = readTriangleData(mdlTStruct, fstream);
 			
 			Mdl myMdl  = new Mdl();
 			
 			return myMdl;
+		}
+		
+		private dtriangle_t[] readTriangleData(mdl_t mdlTStruct, System.IO.FileStream fstream)
+		{
+			dtriangle_t[] triData = new dtriangle_t[mdlTStruct.numtris];
+			
+			for(int tri_num = 0; tri_num < mdlTStruct.numtris; tri_num++){
+				triData[tri_num].vertindex = new int[3];
+				triData[tri_num].facesfront = readInt(fstream);
+				
+				for(int i = 0; i < 3; i++){
+					triData[tri_num].vertindex[i] = readInt(fstream);
+				}
+			}
+			
+			return triData;
 		}
 		
 		private stvert_t[] readVertData(mdl_t mdlTStruct, System.IO.FileStream fstream)
