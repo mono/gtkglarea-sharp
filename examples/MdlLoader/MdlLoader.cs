@@ -44,29 +44,29 @@ namespace Mdl {
 	};
 
 	struct dtriangle_t {
-        int         facesfront;
-        int[]       vertindex;
+        public int         facesfront;
+        public int[]       vertindex;
 	};
 	
 	struct trivertx_t {
-        short[]		v;
-        short       lightnormalindex;
+        public byte[]		v;
+        public byte         lightnormalindex;
 	};
 
 	struct daliasframe_t {
-        trivertx_t  bboxmin;                            // lightnormal isn't used
-        trivertx_t  bboxmax;                            // lightnormal isn't used
-        char[]      name;                           // frame name from grabbing
+        public trivertx_t  bboxmin;                            // lightnormal isn't used
+        public trivertx_t  bboxmax;                            // lightnormal isn't used
+        public string      name;                               // frame name from grabbing
 	};
 	
 	struct daliasgroup_t {
-        int         numposes;
-        trivertx_t  bboxmin;                            // lightnormal isn't used
-        trivertx_t  bboxmax;                            // lightnormal isn't used
+        public int         numposes;
+        public trivertx_t  bboxmin;                            // lightnormal isn't used
+        public trivertx_t  bboxmax;                            // lightnormal isn't used
 	};
 	
 	struct daliasframetype_t {
-        aliasframetype_t type;
+        public aliasframetype_t type;
 	};
 
 	struct tex_struct {
@@ -82,15 +82,15 @@ namespace Mdl {
 	};
 
 	struct pose_struct {
-  		string       name;
-  		trivertx_t[] vertex;
+  		public string       name;
+  		public trivertx_t[] vertex;
 	};
 
 	struct frame_struct {
-  		aliasframetype_t  type;
-  		int               numposes;
-  		float[]           interval;
-  		pose_struct[]     pose;
+  		public aliasframetype_t  type;
+  		public int               numposes;
+  		public float[]           interval;
+  		public pose_struct[]     pose;
 	};
 
 	struct mdl_struct {
@@ -127,10 +127,96 @@ namespace Mdl {
 			texgroup_struct[] tgs = readTexGroupStructs(mdlTStruct, fstream);
 			stvert_t[] vertData   = readVertData(mdlTStruct, fstream);
 			dtriangle_t[] triData = readTriangleData(mdlTStruct, fstream);
+			frame_struct[] frame  = readFrameData(mdlTStruct, fstream);
 			
 			Mdl myMdl  = new Mdl();
 			
 			return myMdl;
+		}
+		
+		private frame_struct[] readFrameData(mdl_t mdlTStruct, System.IO.FileStream fstream)
+		{
+			daliasframetype_t frametype;
+			frame_struct[] frame = new frame_struct[mdlTStruct.numframes];
+			
+			for(int frame_num = 0; frame_num < mdlTStruct.numframes; frame_num++){
+				frametype.type = (aliasframetype_t) readInt(fstream);
+				
+				frame[frame_num].type = frametype.type;
+				Console.WriteLine("Frame type for frame #{0} is {1}", frame_num, frametype.type);
+				
+				if(frametype.type == aliasframetype_t.ALIAS_SINGLE){
+					//no group data for single-frame meshes
+					//we want to use the same data structure, though so set numposes
+					frame[frame_num].numposes = 1;
+					
+					//no interval data for single-frame meshes - set to zero
+					frame[frame_num].interval = new float[1];
+					frame[frame_num].interval[0] = 0.0f;
+				}else{
+					//read group data for multi-frame meshes
+					daliasgroup_t groupData = readDAliasGroup(fstream);
+					frame[frame_num].numposes = groupData.numposes;
+					frame[frame_num].interval = new float[groupData.numposes];
+					
+					for(int i = 0; i < groupData.numposes; i++){
+						frame[frame_num].interval[i] = readSingle(fstream);
+					}
+				}
+				
+				// Read pose data
+				frame[frame_num].pose = new pose_struct[frame[frame_num].numposes];
+				
+				for(int i = 0; i < frame[frame_num].numposes; i++){
+					daliasframe_t dAliasFrame = readDAliasFrame(fstream);
+					frame[frame_num].pose[i].name   = dAliasFrame.name;
+					Console.WriteLine("Reading pose named {0}", frame[frame_num].pose[i].name);
+					frame[frame_num].pose[i].vertex = new trivertx_t[mdlTStruct.numverts];
+					
+					for(int j = 0; j < mdlTStruct.numverts; j++){
+						frame[frame_num].pose[i].vertex[j] = readTriVertX(fstream);
+					}
+				}
+			}
+			
+			return frame;
+		}
+		
+		private daliasframe_t readDAliasFrame(System.IO.FileStream fstream)
+		{
+			daliasframe_t dAliasFrame = new daliasframe_t();
+			
+			dAliasFrame.bboxmax = readTriVertX(fstream); // Not used
+			dAliasFrame.bboxmin = readTriVertX(fstream); // Not used
+			byte[] buff = new byte[16];
+			fstream.Read(buff, 0, 16);
+			dAliasFrame.name = System.Text.Encoding.ASCII.GetString(buff);
+			
+			return dAliasFrame;
+		}
+		
+		private daliasgroup_t readDAliasGroup(System.IO.FileStream fstream)
+		{
+			daliasgroup_t groupData = new daliasgroup_t();
+			
+			groupData.numposes = readInt(fstream);
+			groupData.bboxmin  = readTriVertX(fstream);
+			groupData.bboxmax  = readTriVertX(fstream);
+			
+			return groupData;
+		}
+		
+		private trivertx_t readTriVertX(System.IO.FileStream fstream)
+		{
+			trivertx_t triVertData = new trivertx_t();
+			
+			triVertData.v = new byte[3];
+			fstream.Read(triVertData.v, 0, 3);
+			byte[] buffer = new byte[1];
+			fstream.Read(buffer, 0, 1);
+			triVertData.lightnormalindex = buffer[0];
+			
+			return triVertData;
 		}
 		
 		private dtriangle_t[] readTriangleData(mdl_t mdlTStruct, System.IO.FileStream fstream)

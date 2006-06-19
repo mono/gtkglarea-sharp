@@ -1,3 +1,41 @@
+2006-06-19  C.J. Collier  <cjcollier@colliertech.org>
+
+	Overview: This concludes the translation of the C version of
+	Jenkara's mdl loader to C#.  To load a given .mdl file,
+	instantiate the MdlLoader and call the Load() method on the
+	object, passing the filename of the data file to load.  It won't
+	do anything but print debugging info to STDOUT, but it looks like
+	it correctly reads all the bytes :)
+	
+	* examples/MdlLoader/MdlLoader.cs
+	- made struct members public
+	- created readFrameData(), which reads frame data from the fstream
+	passed as an argument.  Number of frames is retrieved from the
+	mdl_t which is also passed as an argument
+	- created readDAliasFrame(), which reads a frame from the fstream
+	passed as an argument
+	- created readDAliasGroup(), which reads a frame group from the
+	fstream passed as an argument
+	- created readTriVertX(), which reads a triangle and light normal
+	index from the fstream passed as an argument
+	
+ 
+2006-06-18T19:56  C.J. Collier  <cjcollier@colliertech.org>
+	* examples/MdlLoader/MdlLoader.cs
+	- implemented methods to read the mdl_t struct and
+	texgroup_struct[] array
+	- publicized struct members
+	- created a Mdl class and stub constructor
+	* examples/MdlLoader/Makefile.am
+	- added nowarn for warning #0169
+	* examples/MdlLoader/Engine.cs
+	- instantiating a Mdl.Mdl class
+
+2006-06-18  C.J. Collier  <cjcollier@colliertech.org>
+	* examples/MdlLoader
+	- Created a set of build files to get the project off the ground
+
+
 2006-04-12  C.J. Collier  <cjcollier@colliertech.org>
 	* examples/util/EulerRotation.cs
 	- Made EulerRotation.GimbalLock.GimbalLock() public
