@@ -3,110 +3,8 @@ using System.IO;
 
 // created on 11/26/2005 at 3:33 PM
 namespace Mdl {
-	enum synctype_t {
-		ST_SYNC = 0,
-		ST_RAND
-	};
 	
-	enum aliasframetype_t {
-		ALIAS_SINGLE = 0,
-		ALIAS_GROUP
-	};
-	
-	enum aliasskintype_t {
-		ALIAS_SKIN_SINGLE = 0,
-		ALIAS_SKIN_GROUP
-	};
-	
-	struct mdl_t {
-	
-		public int         ident;
-        public int         version;
-        public float[]     scale;
-        public float[]     scale_origin;
-        public float       boundingradius;
-        public float[]     eyeposition;
-        public int         num_texgroups;
-        public int         texwidth;
-        public int         texheight;
-        public int         numverts;
-        public int         numtris;
-        public int         numframes;
-        public synctype_t  synctype;
-        public int         flags;
-        public float       size;
-	};
-	
-	struct stvert_t {
-        public int         onseam;
-        public int         s;
-        public int         t;
-	};
-
-	struct dtriangle_t {
-        public int         facesfront;
-        public int[]       vertindex;
-	};
-	
-	struct trivertx_t {
-        public byte[]		v;
-        public byte         lightnormalindex;
-	};
-
-	struct daliasframe_t {
-        public trivertx_t  bboxmin;                            // lightnormal isn't used
-        public trivertx_t  bboxmax;                            // lightnormal isn't used
-        public string      name;                               // frame name from grabbing
-	};
-	
-	struct daliasgroup_t {
-        public int         numposes;
-        public trivertx_t  bboxmin;                            // lightnormal isn't used
-        public trivertx_t  bboxmax;                            // lightnormal isn't used
-	};
-	
-	struct daliasframetype_t {
-        public aliasframetype_t type;
-	};
-
-	struct tex_struct {
-		public byte[] pixel;  //Pixel data
-	};
-
-	struct texgroup_struct {
-		public aliasskintype_t type;
-
-		public long			numtextures; // number of pictures in group
-		public float[]			interval;   // intervals for each picture
-		public tex_struct[]	texture;    // texture data
-	};
-
-	struct pose_struct {
-  		public string       name;
-  		public trivertx_t[] vertex;
-	};
-
-	struct frame_struct {
-  		public aliasframetype_t  type;
-  		public int               numposes;
-  		public float[]           interval;
-  		public pose_struct[]     pose;
-	};
-
-	struct mdl_struct {
-  		mdl_t             header;
-
-  		texgroup_struct[] texgroup;
-  		stvert_t[]        stvert_data;
-  		dtriangle_t[]     triangle_data;
-  		frame_struct[]    frame;
-	};
-	
-	class Mdl {
-		public Mdl() { }
-	}
-
-	class MdlLoader {
+	public class MdlLoader {
 		const int DT_FACES_FRONT = 0x0010;
 		
 		public MdlLoader() {
@@ -122,16 +20,16 @@ namespace Mdl {
 				System.Console.WriteLine("Oops.  We got an exception: {0}", e.ToString());
 				return null;
 			}
+			
+			// Read the header
+			mdl_t mdlTStruct = readMdlT(fstream);
 
-			mdl_t mdlTStruct      = readMdlT(fstream);
-			texgroup_struct[] tgs = readTexGroupStructs(mdlTStruct, fstream);
-			stvert_t[] vertData   = readVertData(mdlTStruct, fstream);
-			dtriangle_t[] triData = readTriangleData(mdlTStruct, fstream);
-			frame_struct[] frame  = readFrameData(mdlTStruct, fstream);
-			
-			Mdl myMdl  = new Mdl();
-			
-			return myMdl;
+			return new Mdl(mdlTStruct,
+						   readTexGroupStructs(mdlTStruct, fstream),
+						   readVertData(mdlTStruct, fstream),
+						   readTriangleData(mdlTStruct, fstream),
+						   readFrameData(mdlTStruct, fstream)
+						   );
 		}
 		
 		private frame_struct[] readFrameData(mdl_t mdlTStruct, System.IO.FileStream fstream)
