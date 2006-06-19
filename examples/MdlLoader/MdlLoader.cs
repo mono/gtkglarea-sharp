@@ -38,9 +38,9 @@ namespace Mdl {
 	};
 	
 	struct stvert_t {
-        int         onseam;
-        int         s;
-        int         t;
+        public int         onseam;
+        public int         s;
+        public int         t;
 	};
 
 	struct dtriangle_t {
@@ -125,9 +125,24 @@ namespace Mdl {
 
 			mdl_t mdlTStruct      = readMdlT(fstream);
 			texgroup_struct[] tgs = readTexGroupStructs(mdlTStruct, fstream);
+			stvert_t[] vertData   = readVertData(mdlTStruct, fstream);			
+			
 			Mdl myMdl  = new Mdl();
 			
 			return myMdl;
+		}
+		
+		private stvert_t[] readVertData(mdl_t mdlTStruct, System.IO.FileStream fstream)
+		{
+			stvert_t[] vertData = new stvert_t[mdlTStruct.numverts];
+			for(int vert_num = 0; vert_num < mdlTStruct.numverts; vert_num++)
+			{
+				vertData[vert_num].onseam = readInt(fstream);
+				vertData[vert_num].s      = readInt(fstream);
+				vertData[vert_num].t      = readInt(fstream);
+			}
+			
+			return vertData;
 		}
 		
 		private texgroup_struct[] readTexGroupStructs(mdl_t mdlTStruct, System.IO.FileStream fstream)
