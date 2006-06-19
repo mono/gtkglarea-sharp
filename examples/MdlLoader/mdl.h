@@ -37,10 +37,11 @@ typedef enum { ST_SYNC = 0, ST_RAND } synctype_t;
 
 typedef unsigned char Uint8;
 
+/* Total:  */ 
 typedef struct {
-	int         ident;
-	int         version;
-	float       scale[3];
+	int         ident;           /* 4 bytes */
+	int         version;         /* 4 bytes */         
+	float       scale[3];        /* 12 */
 	float       scale_origin[3];
 	float       boundingradius;
 	float       eyeposition[3];
