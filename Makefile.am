@@ -1,4 +1,4 @@
-SUBDIRS = managed gtkglarea examples sources
+SUBDIRS = gtkglarea examples sources
 
 pkgconfigdir = $(prefix)/lib/pkgconfig
 pkgconfig_DATA = gtkglarea-sharp.pc

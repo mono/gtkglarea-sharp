@@ -55,7 +55,6 @@ PKG_CHECK_MODULES(BASE_DEPENDENCIES, gtk+-2.0 >= $GTK_REQUIRED_VERSION gmodule-2
 PKG_CHECK_MODULES(MONO_DEPENDENCY, mono >= $MONO_REQUIRED_VERSION, has_mono=true, has_mono=false)
 PKG_CHECK_MODULES(TAO_DEPENDENCIES, tao-opengl >= $TAO_REQUIRED_VERSION, has_tao=yes, has_tao=no) 
 
-if test "x$has_mono" = "xtrue"; then
 AC_PATH_PROG(RUNTIME, mono, no)
 AC_PATH_PROG(CSC, mcs, no)
 #if test `uname -s` = "Darwin"; then
@@ -65,16 +64,6 @@ AC_PATH_PROG(CSC, mcs, no)
 	LIB_PREFIX=.so
 	LIB_SUFFIX=
 #fi
-else
-AC_PATH_PROG(CSC, csc.exe, no)
-if test x$CSC = "xno"; then
-	AC_MSG_ERROR([You need to install either mono or .Net])
-else
-RUNTIME=
-LIB_PREFIX=
-LIB_SUFFIX=.dylib
-fi
-fi
 
 AC_SUBST(LIB_PREFIX)
 AC_SUBST(LIB_SUFFIX)
