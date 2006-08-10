@@ -13,12 +13,10 @@
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
-  <DeploymentInformation strategy="File">
-    <excludeFiles />
-  </DeploymentInformation>
+  <DeployTargets />
   <Contents>
     <File name="./gtk-gui/gui.stetic" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="./gtk-gui/generated.cs" subtype="Code" buildaction="Compile" />
+    <File name="./gtk-gui/generated.cs" subtype="Code" buildaction="Nothing" />
     <File name="./gtk-gui/objects.xml" subtype="Code" buildaction="EmbedAsResource" />
     <File name="./MdlLoader.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine.cs" subtype="Code" buildaction="Compile" />
@@ -36,6 +34,7 @@
     <ProjectReference type="Gac" localcopy="True" refto="Tao.OpenGl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1ca010269a4501ef" />
     <ProjectReference type="Gac" localcopy="True" refto="Tao.OpenGl.Glu, Version=1.5.0.3, Culture=neutral, PublicKeyToken=3661ea75021374b5" />
     <ProjectReference type="Gac" localcopy="True" refto="gtkglarea-sharp, Version=0.0.3.0, Culture=neutral, PublicKeyToken=7df758c0fb49fe62" />
+    <ProjectReference type="Project" localcopy="True" refto="GtkGLAreaUtil" />
   </References>
   <GtkDesignInfo>
     <ExportedWidgets>
@@ -43,4 +42,7 @@
       <Widget>MdlLoader.foo</Widget>
     </ExportedWidgets>
   </GtkDesignInfo>
+  <DeploymentInformation strategy="File">
+    <excludeFiles />
+  </DeploymentInformation>
 </Project>
