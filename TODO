@@ -1,3 +1,6 @@
+- in configure.ac
+* Remove hard dependency on Tao.* - enable examples if it's found, disable if it's not
+
 - in the pick-object example, Engine.Throb() needs to be implemented
 
 - in the rotate-buttons example non-numeric values should be stricken

@@ -1,7 +1,13 @@
-2006-06-19T13:57  C.J. Collier  <cjcollier@colliertech.org>
+2006-10-21  C.J. Adams-Collier  <cjcollier@colliertech.org>
+	* TODO
+	- noted a need to remove hard dependency on Tao.*
+	- also noted that we should build examples if we find Tao.*,
+	otherwise not
+	
+2006-06-19T13:57  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	re-factored code under the examples/MdlLoader directory
 	
-2006-06-19  C.J. Collier  <cjcollier@colliertech.org>
+2006-06-19  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: This concludes the translation of the C version of
 	Jenkara's mdl loader to C#.  To load a given .mdl file,
@@ -23,7 +29,7 @@
 	index from the fstream passed as an argument
 	
  
-2006-06-18T19:56  C.J. Collier  <cjcollier@colliertech.org>
+2006-06-18T19:56  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* examples/MdlLoader/MdlLoader.cs
 	- implemented methods to read the mdl_t struct and
 	texgroup_struct[] array
@@ -34,18 +40,18 @@
 	* examples/MdlLoader/Engine.cs
 	- instantiating a Mdl.Mdl class
 
-2006-06-18  C.J. Collier  <cjcollier@colliertech.org>
+2006-06-18  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* examples/MdlLoader
 	- Created a set of build files to get the project off the ground
 
 
-2006-04-12  C.J. Collier  <cjcollier@colliertech.org>
+2006-04-12  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* examples/util/EulerRotation.cs
 	- Made EulerRotation.GimbalLock.GimbalLock() public
 	* configure.ac
 	- bumped version to 0.0.16
 
-2006-01-25T13:27  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-25T13:27  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Added examples/pick-object and got the pyramid to throb
 
@@ -107,7 +113,7 @@
 	where the GL window is instantiated.
 	* examples/pick-object/Makefile.am
 
-2006-01-25  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-25  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Added beginnings of support for gtkglext in this package
 
@@ -118,7 +124,7 @@
 	* gtkglext/
 	- created a directory for the generated code to live in
 
-2006-01-12T17:39  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-12T17:39  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Changed internal representation of Translation, Scale
 	and Rotation from Euler Rotation + Quaternion + Rotation Matrix to
@@ -150,7 +156,7 @@
 	- GetTransformationMatrix() now returns TransMatrix
 	- Draw now calls glMultMatrixd(this.TransMatrix.Matrix)
 	
-2006-01-12  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-12  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: removed lighting from default GtkGL.GLWidget
 	configuration.  The examples that use lighting now explicitly turn
@@ -223,14 +229,14 @@
 	- moved GL setup into InitGL()
 
 	
-2006-01-11T19:10  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-11T19:10  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Moved Lessons/Lesson0N.* to Lessons/0N/Lesson0N.*,
 	removed excess debug print statements, moved Triangle.cs and
 	Square.cs into NeHe/Lessons/02/
 
 
-2006-01-11  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-11  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview:Renamed RotationMatrix to TransformationMatrix (I'm
 	thinking of getting rid of the matrix and replacing it with a
@@ -286,14 +292,14 @@
 	- moved the projection translation into the resize handler
 
 
-2006-01-10  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-10  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Moved common code into examples/util/ and compiled them
 	down to a gtkglarea-sharp-util.dll file.  I added a make run entry
 	for each of the examples, since they require a modification to the
 	MONO_PATH environment variable.
 
-2006-01-09  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-09  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* examples/trackball/Vector.cs
 	- New link to ../rotate-buttons/Vector.cs
 	* examples/trackball/TrackballWidget.cs
@@ -327,7 +333,7 @@
 	- renamed common to util
 
 
-2006-01-06T15:17  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-06T15:17  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Applying new classes from rotate-buttons to this
 	example.  Linked to the new class files from ../rotate-buttons and
@@ -364,7 +370,7 @@
 
 	
 
-2006-01-06T12:06  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-06T12:06  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Fixed EulerRotation.ToRotationMatrix()
 	
@@ -391,7 +397,7 @@
 	- added Get*Rotation to the interface
 
 
-2006-01-06  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-06  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: GtkGL.Rotation has been deprecated.  Now replaced with
 	one of EulerRotation, Quaternion or RotationMatrix.  Replacing
@@ -437,7 +443,7 @@
 	- added Euler Quat and Matrix cs files
 
 
-2006-01-02  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-02  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	
 	Overview: The entry fields may now be used to rotate the object as
 	well as the buttons.  They are updated when the buttons are
@@ -462,7 +468,7 @@
 	* examples/rotate-buttons/GLObjectBase.cs
 	- whitespace
 	
-2006-01-01  C.J. Collier  <cjcollier@colliertech.org>
+2006-01-01  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Completed writing code to update the entry fields when
 	the +/- buttons are pressed
@@ -483,7 +489,7 @@
 	- fire the Rotated event after the object has been rotated
 
 
-2005-12-31T22:46  C.J. Collier  <cjcollier@colliertech.org>
+2005-12-31T22:46  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	Overview: Entry fields are now filled in when the buttons are
 	pressed.  Sort of.  There's a gimbal lock error causing strange
@@ -532,7 +538,7 @@
 		
 	
 
-2005-12-31  C.J. Collier  <cjcollier@colliertech.org>
+2005-12-31  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	Overview: Created an GLObjectRotationController, which encompases
 	the object rotation UI and the handlers associated with it.  This
 	controller contains ObjectRotationButton widgets; a Clockwise and
@@ -571,7 +577,7 @@
 	- refactored GLObjectRotationController code into new class
 	- moved GLWidget-specific handlers into GLWidget
 
-2005-12-30  C.J. Collier  <cjcollier@colliertech.org>
+2005-12-30  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	Overview: Rotation on button click has (finally) been implemented.
 	IGLObject objects are required to have an Update EventHandler now.
 	Update is triggered when rotations are applied.  The same method
@@ -621,7 +627,7 @@
 	instead of glw
 	
 
-2005-12-29  C.J. Collier  <cjcollier@colliertech.org>
+2005-12-29  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* examples/rotate-buttons/Teapot.cs
 	- Copied from ../shared
 	- Will be merged back in after changes are complete to new code
@@ -653,7 +659,7 @@
 	- GLWidget is now a GLArea, so we now use glw instead of glw.glArea
 	- there is a control widget.  Did I mention I updated ../common/glwidget.glade ?
 	
-2005-12-25  C.J. Collier  <cjcollier@colliertech.org>
+2005-12-25  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* examples/trackball/shapes.cs:
 	- depricated this file.  Soon it will be svn rm'd
 	- Broke up the content into examples/common/GlWidget.cs, TrackballWidget.cs and trackballTest.cs
@@ -677,11 +683,11 @@
 	* examples/trackball/trackballTest.cs:
 	- simple wrapper around TrackballWidget.cs
 
-2005-12-23  C.J. Collier  <cjcollier@colliertech.org>
+2005-12-23  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* examples/: reorganized the examples that were there, added new ones
 
 	
-2005-12-13  C.J. Collier  <cjcollier@colliertech.org>
+2005-12-13  C.J. Adams-Collier  <cjcollier@colliertech.org>
 
 	* configure.am: added Makefiles for NeHe examples
 	* examples/NeHe: Created directory structure for NeHe examples
