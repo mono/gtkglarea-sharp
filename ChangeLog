@@ -1,3 +1,16 @@
+2006-11-10  C.J. Adams-Collier  <cjcollier@colliertech.org>
+	Submission made on behalf of "Nick" <Xedecimal@gmail.com>
+	* examples/glade/Engine.cs
+	- Added lots of comments
+	- replaced multiple calls to Show() with a single ShowAll()
+	* examples/glade/GladeExample.cs
+	- added [Widget] attributes to Gtk widgets
+	- renamed "window" to "glwidget" to match the .glade file
+	- added lots of comments
+	- added modal dialog thinger
+	* examples/resources/glwidget.glad
+	- added dialog for modal test
+
 2006-10-21  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	* TODO
 	- noted a need to remove hard dependency on Tao.*
