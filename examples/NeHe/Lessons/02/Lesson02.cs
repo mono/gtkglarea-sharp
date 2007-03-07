@@ -34,8 +34,8 @@ namespace NeHe
 			
 			// Show GL Window
 			// Is this a bug?  Shouldn't ShowAll do what these two commands do?
-			// gladeWindow.window.ShowAll();
-			gladeWindow.window.Show();
+			// gladeWindow.glwidget.ShowAll();
+			gladeWindow.glwidget.Show();
 			gladeWindow.glw.Show();
 			
 			Application.Run ();

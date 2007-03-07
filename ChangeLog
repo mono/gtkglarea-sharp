@@ -1,3 +1,9 @@
+2007-03-07  C.J. Adams-Collier  <cjcollier@colliertech.org>
+	Cleaning up build
+	* configure.ac
+	- Tao.Opengl -> Tao.OpenGl
+	* examples/NeHe/Lessons/0*/Lesson0*.cs
+	- renamed window to glwidget
 2006-11-10  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	Submission made on behalf of "Nick" <Xedecimal@gmail.com>
 	* examples/glade/Engine.cs
