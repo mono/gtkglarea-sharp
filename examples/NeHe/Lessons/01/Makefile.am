@@ -24,13 +24,13 @@ MCS_ARGS = \
 	-resource:$(top_srcdir)/examples/resources/glwidget.glade \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
-	-pkg:tao-opengl-glu \
+	-pkg:Tao.OpenGl \
 	-r:gtkglarea-sharp.dll \
 	-nowarn:0169 \
 	-r:gtkglarea-sharp-util.dll
 
 Lesson01.exe: Lesson01.cs
-	mcs \
+	$(MCS) \
 		$(MCS_ARGS) \
 		$(SOURCE_FILES) \
 		-out:Lesson01.exe

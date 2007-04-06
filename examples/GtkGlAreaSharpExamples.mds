@@ -1,24 +1,24 @@
-<Combine name="GtkGlAreaSharpExamples" fileversion="2.0">
+<Combine name="GtkGlAreaSharpExamples" fileversion="2.0" outputpath="./build/bin/">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
-      <Entry configuration="Debug" build="True" name="RotateButtonExample" />
-      <Entry configuration="Debug" build="True" name="TrackballExample" />
-      <Entry configuration="Debug" build="True" name="GtkGLAreaUtil" />
-      <Entry configuration="Debug" build="True" name="GladeExample" />
-      <Entry configuration="Debug" build="True" name="NeHe" />
-      <Entry configuration="Debug" build="True" name="LWObjectExample" />
-      <Entry configuration="Debug" build="True" name="ObjectPickExample" />
-      <Entry configuration="Debug" build="True" name="ShapesExample" />
+      <Entry build="True" name="RotateButtonExample" configuration="Debug" />
+      <Entry build="True" name="TrackballExample" configuration="Debug" />
+      <Entry build="True" name="GtkGLAreaUtil" configuration="Debug" />
+      <Entry build="True" name="GladeExample" configuration="Debug" />
+      <Entry build="True" name="NeHe" configuration="Debug" />
+      <Entry build="True" name="LWObjectExample" configuration="Debug" />
+      <Entry build="True" name="ObjectPickExample" configuration="Debug" />
+      <Entry build="True" name="ShapesExample" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
-      <Entry configuration="Debug" build="True" name="RotateButtonExample" />
-      <Entry configuration="Debug" build="True" name="TrackballExample" />
-      <Entry configuration="Debug" build="True" name="GtkGLAreaUtil" />
-      <Entry configuration="Debug" build="True" name="GladeExample" />
-      <Entry configuration="Debug" build="True" name="NeHe" />
-      <Entry configuration="Debug" build="True" name="LWObjectExample" />
-      <Entry configuration="Debug" build="True" name="ObjectPickExample" />
-      <Entry configuration="Debug" build="True" name="ShapesExample" />
+      <Entry build="True" name="RotateButtonExample" configuration="Debug" />
+      <Entry build="True" name="TrackballExample" configuration="Debug" />
+      <Entry build="True" name="GtkGLAreaUtil" configuration="Debug" />
+      <Entry build="True" name="GladeExample" configuration="Debug" />
+      <Entry build="True" name="NeHe" configuration="Debug" />
+      <Entry build="True" name="LWObjectExample" configuration="Debug" />
+      <Entry build="True" name="ObjectPickExample" configuration="Debug" />
+      <Entry build="True" name="ShapesExample" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="RotateButtonExample" single="True">

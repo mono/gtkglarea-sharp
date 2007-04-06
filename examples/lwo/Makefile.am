@@ -21,7 +21,7 @@ MCS_ARGS = \
 	-lib:$(top_srcdir)/examples/util \
 	-r:gtkglarea-sharp.dll \
 	-r:gtkglarea-sharp-util.dll \
-	-pkg:tao-opengl-glu \
+	-pkg:Tao.OpenGl \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:LWObjectExample.exe \

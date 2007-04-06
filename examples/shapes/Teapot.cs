@@ -155,7 +155,7 @@ namespace GtkGL {
 			    	  			}    	  			
 		    	  	}
 		    	  			
-		    		gl.glMap2f(gl.GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, ref tex[0,0,0]);
+		    		gl.glMap2f(gl.GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, tex[0,0,0]);
 		    		gl.glMap2f(gl.GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, cachedP[i]);
 		    		gl.glMapGrid2f(grid, 0.0f, 1.0f, grid, 0.0f, 1.0f);
 		    		gl.glEvalMesh2(type, 0, grid, 0, grid);

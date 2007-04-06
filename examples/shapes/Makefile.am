@@ -23,7 +23,7 @@ shapes.dll: $(SOURCE_FILES)
 	-r:gtkglarea-sharp.dll \
 	-r:gtkglarea-sharp-util.dll \
 	-target:library \
-	-pkg:tao-opengl-glu \
+	-pkg:Tao.OpenGl \
 	-out:shapes.dll \
 		$(SOURCE_FILES)
 

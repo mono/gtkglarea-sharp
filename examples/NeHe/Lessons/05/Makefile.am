@@ -11,7 +11,7 @@ all: \
 	Lesson05.exe
 
 run: Lesson05.exe
-	MONO_PATH=$(top_srcdir)/examples/util mono Lesson05.exe
+	MONO_PATH=$(top_srcdir)/examples/util:$(top_srcdir)/examples/shapes mono Lesson05.exe
 
 EXTRA_DIST = \
 	$(SOURCE_FILES)
@@ -24,14 +24,14 @@ MCS_ARGS = \
 	-resource:$(top_srcdir)/examples/resources/glwidget.glade \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
-	-pkg:tao-opengl-glu \
+	-pkg:Tao.OpenGl \
 	-nowarn:0169 \
 	-r:gtkglarea-sharp.dll \
 	-r:shapes.dll \
 	-r:gtkglarea-sharp-util.dll
 
 Lesson05.exe: $(SOURCE_FILES)
-	mcs \
+		$(MCS) \
 		$(MCS_ARGS) \
 		$(SOURCE_FILES) \
 		-out:Lesson05.exe

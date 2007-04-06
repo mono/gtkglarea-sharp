@@ -1,3 +1,21 @@
+2007-04-06T15:40  C.J. Adams-Collier  <cjac@colliertech.org>
+	- added svn:ignore to all directories
+	* configure.ac
+	- cleaned up MCS definition
+	- fixed the Tao dependency check
+	* examples/NeHe/NeHe.mds
+	- Meh.  Attribute order changed by md
+	* */*.mdp
+	- clr-version="Net_2_0"
+	- ensured that the project runs correctly
+	* */Makefile.am
+	- changed mcs to $(MCS)
+	* examples/NeHe/Lessons/*/Makefile.am
+	- changed -pkg:tao-opengl to -pkg:Tao.OpenGl
+	- fixed MONO_PATH to include examples/shapes/
+	* examples/shapes/Teapot.cs, examples/rotate-buttons/OldTeapot.cs
+	- removed ref attribute from call to gl.glMap2f
+
 2007-03-07  C.J. Adams-Collier  <cjcollier@colliertech.org>
 	Cleaning up build
 	* configure.ac

@@ -22,7 +22,7 @@ gtkglarea-sharp-util.dll: \
 	$(MCS) -debug \
 	-lib:@top_builddir@/gtkglarea \
 	-r:gtkglarea-sharp.dll \
-	-pkg:tao-opengl-glu \
+	-pkg:Tao.OpenGl \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-target:library \

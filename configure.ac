@@ -25,14 +25,15 @@ fi
 
 AC_MSG_RESULT($from_cvs)
 
-AC_PATH_PROG(MONO, mono)
-AC_PATH_PROG(MCS, mcs)
+AC_PATH_PROG(MONO, mono, no)
+AC_PATH_PROG(MCS, gmcs, no)
 if test "x$MONO" = "x" ; then
   AC_MSG_ERROR([Can't find "mono" in your PATH])
 fi
 if test "x$MCS" = "x" ; then
-  AC_MSG_ERROR([Can't find "mcs" in your PATH])
+  AC_MSG_ERROR([Can't find "gmcs" in your PATH])
 fi
+AC_SUBST(MCS)
 AC_SUBST(PATH)
 AC_SUBST(LD_LIBRARY_PATH)
 
@@ -49,14 +50,20 @@ AC_SUBST(BUILD_GTK_CFLAGS)
 AC_SUBST(BUILD_GTK_LIBS)
 GTK_REQUIRED_VERSION=2.0.0
 MONO_REQUIRED_VERSION=0.95
-TAO_REQUIRED_VERSION=0.0.2
+TAO_OPENGL_REQUIRED_VERSION=2.1.0
 
 PKG_CHECK_MODULES(BASE_DEPENDENCIES, gtk+-2.0 >= $GTK_REQUIRED_VERSION gmodule-2.0 >= $GTK_REQUIRED_VERSION) 
 PKG_CHECK_MODULES(MONO_DEPENDENCY, mono >= $MONO_REQUIRED_VERSION, has_mono=true, has_mono=false)
-PKG_CHECK_MODULES(TAO_DEPENDENCIES, Tao.OpenGl >= $TAO_REQUIRED_VERSION, has_tao=yes, has_tao=no) 
+PKG_CHECK_MODULES(TAO_OPENGL_DEPENDENCIES, Tao.OpenGl >= $TAO_OPENGL_REQUIRED_VERSION, has_tao_opengl=yes, has_tao_opengl=no) 
+
+if test "x$has_tao_opengl" = "xno"; then
+  AC_MSG_WARN([Tao.OpenGl not detected; examples will not be built])
+else
+  AC_MSG_NOTICE([Tao.OpenGl found; examples will be build])
+fi
 
 AC_PATH_PROG(RUNTIME, mono, no)
-AC_PATH_PROG(CSC, mcs, no)
+
 #if test `uname -s` = "Darwin"; then
 #	LIB_PREFIX=
 #	LIB_SUFFIX=.dylib
@@ -146,8 +153,8 @@ echo "---"
 echo "Configuration summary"
 echo ""
 echo "   * Installation prefix: $prefix"
-echo "   * compiler: $CSC"
-echo "   * Tao.OpenGl: $has_tao"
+echo "   * compiler: $MCS"
+echo "   * Tao.OpenGl: $has_tao_opengl"
 echo "   * Documentation: $enable_monodoc ($MONODOC)"
 echo ""
 echo "---"

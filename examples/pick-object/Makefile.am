@@ -29,7 +29,7 @@ MCS_ARGS = \
 	-resource:$(top_srcdir)/examples/resources/glwidget.glade \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
-	-pkg:tao-opengl-glu \
+	-pkg:Tao.OpenGl \
 	-nowarn:0169 \
 	-r:gtkglarea-sharp.dll \
 	-r:shapes.dll \

@@ -1,20 +1,20 @@
 <Combine name="NeHe" fileversion="2.0">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
-      <Entry configuration="Debug" build="True" name="Lesson01" />
-      <Entry configuration="Debug" build="True" name="Lesson02" />
-      <Entry configuration="Debug" build="True" name="Lesson03" />
-      <Entry configuration="Debug" build="True" name="Lesson04" />
-      <Entry configuration="Debug" build="True" name="Lesson05" />
-      <Entry configuration="Debug" build="True" name="Lesson06" />
+      <Entry build="True" name="Lesson01" configuration="Debug" />
+      <Entry build="True" name="Lesson02" configuration="Debug" />
+      <Entry build="True" name="Lesson03" configuration="Debug" />
+      <Entry build="True" name="Lesson04" configuration="Debug" />
+      <Entry build="True" name="Lesson05" configuration="Debug" />
+      <Entry build="True" name="Lesson06" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
-      <Entry configuration="Debug" build="True" name="Lesson01" />
-      <Entry configuration="Debug" build="True" name="Lesson02" />
-      <Entry configuration="Debug" build="True" name="Lesson03" />
-      <Entry configuration="Debug" build="True" name="Lesson04" />
-      <Entry configuration="Debug" build="True" name="Lesson05" />
-      <Entry configuration="Debug" build="True" name="Lesson06" />
+      <Entry build="True" name="Lesson01" configuration="Debug" />
+      <Entry build="True" name="Lesson02" configuration="Debug" />
+      <Entry build="True" name="Lesson03" configuration="Debug" />
+      <Entry build="True" name="Lesson04" configuration="Debug" />
+      <Entry build="True" name="Lesson05" configuration="Debug" />
+      <Entry build="True" name="Lesson06" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Lesson02" single="True">

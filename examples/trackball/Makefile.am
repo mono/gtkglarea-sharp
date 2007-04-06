@@ -16,7 +16,7 @@ MCS_ARGS = \
 	-r:gtkglarea-sharp.dll \
 	-r:gtkglarea-sharp-util.dll \
 	-r:$(top_srcdir)/examples/shapes/shapes.dll \
-	-pkg:tao-opengl-glu \
+	-pkg:Tao.OpenGl \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:TrackballExample.exe \
