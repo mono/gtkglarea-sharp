@@ -17,7 +17,6 @@ namespace GtkGL {
         }
         
         protected bool selected = false;
-
         
         public bool Selected {
         	get { return selected; }
@@ -90,25 +89,45 @@ namespace GtkGL {
         		if(quat == null)
         			Quat = GtkGL.Quaternion.Identity;
         			
-        		if(translation == null)
+        		if(translation == null){
         			translation = new double[3];
+        			translation[0] = 0;
+        			translation[1] = 0;
+        			translation[2] = 0;
+        		}
         			
-        		if(scale == null)
+        		if(scale == null){
         			scale = new double[3];
+        			scale[0] = 1;
+        			scale[1] = 1;
+        			scale[2] = 1;
+        		}
 
 				// begin generating the transformation by converting the Quaternion into a rotation matrix
         		GtkGL.TransformationMatrix tm = quat.ToTransMatrix();
 
 				// Next, add the translation X, Y and Z factors to the matrix
+				/* 
+				 *    | 1 0 0 X |
+				 *    | 0 1 0 Y |
+				 *    | 0 0 1 Z |
+				 *    | 0 0 0 1 |
+				 */
 				tm.Matrix[12] = translation[0];
        			tm.Matrix[13] = translation[1];
        			tm.Matrix[14] = translation[2];
-        		
+    		
         		// And finally, add the X, Y and Z scale factors to the matrix
-       			tm.Matrix[3]  = scale[0];
-       			tm.Matrix[7]  = scale[1];
-       			tm.Matrix[11] = scale[2];
-        		
+        		/*
+        		 *    | X 0 0 0 |
+        		 *    | 0 Y 0 0 |
+        		 *    | 0 0 Z 0 |
+        		 *    | 0 0 0 1 |
+        		 */
+       			tm.Matrix[0]  = scale[0];
+       			tm.Matrix[5]  = scale[1];
+       			tm.Matrix[10] = scale[2];
+
         		// Return the constructed TransformationMatrix
         		return tm;
         	}
@@ -132,10 +151,9 @@ namespace GtkGL {
         			scale = new double[3];
         		
         		// Set our internal scale factors from the matrix
-        		scale[0] = value.Matrix[3];
-        		scale[1] = value.Matrix[7];
-        		scale[2] = value.Matrix[11];
-        		
+        		scale[0] = value.Matrix[0];
+        		scale[1] = value.Matrix[5];
+        		scale[2] = value.Matrix[10];
         	}
         }
 
@@ -154,12 +172,16 @@ namespace GtkGL {
 	  	
 	  	public void Scale(double xFactor, double yFactor, double zFactor)
 	  	{
-	  		if(this.scale == null)
+	  		if(this.scale == null){
 	  			this.scale = new double[3];
+	  			scale[0] = 1;
+	  			scale[1] = 1;
+	  			scale[2] = 1;
+	  		}
 	  	
-	  		scale[0] = xFactor;
-	  		scale[1] = yFactor;
-	  		scale[2] = zFactor;
+	  		scale[0] *= xFactor;
+	  		scale[1] *= yFactor;
+	  		scale[2] *= zFactor;
 	  		
 	  		// Tell our handlers that we have been updated
 	  		if (Updated != null)

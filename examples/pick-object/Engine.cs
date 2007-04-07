@@ -42,25 +42,25 @@ namespace GtkGL
 		
 		public static void Throb (object o, System.EventArgs e)
 		{
-			double scaleFactor = 0.01;
-			int scaleMultiplier;
-			
-			// This function should scale object o down on x,y and z
-			// then it should scale down further
-			// until it gets small enough
-			// then it should scale it up
+			// This function should scale object o up on x,y and z
+			// then it should scale up further
+			// until it gets big enough
+			// then it should scale it down
 			// until it's the original size
-			// then scale up a bit
-			// until it gets large enough
+			// then scale down a bit
+			// until it gets small enough
 			// and then do the opposite process one more time until it reaches "normal" size
-			for(scaleMultiplier = -1; scaleMultiplier > -10; scaleMultiplier--){
-				( (IGLObject) o ).Scale(scaleFactor * scaleMultiplier);
+			for(int i = 0; i < 5; i++){
+				( (IGLObject) o ).Scale(1.1);
+				System.Threading.Thread.Sleep(25);
 			}
-			for(scaleMultiplier = -10; scaleMultiplier < 10; scaleMultiplier++){
-				( (IGLObject) o ).Scale(scaleFactor * scaleMultiplier);
+			for(int i = 0; i < 10; i++){
+				( (IGLObject) o ).Scale(0.91);
+				System.Threading.Thread.Sleep(25);
 			}
-			for(scaleMultiplier = 10; scaleMultiplier > -1; scaleMultiplier--){
-				( (IGLObject) o ).Scale(scaleFactor * scaleMultiplier);
+			for(int i = 0; i < 5; i++){
+				( (IGLObject) o ).Scale(1.1);
+				System.Threading.Thread.Sleep(25);
 			}
 		}
 	}

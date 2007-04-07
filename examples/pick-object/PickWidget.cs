@@ -31,7 +31,6 @@ namespace GtkGL {
 			set { currentInputMode = value; }
 		}
 		
-		Trackball tb = new Trackball();
 		
 	    public PickWidget() : base()
 	    {
@@ -76,39 +75,6 @@ namespace GtkGL {
 	    		x = e.Event.X;
 	    		y = e.Event.Y;
 	  		}
-				
-			if(button1Pressed == true  && this.CurrentInputMode == GtkGL.InputMode.TrackballMode){
-				// Create a quaternion based on the mouse movement
-				float[] spinQuat = new float[4];
-				tb.trackball(ref spinQuat,
-					(float) ((2.0 * beginX - this.Allocation.Width)        / this.Allocation.Width),
-					(float) ((this.Allocation.Height - 2.0 * beginY)       / this.Allocation.Height),
-					(float) ((2.0 * x - this.Allocation.Width)             / this.Allocation.Width),
-					(float) ((this.Allocation.Height - 2.0 * y)            / this.Allocation.Height));
-					
-				// Add created quaternion to the current quat to get the new spin
-				// Quaternion newQuat = new Quaternion(spinQuat);
-				
-				
-				Quaternion newQuat = new Quaternion((double) spinQuat[3],
-												   	(double) spinQuat[0],
-												   	(double) spinQuat[1],
-												   	(double) spinQuat[2]
-												  	);
-  	
-				// Apply rotation to all objects								  	
-				System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
-				
-  				while(enumerator.MoveNext()){
-  					( (GtkGL.IGLObject) enumerator.Current ).Rotate(newQuat);
-				}
-				
-				// Reset the "old" X and Y positions
-				beginX = x;
-				beginY = y;
-			}
-			
-			
 		}
 		
 		void OnButtonPress (object o, Gtk.ButtonPressEventArgs e)

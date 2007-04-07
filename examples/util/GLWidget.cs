@@ -98,11 +98,8 @@ namespace GtkGL {
 			gl.glLoadIdentity ();
 						
 			// Draw the GLObjects associated with this GLArea
-			System.Collections.IEnumerator enumerator = GLObjectList.GetEnumerator();
-  	
-  			while(enumerator.MoveNext()){
-  				( (GtkGL.IGLObject) enumerator.Current ).Draw();
-  			}
+			foreach(GtkGL.IGLObject glObj in GLObjectList)
+				glObj.Draw();
 					
 			// bring back buffer to front, put front buffer in back
 			this.SwapBuffers ();

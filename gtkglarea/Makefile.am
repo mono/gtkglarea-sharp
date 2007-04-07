@@ -35,6 +35,7 @@ $(API): $(srcdir)/$(RAW_API) $(srcdir)/$(METADATA)
 	$(FIXUP) --api=$(srcdir)/$(API) --metadata=$(srcdir)/$(METADATA)
 
 generated-stamp: $(API)
+	mkdir -p generated && \
 	$(CODEGEN) --generate \
 	$(srcdir)/$(API) \
 	$(GTK_SHARP_CFLAGS) \
@@ -47,12 +48,19 @@ gtkglarea-sharp.snk: $(top_srcdir)/gtkglarea-sharp.snk
 	cp $(top_srcdir)/gtkglarea-sharp.snk .
 
 gtkglarea-sharp.dll: $(build_sources) generated-stamp gtkglarea-sharp.snk
-	$(MCS) -nowarn:169 -unsafe -target:library $(GTK_SHARP_LIBS) \
-	$(build_sources) generated/*.cs -out:gtkglarea-sharp.dll
+	mkdir -p docs && \
+	$(MCS) \
+		-nowarn:169 \
+		-unsafe \
+		-target:library $(GTK_SHARP_LIBS) \
+		$(build_sources) \
+		generated/*.cs \
+		-doc:docs/GtkGLAreaSharp.xml \
+		-out:gtkglarea-sharp.dll
 
 install-data-local:
-	echo "$(GACUTIL) /i $(ASSEMBLY) /f $(GACUTIL_FLAGS)";  \
-        $(GACUTIL) /i $(ASSEMBLY) /f $(GACUTIL_FLAGS) || exit 1;
+	echo "$(GACUTIL) /package $(ASSEMBLY_NAME) /i $(ASSEMBLY) /f $(GACUTIL_FLAGS)";  \
+        $(GACUTIL) /package $(ASSEMBLY_NAME) /i $(ASSEMBLY) /f $(GACUTIL_FLAGS) || exit 1;
 
 uninstall-local:
 	echo "$(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS)"; \

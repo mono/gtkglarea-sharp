@@ -1,3 +1,33 @@
+2007-04-07T13:39  C.J. Adams-Collier  <cjac@colliertech.org>
+	- modified svn:ignore properties
+	* examples/util/GLObjectBase.cs
+	- set defaults for translation matrix values
+	- set defaults for scale matrix values
+	- added some docs describing what trans and scale matrix values
+	  are being set to
+	- setting scale matrix correctly
+	* examples/util/GLWidget.cs
+	- replaced iterator with foreach
+	* examples/pick-object/ObjectPickExample.mdp
+	- removed dependency on trackball assembly
+	- replaced Tao.OpenGl 0.0.0.0 and Tao.OpenGl.Glu with Tao.OpenGl
+	  2.1.1.0
+	* examples/pick-object/Engine.cs
+	- fixed the Throb() method
+	* examples/pick-object/PickWidget.cs
+	- removed Trackball-related code
+	* gtkglarea/Makefile.am
+	- created the generated/ directory at make time
+	- created teh docs/ directory at make time
+	- re-formatted the gtkglarea-sharp.dll mcs line
+	- added a -doc: argument to the mcs line
+	- added a -package: line to the gacutil line
+	* examples/GtkGlAreaSharpExamples.mds
+	- removed LWObjectExample, since it's broken and breaking the
+	  build
+
+	
+
 2007-04-06T15:40  C.J. Adams-Collier  <cjac@colliertech.org>
 	- added svn:ignore to all directories
 	* configure.ac

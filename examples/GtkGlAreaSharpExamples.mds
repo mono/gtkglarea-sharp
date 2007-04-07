@@ -6,7 +6,6 @@
       <Entry build="True" name="GtkGLAreaUtil" configuration="Debug" />
       <Entry build="True" name="GladeExample" configuration="Debug" />
       <Entry build="True" name="NeHe" configuration="Debug" />
-      <Entry build="True" name="LWObjectExample" configuration="Debug" />
       <Entry build="True" name="ObjectPickExample" configuration="Debug" />
       <Entry build="True" name="ShapesExample" configuration="Debug" />
     </Configuration>
@@ -16,7 +15,6 @@
       <Entry build="True" name="GtkGLAreaUtil" configuration="Debug" />
       <Entry build="True" name="GladeExample" configuration="Debug" />
       <Entry build="True" name="NeHe" configuration="Debug" />
-      <Entry build="True" name="LWObjectExample" configuration="Debug" />
       <Entry build="True" name="ObjectPickExample" configuration="Debug" />
       <Entry build="True" name="ShapesExample" configuration="Debug" />
     </Configuration>
@@ -37,7 +35,6 @@
     <Entry filename="./util/GtkGLAreaUtil.mdp" />
     <Entry filename="./glade/GladeExample.mdp" />
     <Entry filename="./NeHe/NeHe.mds" />
-    <Entry filename="./lwo/LWObjectExample.mdp" />
     <Entry filename="./pick-object/ObjectPickExample.mdp" />
     <Entry filename="./shapes/ShapesExample.mdp" />
   </Entries>
