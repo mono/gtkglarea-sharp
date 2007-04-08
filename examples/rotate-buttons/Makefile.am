@@ -6,7 +6,7 @@ SOURCE_FILES = \
 	RotateButtonExample.cs	
 
 EXTRA_DIST = \
-	$(SOURCE_FILES) \
+	$(addprefix $(srcdir)/, $(SOURCE_FILES)) \
 	rotation-controller.glade
 
 CLEANFILES = \
@@ -21,12 +21,11 @@ run: RotateButtonExample.exe
 
 
 RotateButtonExample.exe: \
-	$(SOURCE_FILES) \
+	$(addprefix $(srcdir)/, $(SOURCE_FILES)) \
 	$(srcdir)/../resources/glwidget.glade
 	$(MCS) -debug \
 	-lib:@top_builddir@/gtkglarea \
-	-lib:$(GTKSHARP_PREFIX)/lib \
-	-lib:$(srcdir)/../util \
+	-lib:@top_builddir@/examples/util \
 	-r:gtkglarea-sharp.dll \
 	-r:gtkglarea-sharp-util.dll \
 	-pkg:Tao.OpenGl \
@@ -36,4 +35,4 @@ RotateButtonExample.exe: \
 	-resource:$(srcdir)/../resources/glwidget.glade \
 	-resource:$(srcdir)/rotation-controller.glade \
 	-nowarn:0169 \
-	$(SOURCE_FILES)
+	$(addprefix $(srcdir)/, $(SOURCE_FILES))

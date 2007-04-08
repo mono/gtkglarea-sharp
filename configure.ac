@@ -1,9 +1,8 @@
-AC_INIT(README)
+## Bump this for every release
+AC_INIT([GtkGLAreaSharp],[0.0.17])
 AC_CANONICAL_SYSTEM
 
-## Bump this for every release
-AM_INIT_AUTOMAKE(gtkglarea-sharp, 0.0.16)
-
+AM_INIT_AUTOMAKE([1.9 tar-ustar])
 AM_MAINTAINER_MODE
 
 ## Don't bump this unless the API changes.
@@ -123,7 +122,7 @@ AM_CONDITIONAL(WINBUILD, test x$winbuild = xyes)
 
 AC_SUBST(GACUTIL)
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 gtkglarea/gtkglarea-sharp.dll.config
 gtkglarea/Makefile
@@ -148,6 +147,8 @@ sources/Makefile
 gtkglarea-sharp.pc
 checkbuild.sh
 ])
+
+AC_OUTPUT
 
 echo "---"
 echo "Configuration summary"

@@ -1,3 +1,21 @@
+2007-04-08T08:56  C.J. Adams-Collier  <cjac@colliertech.org>
+	* */Makefile.am
+	- ensured that 'make distcheck' completes successfully
+	- building .dll files for classes used outside of each particular
+	  directory and using -lib: and -r: instead of mentioning the .cs
+	  explicitly (Teapot.cs, GladeExample.cs, Trackball.cs)
+	- using $(addprefix $(srcdir)/, $(SOURCE_FILES)) instead of
+	  $(SOURCE_FILES) so that builddir can differ from srcdir
+	- added *.mdb to CLEANFILES
+	- using -lib:@top_builddir@ instead of -lib:$(top_srcdir) so that
+	  source can be built from somewhere other than the source dir
+	* configure.ac
+	- using more modern version of AC_INIT
+	- explicitly using tar-ustar and requiring automake 1.9
+	- bumped version to 0.0.16
+	- using AC_CONFIG_FILES to specify files
+	- using non-deprecated AC_OUTPUT macro
+
 2007-04-07T13:39  C.J. Adams-Collier  <cjac@colliertech.org>
 	- modified svn:ignore properties
 	* examples/util/GLObjectBase.cs

@@ -8,7 +8,7 @@ SOURCE_FILES = \
 	Triangle.cs
 
 
-EXTRA_DIST = $(SOURCE_FILES)
+EXTRA_DIST = $(addprefix $(srcdir)/, $(SOURCE_FILES))
 
 CLEANFILES = \
 	shapes.dll \
@@ -16,14 +16,14 @@ CLEANFILES = \
 
 all: shapes.dll
 
-shapes.dll: $(SOURCE_FILES)
+shapes.dll: $(addprefix $(srcdir)/, $(SOURCE_FILES))
 	$(MCS) -debug \
-	-lib:$(top_srcdir)/gtkglarea/ \
-	-lib:$(top_srcdir)/examples/util/ \
+	-lib:@top_builddir@/gtkglarea \
+	-lib:@top_builddir@/examples/util \
 	-r:gtkglarea-sharp.dll \
 	-r:gtkglarea-sharp-util.dll \
 	-target:library \
 	-pkg:Tao.OpenGl \
 	-out:shapes.dll \
-		$(SOURCE_FILES)
+		$(addprefix $(srcdir)/, $(SOURCE_FILES))
 

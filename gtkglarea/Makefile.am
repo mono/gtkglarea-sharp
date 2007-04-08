@@ -23,7 +23,9 @@ CLEANFILES = \
 	$(API) \
 	gtkglarea-sharp.snk
 
-DISTCLEANFILES= AssemblyInfo.cs
+DISTCLEANFILES = \
+	AssemblyInfo.cs \
+	docs/GtkGLAreaSharp.xml
 
 noinst_DATA = gtkglarea-sharp.dll
 

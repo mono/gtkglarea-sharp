@@ -6,14 +6,15 @@ run: TrackballExample.exe
 SOURCE_FILES = \
 	TrackballExample.cs \
 	TrackballWidget.cs \
-	$(top_srcdir)/examples/shapes/Teapot.cs \
 	Trackball.cs
 
 MCS_ARGS = \
 	-debug \
 	-lib:@top_builddir@/gtkglarea \
-	-lib:$(srcdir)/../util \
+	-lib:@top_builddir@/examples/util \
+	-lib:@top_builddir@/examples/shapes \
 	-r:gtkglarea-sharp.dll \
+	-r:shapes.dll \
 	-r:gtkglarea-sharp-util.dll \
 	-r:$(top_srcdir)/examples/shapes/shapes.dll \
 	-pkg:Tao.OpenGl \
@@ -22,15 +23,12 @@ MCS_ARGS = \
 	-out:TrackballExample.exe \
 	-resource:$(srcdir)/../resources/glwidget.glade 
 
-#	-lib:$(top_srcdir)/examples/shapes
-
-
 TrackballExample.exe: \
-		$(SOURCE_FILES) \
+		$(addprefix $(srcdir)/, $(SOURCE_FILES)) \
 		$(srcdir)/../resources/glwidget.glade
 	$(MCS) \
 		$(MCS_ARGS) \
-		$(SOURCE_FILES)
+		$(addprefix $(srcdir)/, $(SOURCE_FILES))
 
 CLEANFILES = \
 	TrackballExample.exe \
@@ -39,5 +37,5 @@ CLEANFILES = \
 
 
 EXTRA_DIST = \
-	$(SOURCE_FILES)
+	$(addprefix $(srcdir)/, $(SOURCE_FILES))
 

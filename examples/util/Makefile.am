@@ -9,7 +9,7 @@ SOURCE_FILES = \
 	TransformationMatrix.cs
 
 
-EXTRA_DIST = $(SOURCE_FILES)
+EXTRA_DIST = $(addprefix $(srcdir)/, $(SOURCE_FILES))
 
 CLEANFILES = \
 	gtkglarea-sharp-util.dll \
@@ -18,7 +18,7 @@ CLEANFILES = \
 all: gtkglarea-sharp-util.dll
 
 gtkglarea-sharp-util.dll: \
-	$(SOURCE_FILES)
+	$(addprefix $(srcdir)/, $(SOURCE_FILES))
 	$(MCS) -debug \
 	-lib:@top_builddir@/gtkglarea \
 	-r:gtkglarea-sharp.dll \
@@ -27,5 +27,5 @@ gtkglarea-sharp-util.dll: \
 	-pkg:glade-sharp-2.0 \
 	-target:library \
 	-out:gtkglarea-sharp-util.dll \
-		$(SOURCE_FILES)
+		$(addprefix $(srcdir)/, $(SOURCE_FILES))
 
