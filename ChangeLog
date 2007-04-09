@@ -1,3 +1,8 @@
+2007-04-08T20:32  C.J. Adams-Collier  <cjac@colliertech.org>
+	* examples/pick-object/Engine.cs
+	- made comments more specific
+	- cube now throbs, too
+
 2007-04-08T08:56  C.J. Adams-Collier  <cjac@colliertech.org>
 	* */Makefile.am
 	- ensured that 'make distcheck' completes successfully

@@ -18,16 +18,17 @@ namespace GtkGL
 
 			ObjectPickExample example = new ObjectPickExample();
 			
-	   		// Create a new Pyramid object, translate it a bit and add it to our gl window
+	   		// Create a new Pyramid object, translate it a bit left and add it to our gl window
 			Pyramid pyramid = new Pyramid();
 			pyramid.Translate(-1.5,0.0,-3);
 			example.glw.AddGLObject( pyramid );
 			pyramid.SelectedEvent += Throb;
 
-			// Create a new Cube object, translate it a bit and add it to our gl window
+			// Create a new Cube object, translate it a bit right and add it to our gl window
 			Cube cube = new GtkGL.Cube();
 			cube.Translate(1.5,0.0,-3);
 			example.glw.AddGLObject( cube );
+			cube.SelectedEvent += Throb;
 			
 			// Show GL Window
 			// Is this a bug?  Shouldn't ShowAll do what these two commands do?
