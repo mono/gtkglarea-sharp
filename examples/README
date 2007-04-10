@@ -3,10 +3,10 @@ you want to try something with the library, but do not have the time
 or energy to maintain a project, consider creating and maintaining an
 example instead.
 
-Some of the examples depend on libraries in the examples/util/ and
-examples/shapes/ directories.  If you change code there, you may need
-to re-run 'make' from the examples/ directory in order to re-build the
-.dll files.
+Some of the examples depend on libraries in the examples/util/,
+examples/shapes/ and/or examples/glade/ directories.  If you change
+code there, you may need to re-run 'make' from the examples/ directory
+in order to re-build the .dll files.
 
 To run the examples, issue the command 'make run' from any of the
 example directories.

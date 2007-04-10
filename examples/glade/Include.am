@@ -1,0 +1,20 @@
+## Set or append to MCS_ARGS
+MCS_ARGS += \
+	-lib:@top_builddir@/examples/glade \
+	-r:GladeExample.dll \
+	-pkg:glade-sharp-2.0
+
+## Set or append to MONO_PATH
+MONO_PATH += :@top_builddir@/examples/glade:
+
+## set or append to RESOURCE_FILES
+RESOURCE_FILES += \
+	$(top_srcdir)/examples/resources/glwidget.glade
+
+## set or append to ASSEMBLY_DEPS
+ASSEMBLY_DEPS += \
+	@top_builddir@/examples/glade/GladeExample.dll
+
+## define a rule for building GladeExample.dll
+@top_builddir@/examples/glade/GladeExample.dll:
+	$(MAKE) -C @top_builddir@/examples/glade GladeExample.dll

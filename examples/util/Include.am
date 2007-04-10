@@ -1,0 +1,15 @@
+## Set or append to MCS_ARGS
+MCS_ARGS += \
+	-lib:@top_builddir@/examples/util \
+	-r:gtkglarea-sharp-util.dll
+
+## Set or append to MCS_ARGS
+MONO_PATH += :@top_builddir@/examples/util:
+
+## set or append to ASSEMBLY_DEPS
+ASSEMBLY_DEPS += \
+	@top_builddir@/examples/util/gtkglarea-sharp-util.dll
+
+## define a rule for building gtkglarea-sharp-util.dll
+@top_builddir@/examples/util/gtkglarea-sharp-util.dll:
+	$(MAKE) -C @top_builddir@/examples/util gtkglarea-sharp-util.dll

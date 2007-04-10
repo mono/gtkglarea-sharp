@@ -1,3 +1,6 @@
+ASSEMBLY_NAME = shapes
+ASSEMBLY_TYPE = library
+ASSEMBLY_EXT = dll
 SOURCE_FILES = \
 	ColoredSquare.cs \
 	ColoredTriangle.cs \
@@ -7,23 +10,5 @@ SOURCE_FILES = \
 	Teapot.cs \
 	Triangle.cs
 
-
-EXTRA_DIST = $(addprefix $(srcdir)/, $(SOURCE_FILES))
-
-CLEANFILES = \
-	shapes.dll \
-	shapes.dll.mdb
-
-all: shapes.dll
-
-shapes.dll: $(addprefix $(srcdir)/, $(SOURCE_FILES))
-	$(MCS) -debug \
-	-lib:@top_builddir@/gtkglarea \
-	-lib:@top_builddir@/examples/util \
-	-r:gtkglarea-sharp.dll \
-	-r:gtkglarea-sharp-util.dll \
-	-target:library \
-	-pkg:Tao.OpenGl \
-	-out:shapes.dll \
-		$(addprefix $(srcdir)/, $(SOURCE_FILES))
-
+include $(top_srcdir)/examples/util/Include.am
+include $(top_srcdir)/examples/Include.am

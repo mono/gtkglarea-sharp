@@ -1,4 +1,8 @@
-SUBDIRS = gtkglarea examples sources
+SUBDIRS = gtkglarea sources
+
+if HAS_TAO_OPENGL
+SUBDIRS += examples
+endif
 
 pkgconfigdir = $(prefix)/lib/pkgconfig
 pkgconfig_DATA = gtkglarea-sharp.pc

@@ -1,0 +1,47 @@
+ASSEMBLY=$(ASSEMBLY_NAME).$(ASSEMBLY_EXT)
+
+## Set or append to EXTRA_DIST
+EXTRA_DIST += $(addprefix $(srcdir)/, $(SOURCE_FILES))
+
+## Set or append to CLEANFILES
+CLEANFILES += \
+	$(ASSEMBLY) \
+	$(ASSEMBLY).pidb \
+	$(ASSEMBLY).mdb
+
+## Set or append to MCS_ARGS
+MCS_ARGS += \
+	-debug \
+	-lib:@top_builddir@/gtkglarea \
+	$(addprefix -resource:, $(RESOURCE_FILES)) \
+	-pkg:gtk-sharp-2.0 \
+	-pkg:Tao.OpenGl \
+	-nowarn:0169 \
+	-r:gtkglarea-sharp.dll
+
+## Set or append to MONO_PATH
+MONO_PATH += :@top_builddir@/gtkglarea:
+
+## Set or append to ASSEMBLY_DEPS
+ASSEMBLY_DEPS += \
+	@top_builddir@/gtkglarea/gtkglarea-sharp.dll \
+	$(addprefix $(srcdir)/, $(SOURCE_FILES))
+
+## The all (default) target
+all: $(ASSEMBLY)
+
+## Add the run target
+run: $(ASSEMBLY)
+	MONO_PATH="$(MONO_PATH)" mono $(ASSEMBLY)
+
+## And of course, the target to build this assembly
+$(ASSEMBLY): $(ASSEMBLY_DEPS)
+	$(MCS) \
+		/t:$(ASSEMBLY_TYPE) \
+		$(MCS_ARGS) \
+		$(addprefix $(srcdir)/, $(SOURCE_FILES)) \
+		-out:$(ASSEMBLY)
+
+## We can't forget to decribe how to build gtkglarea-sharp.dll
+@top_builddir@/gtkglarea/gtkglarea-sharp.dll:
+	$(MAKE) -C @top_builddir@/gtkglarea gtkglarea-sharp.dll

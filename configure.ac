@@ -1,7 +1,9 @@
 ## Bump this for every release
-AC_INIT([GtkGLAreaSharp],[0.0.17])
+AC_INIT([gtkglarea-sharp],[0.0.17])
 AC_CANONICAL_SYSTEM
 
+## 1.9 is probably not required.  let me know if it effects you
+## we're using tar-ustar in case file names get longer than 99 chars
 AM_INIT_AUTOMAKE([1.9 tar-ustar])
 AM_MAINTAINER_MODE
 
@@ -9,24 +11,21 @@ AM_MAINTAINER_MODE
 API_VERSION=0.0.3.0
 AC_SUBST(API_VERSION)
 
-MONO_REQUIRED_VERSION=1.0
-
-AC_MSG_CHECKING([whether we're compiling from CVS])
+AC_MSG_CHECKING([whether we're compiling from an RCS])
 if test -f "$srcdir/.cvs_version" ; then
-	from_cvs=yes
+	from_rcs=cvs
 else
 if test -f "$srcdir/.svn" ; then
-	from_cvs=yes
+	from_rcs=svn
 else
-	from_cvs=no
+	from_rcs=no
 fi
 fi
+AC_MSG_RESULT($from_rcs)
 
-AC_MSG_RESULT($from_cvs)
-
-AC_PATH_PROG(MONO, mono, no)
+AC_PATH_PROG(RUNTIME, mono, no)
 AC_PATH_PROG(MCS, gmcs, no)
-if test "x$MONO" = "x" ; then
+if test "x$RUNTIME" = "x" ; then
   AC_MSG_ERROR([Can't find "mono" in your PATH])
 fi
 if test "x$MCS" = "x" ; then
@@ -42,13 +41,21 @@ if test "x$PKG_CONFIG" = "xno"; then
         AC_MSG_ERROR([You need to install pkg-config])
 fi
 
+## I think this is ugly and that there's a better way to do it using
+## PKG_CHECK_MODULES, but I'm too lazy to research right now
 dnl Find GTK
 BUILD_GTK_CFLAGS=`$PKG_CONFIG --cflags gtk+-2.0`
 BUILD_GTK_LIBS=`$PKG_CONFIG --libs gtk+-2.0`
 AC_SUBST(BUILD_GTK_CFLAGS)
 AC_SUBST(BUILD_GTK_LIBS)
+
+## We'd probably be safe with 1.3, but let's say 2.0 anyway
 GTK_REQUIRED_VERSION=2.0.0
-MONO_REQUIRED_VERSION=0.95
+
+## Tao requires generics, so let's say 1.2
+MONO_REQUIRED_VERSION=1.2
+
+## I like the 2.1.0 build of Tao.OpenGl
 TAO_OPENGL_REQUIRED_VERSION=2.1.0
 
 PKG_CHECK_MODULES(BASE_DEPENDENCIES, gtk+-2.0 >= $GTK_REQUIRED_VERSION gmodule-2.0 >= $GTK_REQUIRED_VERSION) 
@@ -61,7 +68,7 @@ else
   AC_MSG_NOTICE([Tao.OpenGl found; examples will be build])
 fi
 
-AC_PATH_PROG(RUNTIME, mono, no)
+AM_CONDITIONAL(HAS_TAO_OPENGL, test x$has_tao_opengl = xyes)
 
 #if test `uname -s` = "Darwin"; then
 #	LIB_PREFIX=
@@ -102,7 +109,6 @@ fi
 
 AC_SUBST(MONODOC)
 AM_CONDITIONAL(ENABLE_MONODOC, test "x$enable_monodoc" = "xyes")
-
 
 AC_PATH_PROG(GACUTIL, gacutil, no)
 if test "x$GACUTIL" = "xno" ; then
@@ -147,6 +153,20 @@ sources/Makefile
 gtkglarea-sharp.pc
 checkbuild.sh
 ])
+
+# Frickin' annoying.
+MONO_PATH=$$MONO_PATH
+MCS_ARGS=
+RESOURCE_FILES=
+CLEANFILES=
+EXTRA_DIST=
+ASSEMBLY_DEPS=
+AC_SUBST(MONO_PATH)
+AC_SUBST(MCS_ARGS)
+AC_SUBST(RESOURCE_FILES)
+AC_SUBST(CLEANFILES)
+AC_SUBST(EXTRA_DIST)
+AC_SUBST(ASSEMBLY_DEPS)
 
 AC_OUTPUT
 

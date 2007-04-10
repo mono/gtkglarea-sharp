@@ -1,55 +1,50 @@
-all: GladeExample.exe
-
-run: GladeExample.exe
-	MONO_PATH=$(srcdir)/../util mono GladeExample.exe
-
+DLL_ASSEMBLY_NAME = GladeExample
+DLL_ASSEMBLY_TYPE = library
+DLL_ASSEMBLY_EXT = dll
 DLL_SOURCE_FILES = \
 	GladeExample.cs
 
-EXE_SOURCE_FILES = \
-	Engine.cs
+DLL_RESOURCE_FILES = $(top_srcdir)/examples/resources/glwidget.glade
 
-SOURCE_FILES=$(DLL_SOURCE_FILES) $(EXE_SOURCE_FILES)
-
-MCS_ARGS = \
+DLL_MCS_ARGS = \
 	-lib:@top_builddir@/gtkglarea \
-	-lib:@top_builddir@/examples/util \
 	-r:gtkglarea-sharp.dll \
+	-lib:@top_builddir@/examples/util \
 	-r:gtkglarea-sharp-util.dll \
 	-pkg:Tao.OpenGl \
-	-lib:$(GTKSHARP_PREFIX)/lib \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-nowarn:0169 \
-	-resource:$(srcdir)/../resources/glwidget.glade
+	-target:$(DLL_ASSEMBLY_TYPE) \
+	$(addprefix -resource:, $(RESOURCE_FILES))
 
+DLL_ASSEMBLY = $(DLL_ASSEMBLY_NAME).$(DLL_ASSEMBLY_EXT)
 
-GladeExample.dll: \
-		$(addprefix $(srcdir)/, $(DLL_SOURCE_FILES)) \
-		$(srcdir)/../resources/glwidget.glade \
-		$(srcdir)/../util/gtkglarea-sharp-util.dll
+DLL_ASSEMBLY_DEPS = \
+	@top_builddir@/gtkglarea/gtkglarea-sharp.dll \
+	@top_builddir@/examples/util/gtkglarea-sharp-util.dll \
+	$(addprefix $(srcdir)/, $(DLL_SOURCE_FILES)) \
+	$(DLL_RESOURCE_FILES)
+
+$(DLL_ASSEMBLY): $(DLL_ASSEMBLY_DEPS)
 	$(MCS) \
-		$(MCS_ARGS) \
-		/target:library \
+		$(DLL_MCS_ARGS) \
 		$(addprefix $(srcdir)/, $(DLL_SOURCE_FILES)) \
-		-out:GladeExample.dll
+		-out:$(DLL_ASSEMBLY)
 
-GladeExample.exe: \
-		$(addprefix $(srcdir)/, $(EXE_SOURCE_FILES)) \
-		$(srcdir)/../resources/glwidget.glade \
-		$(srcdir)/../util/gtkglarea-sharp-util.dll \
-		GladeExample.dll
-	$(MCS) \
-		$(MCS_ARGS) \
-		/target:winexe \
-		$(addprefix $(srcdir)/, $(EXE_SOURCE_FILES)) \
-		-r:GladeExample.dll \
-		-out:GladeExample.exe
+ASSEMBLY_NAME = GladExample
+ASSEMBLY_TYPE = winexe
+ASSEMBLY_EXT = exe
+ASSEMBLY_DEPS = $(DLL_ASSEMBLY)
+SOURCE_FILES = Engine.cs
 
-CLEANFILES = \
-	GladeExample.exe \
-	GladeExample.exe.mdp \
-	GladeExample.dll
+CLEANFILES += \
+	GladeExample.dll \
+	GladeExample.dll.mdp
 
-EXTRA_DIST = \
-	$(addprefix $(srcdir)/, $(SOURCE_FILES))
+include $(top_srcdir)/examples/util/Include.am
+include $(top_srcdir)/examples/glade/Include.am
+include $(top_srcdir)/examples/Include.am
+
+EXTRA_DIST += \
+	$(addprefix $(srcdir)/, $(DLL_SOURCE_FILES))

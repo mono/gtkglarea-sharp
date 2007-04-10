@@ -1,3 +1,6 @@
+ASSEMBLY_NAME = gtkglarea-sharp-util
+ASSEMBLY_TYPE = library
+ASSEMBLY_EXT = dll
 SOURCE_FILES = \
 	GLWidget.cs \
 	IGLObject.cs \
@@ -8,24 +11,4 @@ SOURCE_FILES = \
 	Quaternion.cs \
 	TransformationMatrix.cs
 
-
-EXTRA_DIST = $(addprefix $(srcdir)/, $(SOURCE_FILES))
-
-CLEANFILES = \
-	gtkglarea-sharp-util.dll \
-	gtkglarea-sharp-util.dll.mdb
-
-all: gtkglarea-sharp-util.dll
-
-gtkglarea-sharp-util.dll: \
-	$(addprefix $(srcdir)/, $(SOURCE_FILES))
-	$(MCS) -debug \
-	-lib:@top_builddir@/gtkglarea \
-	-r:gtkglarea-sharp.dll \
-	-pkg:Tao.OpenGl \
-	-pkg:gtk-sharp-2.0 \
-	-pkg:glade-sharp-2.0 \
-	-target:library \
-	-out:gtkglarea-sharp-util.dll \
-		$(addprefix $(srcdir)/, $(SOURCE_FILES))
-
+include $(top_srcdir)/examples/Include.am

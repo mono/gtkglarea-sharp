@@ -26,7 +26,7 @@ if [ `expr match "$am_version" '1\.9'` -ne 3 ]; then
 fi
 
 echo "Running automake --gnu $am_opt ..."
-automake --add-missing --gnu $am_opt ||
+automake -W none --add-missing --gnu $am_opt ||
 	{ echo "**Error**: automake failed."; exit 1; }
 
 echo "running autoconf ..."

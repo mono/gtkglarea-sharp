@@ -1,0 +1,15 @@
+## Set or append to MCS_ARGS
+MCS_ARGS += \
+	-lib:@top_builddir@/examples/shapes \
+	-r:shapes.dll
+
+## Set or append to MONO_PATH
+MONO_PATH += :@top_builddir@/examples/shapes:
+
+## set or append to ASSEMBLY_DEPS
+ASSEMBLY_DEPS += \
+	@top_builddir@/examples/shapes/shapes.dll
+
+## define a rule for building shapes.dll
+@top_builddir@/examples/shapes/shapes.dll:
+	$(MAKE) -C @top_builddir@/examples/shapes shapes.dll

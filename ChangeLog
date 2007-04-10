@@ -1,3 +1,29 @@
+2007-04-09T20:54  C.J. Adams-Collier  <cjac@colliertech.org>
+	- cleaned up example makefiles using automake's include
+	* examples/.../Makefile.am
+	- re-factored to take advantage of new Include.am files
+	* examples/Include.am
+	- placed common MCS_ARGS, MONO_PATH, CLEANFILES, EXTRA_DIST,
+	  $(ASSEMBLY): target, run: target, and all: target here
+	* examples/glade/Include.am,
+	* examples/shapes/Include.am,
+	* examples/util/Include.am
+	- placed MCS_ARGS, MONO_PATH, and RESOURCE_FILES specific to these
+	  libs here
+	* README
+	- updated
+	* configure.ac
+	- added AC_SUBST for variables that need to be set for the
+	  Include.am files to function correctly
+	- added a HAS_TAO_OPENGL conditional to help decide whether to
+	  build examples
+	* Makefile.am
+	- using HAS_TAO_OPENGL to decide whether to build examples/*
+	* gtkglarea/Makefile.am
+	- replaced duplicated strings with variables
+	- cleaned up a bit
+	
+	
 2007-04-08T20:32  C.J. Adams-Collier  <cjac@colliertech.org>
 	* examples/pick-object/Engine.cs
 	- made comments more specific
