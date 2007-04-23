@@ -1,3 +1,16 @@
+2007-04-23T06:35  C.J. Adams-Collier  <cjac@colliertech.org>
+	* gtkglarea/Makefile.am
+	- removed generated-stamp and generated/* from CLEANFILES
+	- added generated/* and generated-stamp to EXTRA_DIST so that the
+	  build no longer requires that the builder have gapi
+	* configure.ac
+	- did a bunch of clean-up
+	* gtkglarea/generated
+	- Added gtkglarea/generated/*.cs to svn so they don't need to be
+	  generated
+	* TODO
+	- added some things I'd like to do/see done
+
 2007-04-09T20:54  C.J. Adams-Collier  <cjac@colliertech.org>
 	- cleaned up example makefiles using automake's include
 	* examples/.../Makefile.am

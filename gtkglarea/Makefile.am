@@ -30,18 +30,8 @@ RAW_API=$(UNMANAGED_NAME)-api.raw
 API=$(UNMANAGED_NAME)-api.xml
 METADATA=$(ASSEMBLY_NAME).metadata
 
-if WINBUILD
-CODEGEN=gapi_codegen.exe
-FIXUP=gapi-fixup.exe
-else
-CODEGEN=gapi2-codegen
-FIXUP=gapi2-fixup
-endif
-
 CLEANFILES = \
 	$(ASSEMBLY) \
-	generated-stamp \
-	generated/*.cs \
 	$(API) \
 	$(ASSEMBLY_NAME).snk \
 	$(ASSEMBLY).config
@@ -59,17 +49,19 @@ EXTRA_DIST = \
 	AssemblyInfo.cs.in \
 	$(ASSEMBLY).config.in \
 	$(API) \
-	$(CUSTOMS)
+	$(CUSTOMS) \
+	generated/*.cs \
+	generated-stamp
 
 all: $(ASSEMBLY)
 
+if HAS_GAPI
 $(API): $(srcdir)/$(RAW_API) $(srcdir)/$(METADATA)
-	cp $(srcdir)/$(RAW_API) $@
-	chmod u+w $@
+	cp $(srcdir)/$(RAW_API) $@ && \
+	chmod u+w $@ && \
 	$(FIXUP) --api=$@ --metadata=$(srcdir)/$(METADATA)
 
 generated-stamp: $(API)
-	mkdir -p generated && \
 	$(CODEGEN) --generate \
 		$(srcdir)/$(API) \
 		$(GTK_SHARP_CFLAGS) \
@@ -77,6 +69,14 @@ generated-stamp: $(API)
 		--customdir=$(srcdir) \
 		--assembly-name=$(ASSEMBLY_NAME) && \
 	touch generated-stamp
+else
+$(API):
+	echo "gapi (part of gtk#) is required to re-generate the c# wrapper"
+
+generated-stamp: $(API)
+
+endif
+
 
 $(ASSEMBLY_NAME).snk: $(top_srcdir)/$(ASSEMBLY_NAME).snk
 	cp $(top_srcdir)/$(ASSEMBLY_NAME).snk .

@@ -1,9 +1,13 @@
-- in configure.ac
-* Remove hard dependency on Tao.* - enable examples if it's found, disable if it's not
+- GLObjectBase's rotate rendering was broken when the scale issue was
+  resolved.  This was probably caused by recent changes to
+  GtkGL.TransformationMatrix GtkGL.GLObjectBase.TransMatrix in
+  examples/util/GLObjectBase.cs
+
+- Make a 2-stage build system.  One, using autotools and gapi, to
+  create gtkglarea/generated/*.cs and one, using Prebuild, to create
+  various build systems for the widget
 
 - make sure the .dll.config file gets installed to the correct directory
-
-- in the pick-object example, Engine.Throb() needs to be implemented
 
 - in the rotate-buttons example non-numeric values should be stricken
   and replaced with the previous value
@@ -11,7 +15,11 @@
 - Janne's LWO loader code should be used to create a new example for
   loading lightwave models
 
-- Speak with John Carmack about the potential of letting me use one of
-id's .mdl or .md3 files in a model-loading example
+- Speak with John Carmack and Id about the potential of letting me use
+  one of their .mdl or .md3 files in a model-loading example
 
-- build an object pick example
+- build an extrude example
+
+- build an object drag example
+
+- build a user-driven cube creation example

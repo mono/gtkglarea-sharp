@@ -1,6 +1,7 @@
 ## Bump this for every release
 AC_INIT([gtkglarea-sharp],[0.0.17])
 AC_CANONICAL_SYSTEM
+AC_SUBST(PROGRAM)
 
 ## 1.9 is probably not required.  let me know if it effects you
 ## we're using tar-ustar in case file names get longer than 99 chars
@@ -41,31 +42,28 @@ if test "x$PKG_CONFIG" = "xno"; then
         AC_MSG_ERROR([You need to install pkg-config])
 fi
 
-## I think this is ugly and that there's a better way to do it using
-## PKG_CHECK_MODULES, but I'm too lazy to research right now
-dnl Find GTK
-BUILD_GTK_CFLAGS=`$PKG_CONFIG --cflags gtk+-2.0`
-BUILD_GTK_LIBS=`$PKG_CONFIG --libs gtk+-2.0`
-AC_SUBST(BUILD_GTK_CFLAGS)
-AC_SUBST(BUILD_GTK_LIBS)
-
-## We'd probably be safe with 1.3, but let's say 2.0 anyway
-GTK_REQUIRED_VERSION=2.0.0
-
-## Tao requires generics, so let's say 1.2
-MONO_REQUIRED_VERSION=1.2
-
 ## I like the 2.1.0 build of Tao.OpenGl
 TAO_OPENGL_REQUIRED_VERSION=2.1.0
 
-PKG_CHECK_MODULES(BASE_DEPENDENCIES, gtk+-2.0 >= $GTK_REQUIRED_VERSION gmodule-2.0 >= $GTK_REQUIRED_VERSION) 
-PKG_CHECK_MODULES(MONO_DEPENDENCY, mono >= $MONO_REQUIRED_VERSION, has_mono=true, has_mono=false)
-PKG_CHECK_MODULES(TAO_OPENGL_DEPENDENCIES, Tao.OpenGl >= $TAO_OPENGL_REQUIRED_VERSION, has_tao_opengl=yes, has_tao_opengl=no) 
+PKG_CHECK_MODULES(TAO_OPENGL_DEPENDENCIES,
+                  Tao.OpenGl >= $TAO_OPENGL_REQUIRED_VERSION,
+		  has_tao_opengl=yes,
+		  has_tao_opengl=no
+		  )
+
+## Tao 2.1.0 requires generics, so let's say 1.2
+MONO_REQUIRED_VERSION=1.2
+
+PKG_CHECK_MODULES(MONO_DEPENDENCY,
+                  mono >= $MONO_REQUIRED_VERSION,
+		  has_mono=true,
+		  has_mono=false
+		  )
 
 if test "x$has_tao_opengl" = "xno"; then
   AC_MSG_WARN([Tao.OpenGl not detected; examples will not be built])
 else
-  AC_MSG_NOTICE([Tao.OpenGl found; examples will be build])
+  AC_MSG_NOTICE([Tao.OpenGl found; examples will be built])
 fi
 
 AM_CONDITIONAL(HAS_TAO_OPENGL, test x$has_tao_opengl = xyes)
@@ -81,22 +79,32 @@ AM_CONDITIONAL(HAS_TAO_OPENGL, test x$has_tao_opengl = xyes)
 AC_SUBST(LIB_PREFIX)
 AC_SUBST(LIB_SUFFIX)
 
-
 AC_SUBST(BASE_DEPENDENCIES_CFLAGS)
 AC_SUBST(BASE_DEPENDENCIES_LIBS)
 
 dnl Find Gtk#
-PKG_CHECK_MODULES(GTK_SHARP, gtk-sharp-2.0 >= 1.9.0)
-AC_SUBST(GTK_SHARP_CFLAGS)
-AC_SUBST(GTK_SHARP_LIBS)
-
-dnl Find Gtk#
-PKG_CHECK_MODULES(GAPI, gapi-2.0 >= 1.9.0)
+GTK_SHARP_REQUIRED_VERSION=1.9.0
+PKG_CHECK_MODULES(GTK_SHARP,
+                  gtk-sharp-2.0 >= $GTK_SHARP_REQUIRED_VERSION,
+		  has_gtk_sharp=yes,
+		  has_gtk_sharp=no
+		  )
+if test "x$has_gtk_sharp" = "xyes" ; then
+  AC_SUBST(GTK_SHARP_CFLAGS)
+  AC_SUBST(GTK_SHARP_LIBS)
+  gtk_sharp_enabled=yes
+else
+  AC_MSG_ERROR([You need to install gtk-sharp-2.0])
+fi
 
 dnl Find monodoc
 MONODOC_REQUIRED_VERSION=1.0
 AC_SUBST(MONODOC_REQUIRED_VERSION)
-PKG_CHECK_MODULES(MONODOC_DEPENDENCY, monodoc >= $MONODOC_REQUIRED_VERSION, enable_monodoc=yes, enable_monodoc=no)
+PKG_CHECK_MODULES(MONODOC_DEPENDENCY,
+                  monodoc >= $MONODOC_REQUIRED_VERSION,
+		  enable_monodoc=yes,
+		  enable_monodoc=no
+		  )
 
 if test "x$enable_monodoc" = "xyes"; then
         AC_PATH_PROG(MONODOC, monodoc, no)
@@ -112,21 +120,46 @@ AM_CONDITIONAL(ENABLE_MONODOC, test "x$enable_monodoc" = "xyes")
 
 AC_PATH_PROG(GACUTIL, gacutil, no)
 if test "x$GACUTIL" = "xno" ; then
-        AC_MSG_ERROR([No gacutil tool found])
+   AC_MSG_ERROR([No gacutil tool found])
+   GACUTIL_FLAGS=''
+else
+   GACUTIL_FLAGS='/package $(PACKAGE) /gacdir $(DESTDIR)$(prefix)/lib'
 fi
-
-GACUTIL_FLAGS='/package gtkglarea-sharp /gacdir $(DESTDIR)$(prefix)/lib'
+AC_SUBST(GACUTIL)
 AC_SUBST(GACUTIL_FLAGS)
 
-winbuild=no
+inbuild=no
 case "$host" in
-       *-*-mingw*|*-*-cygwin*)
-               winbuild=yes
-               ;;
+     *-*-mingw*|*-*-cygwin*)
+	winbuild=yes
+	AC_PATH_PROG(CODEGEN, gapi_codegen.exe, no)
+	AC_PATH_PROG(FIXUP, gapi-fixup.exe, no)
+        ;;
+     *)
+	AC_PATH_PROG(CODEGEN, gapi2-codegen, no)
+	AC_PATH_PROG(FIXUP, gapi2-fixup, no)
+	;;
+
 esac
 AM_CONDITIONAL(WINBUILD, test x$winbuild = xyes)
 
-AC_SUBST(GACUTIL)
+dnl Find GAPI
+GAPI_REQUIRED_VERSION=1.9.0
+PKG_CHECK_MODULES(GAPI_DEPENDENCY,
+                  gapi-2.0 >= GAPI_REQUIRED_VERSION,
+		  enable_gapi=yes,
+		  enable_gapi=no
+		  )
+if test "x$enable_gapi" = "xyes" ; then
+   if test "x$CODEGEN" = "xyes" ; then
+      if test "x$FIXUP" = "xyes" ; then
+         has_gapi=yes
+         AC_SUBST(CODEGEN)
+         AC_SUBST(FIXUP)
+      fi
+   fi
+fi
+AM_CONDITIONAL(HAS_GAPI, test x$has_gapi = xyes)
 
 AC_CONFIG_FILES([
 Makefile
@@ -171,10 +204,11 @@ AC_SUBST(ASSEMBLY_DEPS)
 AC_OUTPUT
 
 echo "---"
-echo "Configuration summary"
+echo "Configuration summary for $PACKAGE_NAME"
 echo ""
 echo "   * Installation prefix: $prefix"
 echo "   * compiler: $MCS"
+echo "   * gtk-sharp-2.0: $gtk_sharp_enabled"
 echo "   * Tao.OpenGl: $has_tao_opengl"
 echo "   * Documentation: $enable_monodoc ($MONODOC)"
 echo ""
