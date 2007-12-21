@@ -22,7 +22,7 @@ MCS_ARGS = \
 	-r:gtkglarea-sharp.dll \
 	-r:gtkglarea-sharp-util.dll \
 	-r:GladeExample.dll \
-	-pkg:Tao.OpenGl \
+	-pkg:tao-opengl \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-out:LWObjectExample.exe \

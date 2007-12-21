@@ -46,7 +46,7 @@ fi
 TAO_OPENGL_REQUIRED_VERSION=2.1.0
 
 PKG_CHECK_MODULES(TAO_OPENGL_DEPENDENCIES,
-                  Tao.OpenGl >= $TAO_OPENGL_REQUIRED_VERSION,
+                  tao-opengl >= $TAO_OPENGL_REQUIRED_VERSION,
 		  has_tao_opengl=yes,
 		  has_tao_opengl=no
 		  )

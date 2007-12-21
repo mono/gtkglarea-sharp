@@ -11,7 +11,7 @@ DLL_MCS_ARGS = \
 	-r:gtkglarea-sharp.dll \
 	-lib:@top_builddir@/examples/util \
 	-r:gtkglarea-sharp-util.dll \
-	-pkg:Tao.OpenGl \
+	-pkg:tao-opengl \
 	-pkg:gtk-sharp-2.0 \
 	-pkg:glade-sharp-2.0 \
 	-nowarn:0169 \
