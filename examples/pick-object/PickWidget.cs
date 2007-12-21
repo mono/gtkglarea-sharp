@@ -135,9 +135,10 @@ namespace GtkGL {
 		
 		void OnButtonRelease (object o, Gtk.ButtonReleaseEventArgs e)
 		{
-			if(e.Event.Button == 1){
-				button1Pressed = false;
-			}
+                        if(e.Event.Button != 1)
+                                return;
+
+                        button1Pressed = false;
 			
 			if(this.CurrentInputMode == GtkGL.InputMode.PickMode){
 				// This document is based on the following example:

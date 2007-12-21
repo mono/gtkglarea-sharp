@@ -1,3 +1,12 @@
+2007-12-20T1705  C.J. Adams-Collier  <cjac@colliertech.org>
+	
+	Overview (from Sam Hocevar): Minor issue in gtkglarea-sharp's
+	PickWidget.cs: the right mouse button is ignored upon press, but
+	not upon release, leading to weird behaviour.
+
+	* examples/pick-object/PickWidget.cs
+	- ignoring right mouse button on release
+
 2007-12-20T1649  C.J. Adams-Collier  <cjac@colliertech.org>
 
 	Overview (from Sam Hocevar): The gtkglarea-sharp build process
