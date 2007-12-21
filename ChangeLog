@@ -1,3 +1,14 @@
+2007-12-20T1642  C.J. Adams-Collier  <cjac@colliertech.org>
+
+	Overview: Applied some patches supplied by Sam Hocevar
+	
+	* AUTHORS
+	- added Sam Hocevar
+	* configure.ac
+	- put a $ in front of a variable :)
+	* examples/shapes/Teapot.cs, examples/rotate-buttons/OldTeapot.cs
+	- changed data structures to conform to new API
+
 2007-04-23T06:35  C.J. Adams-Collier  <cjac@colliertech.org>
 	* gtkglarea/Makefile.am
 	- removed generated-stamp and generated/* from CLEANFILES

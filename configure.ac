@@ -146,7 +146,7 @@ AM_CONDITIONAL(WINBUILD, test x$winbuild = xyes)
 dnl Find GAPI
 GAPI_REQUIRED_VERSION=1.9.0
 PKG_CHECK_MODULES(GAPI_DEPENDENCY,
-                  gapi-2.0 >= GAPI_REQUIRED_VERSION,
+                  gapi-2.0 >= $GAPI_REQUIRED_VERSION,
 		  enable_gapi=yes,
 		  enable_gapi=no
 		  )
