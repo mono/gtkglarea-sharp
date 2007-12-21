@@ -151,8 +151,8 @@ PKG_CHECK_MODULES(GAPI_DEPENDENCY,
 		  enable_gapi=no
 		  )
 if test "x$enable_gapi" = "xyes" ; then
-   if test "x$CODEGEN" = "xyes" ; then
-      if test "x$FIXUP" = "xyes" ; then
+   if test "x$CODEGEN" != "xno" ; then
+      if test "x$FIXUP" != "xno" ; then
          has_gapi=yes
          AC_SUBST(CODEGEN)
          AC_SUBST(FIXUP)

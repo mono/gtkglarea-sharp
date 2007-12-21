@@ -1,3 +1,12 @@
+2007-12-20T1709  C.J. Adams-Collier  <cjac@colliertech.org>
+
+	Overview (from Sam Hocevar): The gtkglarea-sharp package fails to
+	properly detect the gapi tools, causing "make dist" to always
+	fail.
+
+	* configure.ac
+	- changing positive check for xyes to negative check for xno
+
 2007-12-20T1705  C.J. Adams-Collier  <cjac@colliertech.org>
 	
 	Overview (from Sam Hocevar): Minor issue in gtkglarea-sharp's
