@@ -98,6 +98,18 @@ namespace GtkGL {
 			Raw = gtk_gl_area_new(attrList);
 		}
 
+                [DllImport("libgtkglarea-win32-2.0-0.dll")]
+                static extern IntPtr gtk_gl_area_share_new(int[] attrList, IntPtr share);
+
+                /* Create a sharing GL context */
+                public GLArea (System.Int32[] attrList, GLArea share) : base (IntPtr.Zero)
+                {
+                        if(share == null)
+                                Raw = gtk_gl_area_new(attrList);
+                        else
+                                Raw = gtk_gl_area_share_new(attrList, share.Handle);
+                }
+
 #endregion
 	}
 }

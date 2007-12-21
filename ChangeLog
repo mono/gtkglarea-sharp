@@ -1,5 +1,17 @@
 2007-12-20T1709  C.J. Adams-Collier  <cjac@colliertech.org>
 
+	Overview (from Sam Hocevar): patch for gtkglarea-sharp adds
+	gtk_gl_area_share_new() to the list of bindings to allow sharing
+	the GL context. This way one can share textures and display lists
+	between GL contexts.
+
+	* gtkglarea/GLArea.custom
+	- created c'tor which accepts a share list
+	* gtkglarea/generated/GLArea.cs
+	- code generated from above
+
+2007-12-20T1709  C.J. Adams-Collier  <cjac@colliertech.org>
+
 	Overview (from Sam Hocevar): The gtkglarea-sharp package fails to
 	properly detect the gapi tools, causing "make dist" to always
 	fail.
