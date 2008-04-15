@@ -19,8 +19,9 @@ aclocal $ACLOCAL_GLAGS || {
 }
 
 # checking for automake 1.9+
-am_version=`automake --version | cut -f 4 -d ' ' | head -n 1`
-if [ `expr match "$am_version" '1\.9'` -ne 3 ]; then
+am_major=`automake --version | sed -e 's/.* //; s/[.].*//; q'`
+am_minor=`automake --version | sed -e 's/.* //; s/[^.]*.//; s/[.].*//;q'`
+if [ "$am_major" -le 1 -a "$am_minor" -le 8 ];then
 	echo "**Error**: automake 1.9+ required.";
 	exit 1;
 fi

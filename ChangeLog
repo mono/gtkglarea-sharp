@@ -1,3 +1,8 @@
+2008-04-15T1507  Mike Kestner <mkestner@novell.com>
+
+	* autogen.sh:  Patch from Sam Hocevar submitted to gtk#
+	bug #371845.  Supports automake 1.10+.
+
 2007-12-20T1709  C.J. Adams-Collier  <cjac@colliertech.org>
 
 	Overview (from Sam Hocevar): patch for gtkglarea-sharp adds
