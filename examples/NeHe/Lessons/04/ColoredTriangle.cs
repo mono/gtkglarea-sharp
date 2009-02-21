@@ -1,1 +1,0 @@
-../03/ColoredTriangle.cs

@@ -15,7 +15,7 @@ MCS_ARGS += \
 	-lib:@top_builddir@/gtkglarea \
 	$(addprefix -resource:, $(RESOURCE_FILES)) \
 	-pkg:gtk-sharp-2.0 \
-	-pkg:Tao.OpenGl \
+	-pkg:tao-opengl \
 	-nowarn:0169 \
 	-r:gtkglarea-sharp.dll
 

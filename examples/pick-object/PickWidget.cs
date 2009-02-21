@@ -79,24 +79,24 @@ namespace GtkGL {
 		
 		void OnButtonPress (object o, Gtk.ButtonPressEventArgs e)
 		{
-			if(e.Event.Button == 1){
-				button1Pressed = true;
-				
-				/* potential beginning of drag, reset mouse position */
-				beginX = e.Event.X;
-				beginY = e.Event.Y;
+			if(e.Event.Button != 1)
 				return;
-			}
+
+			button1Pressed = true;
+				
+			/* potential beginning of drag, reset mouse position */
+			beginX = e.Event.X;
+			beginY = e.Event.Y;
 		}
 		
 		struct hitStruct {
-			public uint numNames;
+			public int numNames;
 			public double minZ;
 			public double maxZ;
-			public uint[] nameStack;
+			public int[] nameStack;
 		}
 
-		void processHits (int hits, uint[] buffer)
+		void processHits (int hits, int[] buffer)
 		{
 			uint i, j=0;
 			uint names, minZ, maxZ, numberOfNames;
@@ -115,7 +115,7 @@ namespace GtkGL {
 				// Console.WriteLine("Hit occured between [{0} .. {1}]", hit.minZ, hit.maxZ);
 				
 				// Allocate some space for our hit names
-				hit.nameStack = new uint[hit.numNames];
+				hit.nameStack = new int[hit.numNames];
 				
 				for(int k = 0; k < hit.numNames; k++){
 					hit.nameStack[k] = buffer[j++];
@@ -135,10 +135,11 @@ namespace GtkGL {
 		
 		void OnButtonRelease (object o, Gtk.ButtonReleaseEventArgs e)
 		{
-			if(e.Event.Button == 1){
-				button1Pressed = false;
-			}
-			
+			if(e.Event.Button != 1)
+				return;
+
+			button1Pressed = false;
+
 			if(this.CurrentInputMode == GtkGL.InputMode.PickMode){
 				// This document is based on the following example:
 				// http://www.lighthouse3d.com/opengl/picking/
@@ -177,7 +178,7 @@ namespace GtkGL {
 				}
 				
 				// Establish a buffer for selection mode values
-				uint[] selectBuf = new uint[64];
+				int[] selectBuf = new int[64];
 				// http://www.mevis.de/opengl/glSelectBuffer.html
 				gl.glSelectBuffer (64, selectBuf);
 				

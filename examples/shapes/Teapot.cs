@@ -78,12 +78,13 @@ namespace GtkGL {
 		      {0.84, -1.5, 0.075}
 		    };
 
-		  static float[,,] tex =
+		  static float[/*2*2*2*/] tex =
 		    {
-		      { {0, 0},
-			{1, 0}},
-		      { {0, 1},
-			{1, 1}}
+			0, 0,
+			1, 0,
+
+			0, 1,
+			1, 1
 		    };
 
 		  /* *INDENT-ON* */
@@ -155,7 +156,7 @@ namespace GtkGL {
 			    	  			}    	  			
 		    	  	}
 		    	  			
-		    		gl.glMap2f(gl.GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, tex[0,0,0]);
+		    		gl.glMap2f(gl.GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, tex);
 		    		gl.glMap2f(gl.GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, cachedP[i]);
 		    		gl.glMapGrid2f(grid, 0.0f, 1.0f, grid, 0.0f, 1.0f);
 		    		gl.glEvalMesh2(type, 0, grid, 0, grid);
