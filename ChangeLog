@@ -1,3 +1,7 @@
+2009-07-17T01:48  Sam Hocevar <sam@zoy.org>
+
+	Regenerate gtkglarea/generated/*.cs using a newer gapi.
+
 2008-04-15T1507  Mike Kestner <mkestner@novell.com>
 
 	* autogen.sh:  Patch from Sam Hocevar submitted to gtk#

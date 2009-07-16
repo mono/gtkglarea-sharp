@@ -51,6 +51,29 @@ namespace GtkGL {
 			}
 		}
 
+		class FinalizerInfo {
+			IntPtr handle;
+
+			public FinalizerInfo (IntPtr handle)
+			{
+				this.handle = handle;
+			}
+
+			public bool Handler ()
+			{
+				gdk_gl_pixmap_unref (handle);
+				return false;
+			}
+		}
+
+		~GdkGLPixmap ()
+		{
+			if (!Owned)
+				return;
+			FinalizerInfo info = new FinalizerInfo (Handle);
+			GLib.Timeout.Add (50, new GLib.TimeoutHandler (info.Handler));
+		}
+
 #endregion
 	}
 }
