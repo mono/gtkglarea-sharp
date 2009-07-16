@@ -1,3 +1,8 @@
+2009-07-17T01:53  Sam Hocevar <sam@zoy.org>
+
+	Remove everything gtkglext until we really decide to support it; as
+	of now, there are only empty files.
+
 2009-07-17T01:48  Sam Hocevar <sam@zoy.org>
 
 	Regenerate gtkglarea/generated/*.cs using a newer gapi.
