@@ -29,13 +29,6 @@ namespace GtkGL {
 		}
 
 		[DllImport("libgtkglarea-win32-2.0-0.dll")]
-		static extern void gtk_gl_area_swap_buffers(IntPtr raw);
-
-		public void SwapBuffers() {
-			gtk_gl_area_swap_buffers(Handle);
-		}
-
-		[DllImport("libgtkglarea-win32-2.0-0.dll")]
 		static extern IntPtr gtk_gl_area_get_type();
 
 		public static new GLib.GType GType { 
@@ -47,19 +40,10 @@ namespace GtkGL {
 		}
 
 		[DllImport("libgtkglarea-win32-2.0-0.dll")]
-		static extern void gtk_gl_area_size(IntPtr raw, int width, int height);
+		static extern void gtk_gl_area_swap_buffers(IntPtr raw);
 
-		public new void Size(int width, int height) {
-			gtk_gl_area_size(Handle, width, height);
-		}
-
-		[DllImport("libgtkglarea-win32-2.0-0.dll")]
-		static extern int gtk_gl_area_begingl(IntPtr raw);
-
-		public int Begingl() {
-			int raw_ret = gtk_gl_area_begingl(Handle);
-			int ret = raw_ret;
-			return ret;
+		public void SwapBuffers() {
+			gtk_gl_area_swap_buffers(Handle);
 		}
 
 		[DllImport("libgtkglarea-win32-2.0-0.dll")]
@@ -70,10 +54,10 @@ namespace GtkGL {
 		}
 
 		[DllImport("libgtkglarea-win32-2.0-0.dll")]
-		static extern void gtk_gl_area_endgl(IntPtr raw);
+		static extern void gtk_gl_area_size(IntPtr raw, int width, int height);
 
-		public void Endgl() {
-			gtk_gl_area_endgl(Handle);
+		public new void Size(int width, int height) {
+			gtk_gl_area_size(Handle, width, height);
 		}
 
 

@@ -1,3 +1,9 @@
+2009-07-17T21:59  Sam Hocevar <sam@zoy.org>
+
+	* gtkglarea/gtkglarea-sharp.metadata: mark GLArea.Begingl() and
+        GLArea.Endgl() as hidden so that they do not appear in the API. These
+	functions have been deprecated for 10 years now.
+
 2009-07-17T21:37  Sam Hocevar <sam@zoy.org>
 
 	* gtkglarea/gtkglarea-sharp.metadata: mark GLArea.Size() as new in
