@@ -1,3 +1,8 @@
+2009-07-17T21:37  Sam Hocevar <sam@zoy.org>
+
+	* gtkglarea/gtkglarea-sharp.metadata: mark GLArea.Size() as new in
+        order to override GtkDrawingArea.Size().
+
 2009-07-17T02:14  Sam Hocevar <sam@zoy.org>
 
 	Overview: more complete and consistent Gapi detection.

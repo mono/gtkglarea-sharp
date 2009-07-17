@@ -4,6 +4,7 @@
   <attr path="/api/namespace/object[@cname='GtkGLArea']/constructor[@cname='gtk_gl_area_new']" name="hidden">1</attr>
   <attr path="/api/namespace/object[@cname='GtkGLArea']" name="name">GLArea</attr>
   <attr path="/api/namespace/object[@cname='GtkGLArea']" name="cname">GLArea</attr>
-  <attr path="/api/namespace/object[@cname='GtkGLArea']/method[@name=Begingl]" name="hidden">1</attr>
-  <attr path="/api/namespace/object[@cname='GtkGLArea']/method[@name=Endgl]" name="hidden">1</attr>
+  <attr path="/api/namespace/object[@cname='GLArea']/method[@name=Begingl]" name="hidden">1</attr>
+  <attr path="/api/namespace/object[@cname='GLArea']/method[@name=Endgl]" name="hidden">1</attr>
+  <attr path="/api/namespace/object[@cname='GLArea']/method[@name='Size']" name="new_flag">1</attr>
 </metadata>

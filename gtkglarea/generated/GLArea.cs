@@ -49,7 +49,7 @@ namespace GtkGL {
 		[DllImport("libgtkglarea-win32-2.0-0.dll")]
 		static extern void gtk_gl_area_size(IntPtr raw, int width, int height);
 
-		public void Size(int width, int height) {
+		public new void Size(int width, int height) {
 			gtk_gl_area_size(Handle, width, height);
 		}
 
