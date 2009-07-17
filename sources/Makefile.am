@@ -42,12 +42,12 @@ source.stamp:
 
 
 api-raw.stamp: source.stamp
-	gapi2-parser $(GTKGLAREA_SRCES) && \
+	$(GAPI_PARSER) $(GTKGLAREA_SRCES) && \
 	touch api-raw.stamp
 
 pre-api.stamp: api-raw.stamp
 	cp $(GTKGLAREA_RAW_API) $(GTKGLAREA_API) && \
-	gapi2-fixup --metadata=$(GTKGLAREA_METADATA) --api=$(GTKGLAREA_API) &&\
+	$(GAPI_FIXUP) --metadata=$(GTKGLAREA_METADATA) --api=$(GTKGLAREA_API) &&\
 	touch pre-api.stamp
 
 api: pre-api.stamp

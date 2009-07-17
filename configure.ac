@@ -132,12 +132,14 @@ inbuild=no
 case "$host" in
      *-*-mingw*|*-*-cygwin*)
 	winbuild=yes
-	AC_PATH_PROG(CODEGEN, gapi_codegen.exe, no)
-	AC_PATH_PROG(FIXUP, gapi-fixup.exe, no)
+	AC_PATH_PROG(GAPI_CODEGEN, gapi_codegen.exe, no)
+	AC_PATH_PROG(GAPI_PARSER, gapi-parser.exe, no)
+	AC_PATH_PROG(GAPI_FIXUP, gapi-fixup.exe, no)
         ;;
      *)
-	AC_PATH_PROG(CODEGEN, gapi2-codegen, no)
-	AC_PATH_PROG(FIXUP, gapi2-fixup, no)
+	AC_PATH_PROG(GAPI_CODEGEN, gapi2-codegen, no)
+	AC_PATH_PROG(GAPI_PARSER, gapi2-parser, no)
+	AC_PATH_PROG(GAPI_FIXUP, gapi2-fixup, no)
 	;;
 
 esac
@@ -151,12 +153,12 @@ PKG_CHECK_MODULES(GAPI_DEPENDENCY,
 		  enable_gapi=no
 		  )
 if test "x$enable_gapi" = "xyes" ; then
-   if test "x$CODEGEN" != "xno" ; then
-      if test "x$FIXUP" != "xno" ; then
-         has_gapi=yes
-         AC_SUBST(CODEGEN)
-         AC_SUBST(FIXUP)
-      fi
+   if test "x$GAPI_CODEGEN" != "xno" -a "x$GAPI_PARSER" != "xno" \
+           -a "x$GAPI_FIXUP" != "xno"; then
+      has_gapi=yes
+      AC_SUBST(GAPI_CODEGEN)
+      AC_SUBST(GAPI_PARSER)
+      AC_SUBST(GAPI_FIXUP)
    fi
 fi
 AM_CONDITIONAL(HAS_GAPI, test x$has_gapi = xyes)

@@ -59,10 +59,10 @@ if HAS_GAPI
 $(API): $(srcdir)/$(RAW_API) $(srcdir)/$(METADATA)
 	cp $(srcdir)/$(RAW_API) $@ && \
 	chmod u+w $@ && \
-	$(FIXUP) --api=$@ --metadata=$(srcdir)/$(METADATA)
+	$(GAPI_FIXUP) --api=$@ --metadata=$(srcdir)/$(METADATA)
 
 generated-stamp: $(API)
-	$(CODEGEN) --generate \
+	$(GAPI_CODEGEN) --generate \
 		$(srcdir)/$(API) \
 		$(GTK_SHARP_CFLAGS) \
 		--outdir=generated \
